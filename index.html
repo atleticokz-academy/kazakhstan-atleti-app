@@ -462,6 +462,38 @@ body.mob .chback{display:inline-flex}body.mob .chm{max-width:85%}body.mob .chbad
 .ntempty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:60px 24px;color:var(--muted)}.ntempty span{font-size:40px}.ntempty b{color:var(--navy);font-size:16px}
 body.ntopen{overflow:hidden}
 body.mob #ntpanel{width:100vw;top:0;border-radius:0}body.mob .ntbtn{width:34px;height:34px;margin-right:6px}
+
+/* Servicios médicos */
+.mtags{margin:0 0 12px}.mnums .card{border-top:4px solid var(--sc)}.mnums b{color:var(--sc)!important}
+.mlist{display:flex;flex-direction:column;gap:6px}.mrow{display:grid;grid-template-columns:auto auto minmax(150px,240px) 1fr auto;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-left:5px solid var(--sc);border-radius:12px;padding:8px 12px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.mrow:hover{border-color:var(--navy);border-left-color:var(--sc)}.msem{width:12px;height:12px;border-radius:50%;background:var(--sc);box-shadow:0 0 0 3px color-mix(in srgb,var(--sc) 20%,#fff)}
+.mrn{display:flex;flex-direction:column;min-width:0}.mrn small,.mrw small{color:var(--muted)}.mrw{font-size:12.5px;line-height:1.5}.mrw i{font-style:normal;font-weight:800;color:var(--pc)}.mrh{font-size:12px;font-weight:700;color:var(--sc)}
+.mtab{width:100%;border-collapse:collapse;font-size:13px;min-width:720px}.mtab th{text-align:left;font-size:11.5px;color:var(--muted);padding:6px}.mtab td{border-top:1px solid var(--line);padding:7px 6px;vertical-align:top}.mtab tr.clk{cursor:pointer}.mtab tr.clk:hover td{background:#f8f8fc}.mtab small{color:var(--muted)}
+.pain b{display:inline-block;min-width:22px;text-align:center;border-radius:6px;color:#fff;background:hsl(calc(120 - var(--pv,0)*12) 70% 40%);padding:0 4px}
+.mph{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-left:6px solid var(--sc);border-radius:16px;padding:12px 16px}.mph h1{margin:0;font-size:22px}.mph span{color:var(--muted);font-size:13px}
+.mph .msemb{margin-left:auto;background:var(--sc);color:#fff;font-weight:800;border-radius:999px;padding:6px 14px;font-size:13px}
+.mpg{display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:14px;margin-top:14px;align-items:start}
+.bodies{display:flex;justify-content:center;gap:6px}.body{margin:0;text-align:center;flex:1;max-width:190px}.body.big{max-width:230px}.body svg{width:100%;height:auto;display:block}
+.body figcaption{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.bsil>*{fill:#c9cee4;stroke:#c9cee4;stroke-width:3.5;stroke-linejoin:round}.bz>*{fill:#e6e9f4;stroke:none;transition:fill .15s}.bz{cursor:pointer}.bz:hover>*{fill:#c9cde6}
+.bz.old>*{fill:var(--bz);fill-opacity:var(--bo)}.bz.act>*{fill:var(--bz);fill-opacity:.95}.bz.act{animation:bzp 1.8s ease-in-out infinite}.bz.sel>*{stroke:var(--navy);stroke-width:2.5}
+@keyframes bzp{50%{opacity:.6}}.bsd{font-size:8px;fill:var(--muted);font-weight:700}
+.blegend{display:flex;justify-content:center;gap:12px;font-size:11.5px;color:var(--muted);margin-top:6px}.blegend span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-right:4px;vertical-align:-1px}
+.les{border-left:5px solid var(--rc);margin-bottom:10px}.les.alta{opacity:.75}.lesh{display:flex;gap:10px;align-items:flex-start}.lesh>div{flex:1}.lesh small{color:var(--muted)}.lesd{font-size:13px;margin:8px 0 0;color:#4a4c66}
+.rtps{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:12px 0 8px}.rtp{border:0;background:#f1f2f8;border-radius:10px;padding:6px 4px;font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--muted)}
+.rtp span{width:22px;height:22px;border-radius:50%;background:#dfe1ee;color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center}.rtp small{font-size:10.5px;font-weight:700;text-align:center;line-height:1.1}.rtp em{font-style:normal;font-size:10px}
+.rtp.done span{background:var(--rc)}.rtp.done{color:var(--ink)}.rtp.on{background:color-mix(in srgb,var(--rc) 15%,#fff);color:var(--ink);box-shadow:inset 0 0 0 2px var(--rc)}.rtp.on span{background:var(--rc)}.rtp:disabled{cursor:default}
+.crit{display:flex;flex-direction:column;gap:3px;font-size:12.5px;background:#fafafd;border-radius:10px;padding:8px 10px}.crit label{display:flex;gap:6px;align-items:center}.crit input{width:auto}
+.mfic{grid-template-columns:repeat(3,minmax(0,1fr))}.mfic label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}.mfic label.wide{grid-column:span 3}.mfic textarea{width:100%;font:500 13px var(--fb)}
+.mmap{display:grid;grid-template-columns:minmax(300px,480px) 1fr;gap:20px;align-items:start}.mtop{padding-left:18px;margin:0}.mtop li{display:grid;grid-template-columns:150px 1fr 24px;gap:8px;align-items:center;margin:6px 0;font-size:13px}
+.mbar{height:8px;background:#eef0f7;border-radius:6px;overflow:hidden}.mbar i{display:block;height:100%;background:linear-gradient(90deg,#f0a64a,#e8151e)}.mtop em{font-style:normal;font-weight:800;color:var(--navy)}
+.ftec{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}.ftec .chip{font-size:12px;padding:4px 10px}.fsv{font-size:15px;color:var(--navy)}
+.semd{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--sc);margin-left:6px;vertical-align:1px;box-shadow:0 0 0 2px #fff}
+@media(max-width:900px){.mpg,.mmap{grid-template-columns:1fr}.mrow{grid-template-columns:auto auto 1fr;}.mrow .mrw{grid-column:1/-1}.mrow .mrh{grid-column:1/-1}.mfic{grid-template-columns:1fr}.mfic label.wide{grid-column:auto}.rtp small{font-size:9.5px}.mph{flex-wrap:wrap}.mph .msemb{margin-left:0}}
+.mhist{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:12px 0 0}.mhist>div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column}.mhist b{font:800 20px var(--fd);color:var(--navy)}.mhist span{font-size:11.5px;color:var(--muted);font-weight:600}
+.mhist.sm{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:8px}.mhist.sm b{font-size:16px}.enfr{color:var(--ok)!important;font-weight:600}
+@media(max-width:900px){.mhist{grid-template-columns:repeat(3,minmax(0,1fr))}.mhist.sm{grid-template-columns:repeat(2,minmax(0,1fr))}}
+body.mob .rtp:not(.on) small,body.mob .rtp:not(.on) em{display:none}body.mob .rtp.on{grid-column:span 2}body.mob .lesh{flex-wrap:wrap}
 .cv-first{background:none;border:0;color:#666;text-decoration:underline;font-size:.82em;margin-top:10px;cursor:pointer;width:100%}
 .ucard .utab td{vertical-align:middle;padding:8px 6px}.ucard .uar{display:flex;flex-wrap:wrap;gap:6px}.ucard .uar label{display:flex;align-items:center;gap:4px;font-size:.85em;background:#f3f4f8;border-radius:999px;padding:4px 10px;cursor:pointer}.ucard .uar label.on{background:#dfe4fb;color:#1F2A6B;font-weight:700}.ucard .uform{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}.ucard .uform input{width:100%}body.mob .ucard .uform{grid-template-columns:1fr}.ucard .umail{color:#777;font-size:.82em;display:block}
 </style>
@@ -824,7 +856,7 @@ function vInicio(){
   <div class="grid g4 acards">
    ${card("campograma","🔎","Scouting",pl.length,tr("jugadores en plantilla"),`${seg.length} ${tr("en seguimiento")} · ${ya.length} ${tr("para fichar ya")}`)}
    ${card("equipo","📅",ownsMod("equipo")?tr("Área de entrenamiento"):tr("Calendario"),week.length,tr("actividades en los próximos 7 días"),ev1?`${tr("Próximo")}: ${esc(fdate(ev1.fecha))} · <span data-noi18n>${esc(evTitle(ev1))}</span>`:tr("Sin nada programado"))}
-   ${card("medica","✚","Área médica","—",tr("lesiones activas"),tr("Mapa corporal, lesiones con grados, tratamiento y fisioterapia."),1)}
+   ${card("medica","✚",tr("Servicios médicos"),Object.values(med).reduce((n,m)=>n+((m&&m.lesiones)||[]).filter(l=>!l.alta&&(+l.fase||0)<4).length,0),tr("lesiones activas"),tr("Mapa corporal, lesiones con grados, return to play, enfermedades y fisioterapia."))}
    ${card("marketing","📣","Marketing","—",tr("piezas programadas"),tr("Calendario de contenidos y diseños automáticos con la marca del club."),1)}
   </div>
   <div class="grid g2" style="margin-top:16px">
@@ -845,13 +877,6 @@ document.addEventListener("change",e=>{const t=e.target;if(!t.dataset||!t.datase
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-permall]");if(!b)return;e.stopImmediatePropagation();if(!isAdmin())return;const m=b.dataset.permall,A=["scouting","tecnico","medico","marketing"].filter(a=>OWN[a]!==m),on=!A.every(a=>granted(a,m));A.forEach(a=>setPerm(a,m,on));render()},true);
 function vSoon(title,ic,lead,items){return `<div class="hero"><div><h2 style="margin:0">${ic} ${title}</h2><p class="sub">${lead}</p></div><span class="pill warn">${tr("Próxima fase")}</span></div>
   <div class="grid g3">${items.map(([t,d])=>`<div class="card"><h3 style="margin:0 0 6px">${t}</h3><p class="hint" style="margin:0">${d}</p></div>`).join("")}</div>`}
-function vMedica(){return vSoon("Área médica","✚","Solo la ven Dirección y el Área médica. El resto del staff solo verá un semáforo de disponibilidad.",[
- ["Ficha médica","Antecedentes, alergias, revisiones, seguro y contactos de urgencia."],
- ["Mapa corporal","Silueta por zonas y lados: se registra cada lesión y se ve el historial de un vistazo."],
- ["Lesiones con grados","Musculares, ligamentosas, tendinopatías, fracturas, conmociones y lesiones de crecimiento, con gravedad por días de baja."],
- ["Tratamiento por fases","Protección, recuperación, readaptación, vuelta al grupo y alta, con criterios para avanzar."],
- ["Fisioterapia y ejercicios","Sesiones de fisio con dolor antes y después, y biblioteca de ejercicios asignables."],
- ["Semáforo de disponibilidad","Verde, amarillo o rojo en la asistencia y la convocatoria, sin mostrar el diagnóstico."]])}
 function nextMatches(){const today=new Date().toISOString().slice(0,10);const L=allEvs().filter(e=>(e.tipo==="partido"||e.tipo==="torneo")&&(e.fin||e.fecha)>=today&&evVisible(e)).sort((a,b)=>(a.fecha+a.hora)<(b.fecha+b.hora)?-1:1).slice(0,10);
   return `<div class="card" style="margin-bottom:18px"><h2>⚽ ${tr("Próximos partidos y torneos")}</h2>${L.length?`<ul class="lg">${L.map(e=>`<li><span class="evi" style="--evc:${(EVT[e.tipo]||EVT.evento).c}">${(EVT[e.tipo]||EVT.evento).i}</span><a role="button" tabindex="0" style="cursor:pointer" ${e.ext?`data-goext="${esc(e.gen)}"`:`data-goev="${esc(e.id)}"`} data-noi18n>${esc(evTitle(e))}</a><small>(${esc(e.gen)}${e.comp?" · "+esc(e.comp):""})</small><time data-noi18n>${esc(fdate(e.fecha))} ${esc(e.hora||"")}</time></li>`).join("")}</ul>`:`<p class="hint">${tr("Sin nada programado")}</p>`}</div>`}
 function vMarketing(){return `<div class="hero"><div><h1>📣 Marketing</h1><p class="sub">${tr("Partidos del club y eventos externos, para planificar el contenido.")}</p></div></div>`+(canSee("equipo")?nextMatches():"")+(canMod("eventos")?`<div class="card" style="margin-bottom:22px">${vExt()}</div>`:"")+vMkSoon()}
@@ -1343,7 +1368,7 @@ function vEvent(e){const T=EVT[e.tipo]||EVT.evento,sq=squad(e.gen);const del=isA
     return base+end+vPlan(e)+`<fieldset class="rofs"${canEdit("equipo")?"":" disabled"}>`+`<div class="card" style="margin-top:14px"><div class="toolbar" style="margin-bottom:8px"><h2 style="margin-right:auto">${tr("Asistencia")}</h2><button class="btn ghost sm" data-attall>${tr("Todos presentes")}</button></div>
      <p class="hint">${tr("Pulsa el estado de cada jugador.")} ${ATT.map(a=>`<span class="attk" style="--ac:${a[2]}">${a[0]}</span> ${tr(a[1])}`).join(" · ")}</p>
      <div class="attsum">${ATT.map(a=>cnt(a[0])?`<span class="pill" style="background:${a[2]};color:#fff">${tr(a[1])} ${cnt(a[0])}</span>`:"").join("")}</div>
-     ${sq.length?`<div class="attl">${sq.map(p=>`<div class="attr">${avatar(p,32)}<span class="attn" data-noi18n>${esc(p.nombre)}</span><div class="attb">${ATT.map(a=>`<button class="${att[p.id]===a[0]?"on":""}" style="--ac:${a[2]}" data-att="${esc(p.id)}" data-v="${a[0]}" title="${tr(a[1])}">${a[0]}</button>`).join("")}</div></div>`).join("")}</div>`:`<div class="empty">${tr("No hay jugadores en la plantilla de esta generación.")}</div>`}</div>`+end}
+     ${sq.length?`<div class="attl">${sq.map(p=>`<div class="attr">${avatar(p,32)}<span class="attn" data-noi18n>${esc(p.nombre)}${semDot(p.id)}</span><div class="attb">${ATT.map(a=>`<button class="${att[p.id]===a[0]?"on":""}" style="--ac:${a[2]}" data-att="${esc(p.id)}" data-v="${a[0]}" title="${tr(a[1])}">${a[0]}</button>`).join("")}</div></div>`).join("")}</div>`:`<div class="empty">${tr("No hay jugadores en la plantilla de esta generación.")}</div>`}</div>`+end}
   if(e.tipo==="partido"){const conv=e.conv||{};const C=sq.filter(p=>conv[p.id]),N=sq.filter(p=>!conv[p.id]);
     return base+`<div class="card" style="margin-top:14px"><h2>${tr("Convocatoria")} · ${C.length}</h2><p class="hint">${tr("Pulsa un jugador para convocarlo o quitarlo.")}</p>
      <div class="convl">${sq.map(p=>`<button class="chip cvav${conv[p.id]?" on":""}" data-conv="${esc(p.id)}">${avatar(p,22)}<span data-noi18n>${esc(p.nombre)}</span></button>`).join("")}</div></div>
@@ -1506,6 +1531,202 @@ document.addEventListener("submit",ev=>{if(ev.target.id!=="chatform")return;ev.p
 document.addEventListener("keydown",ev=>{if(ev.target.id!=="chatin")return;if(ev.key==="Enter"&&!ev.shiftKey&&!ev.isComposing&&!document.body.classList.contains("mob")){ev.preventDefault();chatSend()}},true);
 document.addEventListener("input",ev=>{if(ev.target.id!=="chatin")return;ev.stopImmediatePropagation();const t=ev.target;chatDraft[chatCur]=t.value;t.style.height="";t.style.height=Math.min(t.scrollHeight,140)+"px"},true);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&route==="chat")chatPaint()});
+/* ================= SERVICIOS MÉDICOS ================= */
+let med={},medT={},medPid=null,medView="equipo",medYear=0,medSide="f",medZone=null,sem={},semT=null;
+const MZ={ // zonas del cuerpo: [id, nombre frontal, nombre posterior]
+  cabeza:["Cabeza","Cabeza (nuca)"],cuello:["Cuello","Cervical"],hombro:["Hombro","Hombro (posterior)"],tronco:["Pecho / costillas","Espalda alta (dorsal)"],abdomen:["Abdomen","Zona lumbar"],
+  brazo:["Bíceps / brazo","Tríceps / brazo"],codo:["Codo","Codo"],antebrazo:["Antebrazo","Antebrazo"],mano:["Muñeca / mano","Muñeca / mano"],cadera:["Cadera / ingle","Glúteo"],
+  aductor:["Aductores","Aductores"],muslo:["Cuádriceps","Isquiotibiales"],rodilla:["Rodilla","Hueco poplíteo"],pierna:["Tibia / espinilla","Gemelo / sóleo"],tobillo:["Tobillo","Tendón de Aquiles"],pie:["Pie","Talón / planta"]};
+const MSIDE={d:"derecho",i:"izquierdo",c:""};
+// formas de la silueta (vista de frente: el lado derecho del jugador queda a la izquierda de la pantalla)
+const MSH=[["cabeza","c",'<ellipse cx="100" cy="34" rx="19" ry="23"/>'],["cuello","c",'<rect x="90" y="56" width="20" height="14" rx="5"/>'],
+  ["hombro","d",'<ellipse cx="68" cy="80" rx="15" ry="11"/>'],["hombro","i",'<ellipse cx="132" cy="80" rx="15" ry="11"/>'],
+  ["tronco","c",'<rect x="80" y="71" width="40" height="42" rx="9"/>'],["abdomen","c",'<rect x="80" y="115" width="40" height="38" rx="7"/>'],
+  ["brazo","d",'<rect x="50" y="90" width="17" height="44" rx="8"/>'],["brazo","i",'<rect x="133" y="90" width="17" height="44" rx="8"/>'],
+  ["codo","d",'<ellipse cx="57" cy="141" rx="9" ry="7"/>'],["codo","i",'<ellipse cx="143" cy="141" rx="9" ry="7"/>'],
+  ["antebrazo","d",'<rect x="46" y="149" width="16" height="38" rx="7"/>'],["antebrazo","i",'<rect x="138" y="149" width="16" height="38" rx="7"/>'],
+  ["mano","d",'<ellipse cx="52" cy="200" rx="9" ry="12"/>'],["mano","i",'<ellipse cx="148" cy="200" rx="9" ry="12"/>'],
+  ["cadera","d",'<rect x="78" y="155" width="21" height="24" rx="7"/>'],["cadera","i",'<rect x="101" y="155" width="21" height="24" rx="7"/>'],
+  ["muslo","d",'<rect x="74" y="181" width="17" height="62" rx="8"/>'],["muslo","i",'<rect x="109" y="181" width="17" height="62" rx="8"/>'],
+  ["aductor","d",'<rect x="92" y="181" width="7" height="50" rx="3.5"/>'],["aductor","i",'<rect x="101" y="181" width="7" height="50" rx="3.5"/>'],
+  ["rodilla","d",'<ellipse cx="86" cy="253" rx="11" ry="10"/>'],["rodilla","i",'<ellipse cx="114" cy="253" rx="11" ry="10"/>'],
+  ["pierna","d",'<rect x="77" y="265" width="18" height="60" rx="8"/>'],["pierna","i",'<rect x="105" y="265" width="18" height="60" rx="8"/>'],
+  ["tobillo","d",'<ellipse cx="86" cy="333" rx="8" ry="7"/>'],["tobillo","i",'<ellipse cx="114" cy="333" rx="8" ry="7"/>'],
+  ["pie","d",'<ellipse cx="82" cy="349" rx="12" ry="8"/>'],["pie","i",'<ellipse cx="118" cy="349" rx="12" ry="8"/>']];
+const zKey=(v,z,s)=>v+":"+z+":"+s;
+function zName(k){if(!k)return "";const [v,z,s]=k.split(":");const n=(MZ[z]||[z,z])[v==="b"?1:0];return tr(n)+(MSIDE[s]?" "+tr(MSIDE[s]):"")}
+const LTIPOS=[["Muscular",["Contractura / sobrecarga","Distensión (grado I)","Rotura fibrilar (grado II)","Rotura completa (grado III)","Contusión / hematoma"]],
+  ["Ligamentosa",["Esguince grado I","Esguince grado II","Esguince grado III (rotura)"]],["Tendón",["Tendinopatía","Rotura tendinosa"]],
+  ["Hueso y articulación",["Fractura","Fractura por estrés","Luxación / subluxación","Lesión de menisco / cartílago","Contusión ósea"]],
+  ["Crecimiento",["Osgood-Schlatter","Sever (talón)","Sinding-Larsen-Johansson","Apofisitis de cadera / pelvis","Espondilólisis"]],
+  ["Otras",["Conmoción cerebral","Herida / corte","Dolor sin diagnóstico","Otra"]]];
+const MECAN=["Sin contacto","Contacto","Sobrecarga / progresiva"],LCTX=["Partido","Entrenamiento","Fuera del club"],PRUEBA=["Ninguna","Ecografía","Resonancia","Radiografía","TAC","Pendiente"];
+const RTP=[["Protección","#e8151e",["Dolor e inflamación controlados","Sin dolor en reposo","Diagnóstico confirmado"]],
+  ["Movilidad","#f05a00",["Movilidad completa sin dolor","Camina con normalidad"]],
+  ["Fuerza","#f09000",["Fuerza ≥ 80 % del lado sano","Ejercicios de fuerza sin dolor"]],
+  ["Carrera y saltos","#e0b000",["Carrera continua sin dolor","Saltos y aterrizajes sin dolor","Fuerza ≥ 90 % del lado sano"]],
+  ["Campo sin contacto","#2f8fe0",["Sprint y cambios de dirección","Golpeo y gestos de fútbol","Sin molestias al día siguiente"]],
+  ["Grupo y partido","#1f8a4c",["Entrena completo con el grupo","Alta médica para competir"]]];
+const CONM=["Reposo relativo (24–48 h)","Actividad suave sin síntomas","Ejercicio aeróbico ligero","Ejercicios de fútbol sin contacto","Alta médica","Entrenamiento con contacto","Partido"];
+const GRADOS=["—","BAMIC 0","BAMIC 1a","BAMIC 1b","BAMIC 1c","BAMIC 2a","BAMIC 2b","BAMIC 2c","BAMIC 3a","BAMIC 3b","BAMIC 3c","BAMIC 4","Ligamento grado I","Ligamento grado II","Ligamento grado III","Salter-Harris I","Salter-Harris II","Salter-Harris III","Salter-Harris IV","Salter-Harris V"];
+const ENF=["Fiebre","Catarro / resfriado","Gripe","COVID-19","Faringitis / amigdalitis (estreptococo)","Otitis","Gastroenteritis","Conjuntivitis","Bronquitis","Neumonía","Crisis de asma","Alergia","Varicela","Impétigo","Mononucleosis","Migraña / dolor de cabeza","Golpe de calor","Otra"];
+const ENFR={"Fiebre":[1,"Vuelve tras 24 h sin fiebre y sin antitérmicos."],"Catarro / resfriado":[0,"Regla del cuello: si los síntomas son solo por encima del cuello, puede entrenar suave."],"Gripe":[2,"Vuelve 24–48 h después de estar sin fiebre."],"COVID-19":[2,"Vuelve 24–48 h después de estar sin fiebre y con síntomas leves."],
+ "Faringitis / amigdalitis (estreptococo)":[1,"Vuelve 24 h después de empezar el antibiótico y sin fiebre."],"Gastroenteritis":[2,"Vuelve 48 h después del último vómito o diarrea, bien hidratado."],"Mononucleosis":[21,"Mínimo 3–4 semanas sin contacto (riesgo de bazo). Alta médica."],
+ "Varicela":[7,"Vuelve cuando todas las lesiones estén en costra."],"Impétigo":[2,"Vuelve 48 h después de empezar el tratamiento, lesiones cubiertas."],"Neumonía":[0,"Vuelve solo con alta médica."]};
+const FTEC=["Terapia manual","Masaje / liberación miofascial","Movilizaciones","Estiramientos","Ejercicio terapéutico","Propiocepción","Vendaje funcional","Kinesiotape","Crioterapia (hielo)","Termoterapia (calor)","Electroterapia (TENS)","Ultrasonido","Ondas de choque","Punción seca","Drenaje linfático","Readaptación en campo"];
+const isConm=l=>l.tipo==="Conmoción cerebral";
+const lesN=l=>isConm(l)?CONM:RTP.map(r=>r[0]);
+const CONMC=["#e8151e","#f05a00","#f09000","#e0b000","#7B1FA2","#2f8fe0","#1f8a4c"];
+const stepCol=(l,j)=>isConm(l)?CONMC[j]||"#1f8a4c":(RTP[j]||RTP[0])[1];
+const stepCrit=(l,j)=>isConm(l)?(j===4?["Alta médica firmada","Mínimo 21 días desde el golpe (menores)"]:["24 h sin síntomas en este paso"]):(RTP[j]||RTP[0])[2];
+const fOf=l=>Math.min(+l.fase||0,lesN(l).length-1);
+const lesRed=l=>!l.alta&&fOf(l)<lesN(l).length-2;
+const sevOf=d=>{d=+d||0;return d<=0?["—","#8a90a6"]:d<=3?["Mínima","#1f8a4c"]:d<=7?["Leve","#8bb400"]:d<=28?["Moderada","#f07800"]:["Grave","#e8151e"]};
+const medE=()=>canEdit("medico");
+function growth(pid){const m=med[pid]||{},G=((m.crec)||[]).filter(g=>g.fecha&&+g.alt).sort((a,b)=>a.fecha.localeCompare(b.fecha));const fi=m.ficha||{};const out={G,last:G[G.length-1]||null,vel:null,pah:null,pct:null,alert:""};
+  // velocidad de crecimiento con la medida más cercana a un año antes (mínimo 2 meses de diferencia)
+  if(G.length>1){const l=out.last;const prev=G.slice(0,-1).filter(g=>(new Date(l.fecha)-new Date(g.fecha))/864e5>=60);const ref=prev.sort((a,b)=>Math.abs(365-(new Date(l.fecha)-new Date(a.fecha))/864e5)-Math.abs(365-(new Date(l.fecha)-new Date(b.fecha))/864e5))[0];
+    if(ref){const yrs=(new Date(l.fecha)-new Date(ref.fecha))/864e5/365.25;out.vel=Math.round((+l.alt-+ref.alt)/yrs*10)/10}}
+  // altura adulta prevista por la talla de los padres (método medio parental, chicos)
+  if(+fi.altpadre&&+fi.altmadre){out.pah=Math.round((+fi.altpadre+ +fi.altmadre+13)/2);if(out.last)out.pct=Math.round(+out.last.alt/out.pah*1000)/10}
+  const a=[];if(out.vel!=null&&out.vel>7)a.push(tr("crece más de 7 cm al año"));if(out.pct!=null&&out.pct>=88&&out.pct<=96)a.push(tr("está entre el 88 % y el 96 % de su altura adulta"));
+  out.alert=a.length?tr("Estirón")+": "+a.join(" y ")+". "+tr("Más riesgo de Osgood-Schlatter, Sever y lesiones musculares: vigilar cargas, saltos y sprints."):"";return out}
+const mDoc=pid=>{med[pid]=med[pid]||{lesiones:[],enf:[],fisio:[],ficha:{},crec:[]};const m=med[pid];m.crec=m.crec||[];m.lesiones=m.lesiones||[];m.enf=m.enf||[];m.fisio=m.fisio||[];m.ficha=m.ficha||{};return m};
+const lesActiva=l=>!l.alta&&(+l.fase||0)<4;
+function medSave(pid,aviso){if(!db)return;clearTimeout(medT[pid]);medT[pid]=setTimeout(()=>{medT[pid]=null;db.doc("medical/"+pid).set(JSON.parse(JSON.stringify(mDoc(pid)))).then(()=>setStatus("ok",tr("Guardado"))).catch(()=>setStatus("warn",tr("No se pudo guardar")))},400);semPush()}
+function medSubs(){if(!db||medSubs.done)return;
+  if(!medSubs.s){medSubs.s=1;try{db.doc("semaforo/estado").onSnapshot(sn=>{if(semT)return;const d=sn.exists?sn.data():null;sem=(d&&d.v)||{};try{ntBadge()}catch(_){}if(["coordinacion","equipo","medica"].includes(route)&&!openId){const ae=document.activeElement;if(!(ae&&ae.closest&&ae.closest("input,textarea,select"))&&!$("#modal").classList.contains("on"))render()}},()=>{})}catch(_){}}
+  if(!canMod("medica"))return;medSubs.done=1;
+  try{db.collection("medical").onSnapshot(sn=>{for(const ch of sn.docChanges()){const id=ch.doc.id;if(medT[id])continue;if(ch.type==="removed"){delete med[id];continue}const d=ch.doc.data(),cur=med[id];if(cur){for(const k of Object.keys(cur))delete cur[k];Object.assign(cur,d)}else med[id]=d}
+    const ae=document.activeElement;if(route==="medica"&&!openId&&!(ae&&ae.closest&&ae.closest("input,textarea,select"))&&!$("#modal").classList.contains("on"))render()},()=>{})}catch(_){}}
+// semáforo: verde / amarillo / rojo, sin diagnóstico, para el resto del staff
+function semCalc(pid){const m=med[pid];if(!m)return null;const today=isoD(new Date());let c=null,hasta="";
+  for(const l of m.lesiones||[]){if(l.alta)continue;const cc=lesRed(l)?"rojo":"amarillo";if(cc==="rojo"||(cc&&c!=="rojo"))c=cc;if(l.vuelta&&(!hasta||l.vuelta>hasta))hasta=l.vuelta}
+  for(const e of m.enf||[]){if(e.estado==="Recuperado"||(e.hasta&&e.hasta<today))continue;const cc=e.estado==="Entrena con limitaciones"?"amarillo":"rojo";if(cc==="rojo"||!c)c=cc;if(e.hasta&&(!hasta||e.hasta>hasta))hasta=e.hasta}
+  return c?{c,hasta}:null}
+function semPush(){if(!medE()||!db)return;const v={};for(const pid of Object.keys(med)){const s=semCalc(pid);if(s)v[pid]=s}sem=v;clearTimeout(semT);semT=setTimeout(()=>{semT=null;db.doc("semaforo/estado").set({v,t:Date.now()}).catch(()=>{})},600)}
+const SEMC={rojo:["#e8151e","Baja médica"],amarillo:["#e0a800","Con limitaciones"],verde:["#1f8a4c","Disponible"]};
+function semOf(pid){const s=sem[pid];return s&&SEMC[s.c]?s:null}
+function semDot(pid){const s=semOf(pid);if(!s)return "";return `<span class="semd" style="--sc:${SEMC[s.c][0]}" title="${tr(SEMC[s.c][1])}${s.hasta?" · "+tr("hasta")+" "+fD(s.hasta,{day:"numeric",month:"short"}):""}"></span>`}
+
+/* ---- silueta ---- */
+function bodySvg(v,marks,sel,big){const lab=v==="f"?tr("Frente"):tr("Espalda");
+  const sh=MSH.map(([z,s,shape])=>{const k=zKey(v,z,s),m=marks[k];const cls=["bz"];if(m)cls.push(m.act?"act":"old");if(sel===k)cls.push("sel");
+    const st=m?` style="--bz:${m.act?m.col:"#f0a64a"};--bo:${m.act?.9:Math.min(.35+.15*m.n,.85)}"`:"";
+    return `<g class="${cls.join(" ")}" data-bz="${k}"${st}><title>${esc(zName(k))}${m?" · "+m.n+" "+tr(m.n===1?"lesión":"lesiones"):""}</title>${shape}</g>`}).join("");
+  const sideL=v==="f"?tr("Dcha."):tr("Izda."),sideR=v==="f"?tr("Izda."):tr("Dcha.");
+  return `<figure class="body${big?" big":""}"><svg viewBox="30 0 140 370" role="img" aria-label="${esc(lab)}"><g class="bsil">${MSH.map(x=>x[2]).join("")}</g>${sh}
+   <text x="36" y="366" class="bsd">${sideL}</text><text x="164" y="366" class="bsd" text-anchor="end">${sideR}</text></svg><figcaption>${lab}</figcaption></figure>`}
+function marksOf(pids){const out={};const add=(k,act,col)=>{const m=out[k]=out[k]||{n:0,act:false,col:"#e8151e"};m.n++;if(act){m.act=true;m.col=col}};
+  for(const pid of pids)for(const l of (med[pid]&&med[pid].lesiones)||[]){if(!l.zona)continue;add(l.zona,!l.alta,lesRed(l)?"#e8151e":"#2f8fe0")}return out}
+
+/* ---- vistas ---- */
+function medPlayers(){return Object.values(players).filter(p=>(p.origen||"Plantilla")==="Plantilla"&&p.estado!=="Descartar"&&YEARS.includes(+p.gen)&&(!medYear||+p.gen===medYear)).sort((a,b)=>+a.gen-+b.gen||String(a.nombre).localeCompare(b.nombre))}
+function vMedica(){if(medPid&&players[medPid])return vMedPlayer(players[medPid]);medPid=null;const P=medPlayers(),E=medE(),today=isoD(new Date());
+  const st=P.map(p=>{const m=med[p.id]||{},L=(m.lesiones||[]).filter(l=>!l.alta),En=(m.enf||[]).filter(e=>e.estado!=="Recuperado"&&!(e.hasta&&e.hasta<today));const s=semCalc(p.id);return {p,L,En,s}});
+  const nR=st.filter(x=>x.s&&x.s.c==="rojo").length,nA=st.filter(x=>x.s&&x.s.c==="amarillo").length,nV=P.length-nR-nA;
+  const yr=`<div class="tags mtags"><button class="chip${!medYear?" on":""}" data-medy="0">${tr("Todos")}</button>${YEARS.map(y=>`<button class="chip${medYear===y?" on":""}" data-medy="${y}">${teamName(y)}</button>`).join("")}</div>`;
+  const seg=`<div class="seg sm cxseg" style="margin:4px 0 14px">${[["equipo","Estado del equipo"],["lesiones","Lesiones"],["enf","Enfermedades"],["fisio","Fisioterapia"],["mapa","Mapa del equipo"]].map(([k,t])=>`<button class="${medView===k?"on":""}" data-medv="${k}">${tr(t)}</button>`).join("")}</div>`;
+  const nums=`<div class="grid g3 pnums mnums"><div class="card" style="--sc:#1f8a4c"><b>${nV}</b><span>${tr("disponibles")}</span></div><div class="card" style="--sc:#e0a800"><b>${nA}</b><span>${tr("con limitaciones")}</span></div><div class="card" style="--sc:#e8151e"><b>${nR}</b><span>${tr("de baja")}</span></div></div>`;
+  let body="";
+  if(medView==="equipo"){const row=x=>{const c=x.s?SEMC[x.s.c]:SEMC.verde;const what=[...x.L.map(l=>`🩹 ${zName(l.zona)} · ${tr(l.tipo||"")} <i style="--pc:${stepCol(l,fOf(l))}">${tr(lesN(l)[fOf(l)])}</i>`),...x.En.map(e=>`🤒 ${tr(e.tipo)}`),...(growth(x.p.id).alert?[`📈 ${tr("Estirón")}`]:[])].join("<br>");
+      return `<button class="mrow" data-medp="${esc(x.p.id)}" style="--sc:${c[0]}"><span class="msem"></span>${avatar(x.p,34)}<span class="mrn"><b data-noi18n>${esc(x.p.nombre)}</b><small>${teamName(+x.p.gen)}${x.p.pos?" · "+esc(x.p.pos):""}</small></span><span class="mrw">${what||`<small>${tr(c[1])}</small>`}</span>${x.s&&x.s.hasta?`<span class="mrh">${tr("vuelta")} ${fD(x.s.hasta,{day:"numeric",month:"short"})}</span>`:""}</button>`};
+    const S=st.slice().sort((a,b)=>({rojo:0,amarillo:1}[a.s&&a.s.c]??2)-({rojo:0,amarillo:1}[b.s&&b.s.c]??2));
+    body=S.length?`<div class="mlist">${S.map(row).join("")}</div>`:`<div class="empty">${tr("No hay jugadores en la plantilla.")}</div>`}
+  else if(medView==="lesiones"){const L=[];st.forEach(x=>((med[x.p.id]||{}).lesiones||[]).forEach(l=>L.push({p:x.p,l})));L.sort((a,b)=>(a.l.alta?1:0)-(b.l.alta?1:0)||String(b.l.fecha).localeCompare(a.l.fecha));
+    body=L.length?`<div class="tablewrap"><table class="mtab"><tr><th>${tr("Jugador")}</th><th>${tr("Fecha")}</th><th>${tr("Zona")}</th><th>${tr("Lesión")}</th><th>${tr("Gravedad")}</th><th>${tr("Fase")}</th></tr>${L.map(({p,l})=>{const sv=sevOf(l.dias);const f=l.alta?["Alta","#1f8a4c"]:[lesN(l)[fOf(l)],stepCol(l,fOf(l))];return `<tr data-medp="${esc(p.id)}" class="clk"><td><b data-noi18n>${esc(p.nombre)}</b><br><small>${p.gen}</small></td><td>${fD(l.fecha)}</td><td>${esc(zName(l.zona))}</td><td>${esc(tr(l.tipo||""))}${l.recaida?` <span class="pill red">${tr("recaída")}</span>`:""}<br><small>${esc(tr(l.mec||""))}${l.ctx?" · "+esc(tr(l.ctx)):""}</small></td><td><span class="pill" style="background:${sv[1]};color:#fff">${tr(sv[0])}</span><br><small>${l.dias?l.dias+" "+tr("días"):""}</small></td><td><span class="pill" style="background:${f[1]};color:#fff">${tr(f[0])}</span></td></tr>`}).join("")}</table></div>`:`<div class="empty">${tr("Sin lesiones registradas. Entra en un jugador y toca la zona del cuerpo para añadir una.")}</div>`}
+  else if(medView==="enf"){const L=[];st.forEach(x=>((med[x.p.id]||{}).enf||[]).forEach(e=>L.push({p:x.p,e})));L.sort((a,b)=>String(b.e.desde).localeCompare(a.e.desde));
+    const cnt={};L.forEach(({e})=>cnt[e.tipo]=(cnt[e.tipo]||0)+1);
+    body=(L.length?`<div class="tags" style="margin-bottom:10px">${Object.entries(cnt).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<span class="pill">${esc(tr(k))} · ${n}</span>`).join("")}</div><div class="rl">${L.map(({p,e})=>`<div class="rr clk" data-medp="${esc(p.id)}"><b data-noi18n>${esc(p.nombre)}</b><span>🤒 ${esc(tr(e.tipo))}</span><span>${fD(e.desde)}${e.hasta?" → "+fD(e.hasta,{day:"numeric",month:"short"}):""}</span><span class="pill ${e.estado==="Recuperado"?"ok":e.estado==="Baja"?"red":"warn"}">${esc(tr(e.estado||"Baja"))}</span>${e.temp?`<small>${tr("Temperatura máx.")} ${esc(e.temp)} °C</small>`:""}</div>`).join("")}</div>`:`<div class="empty">${tr("Sin enfermedades registradas.")}</div>`)}
+  else if(medView==="fisio"){const L=[];st.forEach(x=>((med[x.p.id]||{}).fisio||[]).forEach(f=>L.push({p:x.p,f})));L.sort((a,b)=>String(b.f.fecha).localeCompare(a.f.fecha));
+    body=L.length?`<div class="rl">${L.slice(0,80).map(({p,f})=>`<div class="rr clk" data-medp="${esc(p.id)}"><b>${fD(f.fecha)}</b><b data-noi18n>${esc(p.nombre)}</b><span>${(f.tec||[]).map(t=>`<span class="pill">${esc(tr(t))}</span>`).join(" ")}</span>${f.da!==""&&f.da!=null?`<span class="pain">${tr("Dolor")} <b style="--pv:${f.da}">${f.da}</b> → <b style="--pv:${f.dd}">${f.dd??"?"}</b></span>`:""}</div>`).join("")}</div>`:`<div class="empty">${tr("Sin sesiones de fisioterapia registradas.")}</div>`}
+  else{const pids=P.map(p=>p.id),M=marksOf(pids);const tot=Object.values(M).reduce((s,m)=>s+m.n,0);const top=Object.entries(M).sort((a,b)=>b[1].n-a[1].n).slice(0,6);
+    body=`<div class="card mmap"><div class="bodies">${bodySvg("f",M,null,true)}${bodySvg("b",M,null,true)}</div><div><h2>${tr("Zonas con más lesiones")}</h2>${top.length?`<ol class="mtop">${top.map(([k,m])=>`<li><b>${esc(zName(k))}</b><span class="mbar"><i style="width:${Math.round(m.n/top[0][1].n*100)}%"></i></span><em>${m.n}</em></li>`).join("")}</ol><p class="hint">${tot} ${tr("lesiones registradas")} · ${tr("cuanto más intenso el color, más lesiones en esa zona. En rojo, lesiones activas.")}</p>`:`<p class="hint">${tr("Todavía no hay lesiones registradas.")}</p>`}</div></div>`}
+  return `<div class="toolbar"><h1 style="margin-right:auto">✚ ${tr("Servicios médicos")}</h1></div><p class="sub">${tr("Solo lo ven Dirección y el Área médica. El resto del staff solo ve el semáforo (verde, amarillo o rojo), sin diagnóstico.")}</p>${yr}${nums}${seg}${body}`}
+
+function vMedPlayer(p){const m=mDoc(p.id),E=medE(),today=isoD(new Date());const s=semCalc(p.id),c=s?SEMC[s.c]:SEMC.verde;
+  const M=marksOf([p.id]);const L=m.lesiones.slice().sort((a,b)=>(a.alta?1:0)-(b.alta?1:0)||String(b.fecha).localeCompare(a.fecha));
+  const lesCard=l=>{const i=m.lesiones.indexOf(l),f=fOf(l),sv=sevOf(l.dias),N=lesN(l);const crit=l.crit||{};
+    const steps=N.map((r,j)=>`<button class="rtp${j<f||l.alta?" done":""}${j===f&&!l.alta?" on":""}" style="--rc:${stepCol(l,j)}" ${E?`data-rtp="${i}|${j}"`:"disabled"}><span>${j+1}</span><small>${tr(r)}</small>${l.ff&&l.ff[j]?`<em>${fD(l.ff[j],{day:"numeric",month:"short"})}</em>`:""}</button>`).join("");
+    const cr=l.alta?"":`<div class="crit"><b>${tr("Para pasar de fase")} (${tr(N[f])}):</b>${stepCrit(l,f).map((t,k)=>`<label><input type="checkbox" ${E?`data-crit="${i}|${f}|${k}"`:"disabled"}${crit[f+"_"+k]?" checked":""}> ${tr(t)}</label>`).join("")}</div>`;
+    return `<div class="card les${l.alta?" alta":""}" style="--rc:${l.alta?"#1f8a4c":stepCol(l,f)}"><div class="lesh"><div><b>${esc(zName(l.zona))}</b>${l.det?` <small>(${esc(l.det)})</small>`:""} · ${esc(tr(l.tipo||""))}${l.grado&&l.grado!=="—"?` <span class="pill">${esc(l.grado)}</span>`:""}${l.recaida?` <span class="pill red">${tr("recaída")}</span>`:""}<br><small>${fD(l.fecha)} · ${esc(tr(l.mec||""))}${l.ctx?" · "+esc(tr(l.ctx)):""}${l.prueba&&l.prueba!=="Ninguna"?" · "+esc(tr(l.prueba)):""}</small></div><span class="pill" style="background:${sv[1]};color:#fff">${tr(sv[0])}${l.dias?" · "+l.dias+" "+tr("días"):""}</span>${E?`<button class="btn ghost sm" data-lesed="${i}">${tr("Editar")}</button>`:""}</div>
+      ${l.diag?`<p class="lesd">${esc(l.diag)}</p>`:""}${isConm(l)?`<p class="alert warn" style="margin:8px 0 0">🧠 ${tr("Protocolo de conmoción: un paso cada 24 h sin síntomas. En menores, mínimo 21 días antes de volver a competir y siempre con alta médica.")}</p>`:""}<div class="rtps" style="grid-template-columns:repeat(${N.length},1fr)">${steps}</div>${cr}
+      ${l.alta?`<p class="hint">✅ ${tr("Alta el")} ${fD(l.alta)}</p>`:(l.vuelta?`<p class="hint">${tr("Vuelta prevista")}: <b>${fD(l.vuelta)}</b>${l.vuelta<today?` <span class="pill red">${tr("pasada")}</span>`:""}</p>`:"")}</div>`};
+  const enfAct=m.enf.filter(e=>e.estado!=="Recuperado").length;
+  const dTot=m.lesiones.reduce((n,l)=>n+(l.alta?Math.max(0,Math.round((new Date(l.alta)-new Date(l.fecha))/864e5)):(+l.dias||0)),0),rec=m.lesiones.filter(l=>l.recaida).length;
+  const gr=growth(p.id);const fi0=m.ficha||{};
+  const hist=`<div class="mhist"><div><b>${m.lesiones.length}</b><span>${tr("lesiones")}</span></div><div><b>${dTot}</b><span>${tr("días de baja")}</span></div><div><b>${rec}</b><span>${tr("recaídas")}</span></div><div><b>${m.enf.length}</b><span>${tr("enfermedades")}</span></div><div><b>${m.fisio.length}</b><span>${tr("sesiones de fisio")}</span></div></div>`;
+  const crec=`<div class="card" style="margin-top:14px"><div class="toolbar" style="margin:0"><h2 style="margin:0 auto 0 0">📏 ${tr("Crecimiento")}</h2>${E?`<button class="btn ghost sm" data-crecnew>+ ${tr("Medida")}</button>`:""}</div>
+    ${gr.alert?`<div class="alert warn" style="margin:8px 0">📈 ${esc(gr.alert)}</div>`:""}
+    <div class="mhist sm"><div><b>${gr.last?gr.last.alt+" cm":"—"}</b><span>${tr("altura")}${gr.last?" · "+fD(gr.last.fecha,{day:"numeric",month:"short",year:"2-digit"}):""}</span></div><div><b>${gr.vel!=null?gr.vel+" cm":"—"}</b><span>${tr("al año")}</span></div><div><b>${gr.pah?gr.pah+" cm":"—"}</b><span>${tr("altura adulta prevista")}</span></div><div><b>${gr.pct!=null?gr.pct+" %":"—"}</b><span>${tr("de la altura adulta")}</span></div></div>
+    <div class="form mfic" style="margin-top:8px"><label>${tr("Altura del padre (cm)")}<input type="number" data-mfic="altpadre" value="${esc(fi0.altpadre||"")}"${E?"":" disabled"}></label><label>${tr("Altura de la madre (cm)")}<input type="number" data-mfic="altmadre" value="${esc(fi0.altmadre||"")}"${E?"":" disabled"}></label></div>
+    ${gr.G.length?`<div class="rl">${gr.G.slice().reverse().map(g=>`<div class="rr${E?" clk":""}" ${E?`data-creced="${esc(g.id)}"`:""}><b>${fD(g.fecha,{day:"numeric",month:"short",year:"numeric"})}</b><span>${g.alt} cm</span>${g.peso?`<span>${g.peso} kg</span>`:""}${g.sent?`<span>${tr("sentado")} ${g.sent} cm</span>`:""}</div>`).join("")}</div>`:`<p class="hint">${tr("Mide la altura cada 3 meses. Con dos medidas separadas al menos 2 meses verás la velocidad de crecimiento y avisará del estirón.")}</p>`}</div>`;
+  const fi=m.ficha||{};const fic=[["sangre","Grupo sanguíneo"],["alergias","Alergias"],["medicacion","Medicación habitual"],["antecedentes","Antecedentes / enfermedades previas"],["lesprev","Lesiones antes del club"],["seguro","Seguro / mutua"],["tarjeta","Tarjeta sanitaria"],["medico","Médico de cabecera"],["urgnom","Contacto de urgencia"],["urgtel","Teléfono de urgencia"],["revult","Última revisión"],["revprox","Próxima revisión"]];
+  return `<div class="toolbar" style="margin:0 0 10px"><button class="btn ghost sm" data-medback>‹ ${tr("Servicios médicos")}</button></div>
+   <div class="mph" style="--sc:${c[0]}">${avatar(p,64)}<div><h1 data-noi18n>${esc(p.nombre)}</h1><span>${teamName(+p.gen)}${p.pos?" · "+esc(p.pos):""}${p.nac?" · "+esc(p.nac):""}</span></div><span class="msemb">${tr(c[1])}${s&&s.hasta?" · "+tr("hasta")+" "+fD(s.hasta,{day:"numeric",month:"short"}):""}</span></div>
+   ${fi.alergias?`<div class="alert" style="margin:10px 0">⚠️ ${tr("Alergias")}: ${esc(fi.alergias)}</div>`:""}
+   ${hist}${gr.alert?`<div class="alert warn" style="margin:10px 0">📈 ${esc(gr.alert)}</div>`:""}
+   <div class="mpg"><div class="card"><h2>🩹 ${tr("Mapa corporal")}</h2><p class="hint">${E?tr("Toca una zona del cuerpo para registrar una lesión."):tr("Zonas con lesiones del jugador.")}</p><div class="bodies">${bodySvg("f",M,medZone)}${bodySvg("b",M,medZone)}</div>
+      <div class="blegend"><span style="--c:#e8151e">${tr("Activa")}</span><span style="--c:#2f8fe0">${tr("Vuelta al grupo")}</span><span style="--c:#f0a64a">${tr("Historial")}</span></div></div>
+    <div><div class="toolbar" style="margin:0 0 8px"><h2 style="margin:0 auto 0 0">${tr("Lesiones")} · ${L.length}</h2>${E?`<button class="btn" data-lesnew>+ ${tr("Lesión")}</button>`:""}</div>${L.map(lesCard).join("")||`<p class="hint">${tr("Sin lesiones registradas.")}</p>`}</div></div>
+   <div class="grid g2" style="margin-top:14px"><div class="card"><div class="toolbar" style="margin:0"><h2 style="margin:0 auto 0 0">🤒 ${tr("Enfermedades")}${enfAct?` <span class="pill red">${enfAct}</span>`:""}</h2>${E?`<button class="btn ghost sm" data-enfnew>+ ${tr("Enfermedad")}</button>`:""}</div>
+      ${m.enf.length?`<div class="rl">${m.enf.slice().sort((a,b)=>String(b.desde).localeCompare(a.desde)).map(e=>`<div class="rr${E?" clk":""}" ${E?`data-enfed="${m.enf.indexOf(e)}"`:""}><b>${esc(tr(e.tipo))}</b><span>${fD(e.desde)}${e.hasta?" → "+fD(e.hasta,{day:"numeric",month:"short"}):""}</span><span class="pill ${e.estado==="Recuperado"?"ok":e.estado==="Baja"?"red":"warn"}">${esc(tr(e.estado||"Baja"))}</span>${e.sint||e.temp?`<small>${e.temp?tr("Temperatura máx.")+" "+esc(e.temp)+" °C · ":""}${esc(e.sint||"")}</small>`:""}${ENFR[e.tipo]&&e.estado!=="Recuperado"?`<small class="enfr">↩ ${tr(ENFR[e.tipo][1])}</small>`:""}</div>`).join("")}</div>`:`<p class="hint">${tr("Sin enfermedades registradas.")}</p>`}</div>
+    <div class="card"><div class="toolbar" style="margin:0"><h2 style="margin:0 auto 0 0">💆 ${tr("Fisioterapia")}</h2>${E?`<button class="btn ghost sm" data-fisnew>+ ${tr("Sesión")}</button>`:""}</div>
+      ${m.fisio.length?`<div class="rl">${m.fisio.slice().sort((a,b)=>String(b.fecha).localeCompare(a.fecha)).map(f=>`<div class="rr${E?" clk":""}" ${E?`data-fised="${m.fisio.indexOf(f)}"`:""}><b>${fD(f.fecha)}</b><span>${(f.tec||[]).map(t=>`<span class="pill">${esc(tr(t))}</span>`).join(" ")}</span>${f.da!==""&&f.da!=null?`<span class="pain">${tr("Dolor")} <b style="--pv:${f.da}">${f.da}</b> → <b style="--pv:${f.dd}">${f.dd??"?"}</b></span>`:""}${f.nota||f.casa?`<small>${esc(f.nota||"")}${f.casa?" · 🏠 "+esc(f.casa):""}</small>`:""}</div>`).join("")}</div>`:`<p class="hint">${tr("Sin sesiones registradas.")}</p>`}</div></div>
+   <div class="card" style="margin-top:14px"><h2>📋 ${tr("Ficha médica")}</h2><div class="form mfic">${fic.map(([k,l])=>`<label${["antecedentes","lesprev"].includes(k)?' class="wide"':""}>${tr(l)}${["antecedentes","lesprev"].includes(k)?`<textarea rows="2" data-mfic="${k}"${E?"":" disabled"}>${esc(fi[k]||"")}</textarea>`:`<input type="${k.startsWith("rev")?"date":k==="urgtel"?"tel":"text"}" data-mfic="${k}" value="${esc(fi[k]||"")}"${E?"":" disabled"}>`}</label>`).join("")}</div></div>${crec}`}
+
+/* ---- formularios ---- */
+function lesForm(pid,i,zona){const m=mDoc(pid),isNew=i==null;const l=isNew?{id:uid(),zona:zona||"",fecha:isoD(new Date()),fase:0,mec:MECAN[0],ctx:LCTX[0],prueba:"Ninguna",dias:""}:{...m.lesiones[i]};
+  const zopts=[];for(const v of ["f","b"])for(const [z,s] of MSH.map(x=>[x[0],x[1]]))zopts.push([zKey(v,z,s),(v==="f"?"":"↩ ")+zName(zKey(v,z,s))]);
+  const topts=[];LTIPOS.forEach(([g,L])=>L.forEach(t=>topts.push([t,tr(g)+" · "+tr(t)])));
+  cxForm(isNew?tr("Nueva lesión"):tr("Lesión"),[{k:"zona",l:"Zona",type:"select",opts:zopts,wide:1},{k:"tipo",l:"Tipo de lesión",type:"select",opts:topts,wide:1},{k:"grado",l:"Grado",type:"select",opts:GRADOS},{k:"det",l:"Detalle de la zona",ph:"Ej.: cara interna, inserción…"},{k:"fecha",l:"Fecha",type:"date"},{k:"dias",l:"Días de baja previstos",type:"number"},
+    {k:"mec",l:"Mecanismo",type:"select",opts:MECAN},{k:"ctx",l:"Dónde ocurrió",type:"select",opts:LCTX},{k:"prueba",l:"Prueba",type:"select",opts:PRUEBA},{k:"recaida",l:"Recaída",type:"check"},
+    {k:"diag",l:"Diagnóstico y notas",type:"area",wide:1,rows:3},{k:"alta",l:"Fecha de alta (vuelta a competir)",type:"date"}],l,
+    d=>{if(!d.zona||!d.fecha)return;d.dias=d.dias===""?"":+d.dias;if(d.dias)d.vuelta=addD(d.fecha,d.dias);else delete d.vuelta;if(isConm(d)&&!d.dias){d.dias=21;d.vuelta=addD(d.fecha,21)}const o={...l,...d};if(o.alta){const n=lesN(o).length-1;o.fase=n;(o.ff=o.ff||{})[n]=o.alta}
+      if(isNew){o.ff={0:o.fecha};m.lesiones.push(o)}else m.lesiones[i]=o;medZone=null;medSave(pid,1)},
+    isNew?null:()=>{ask(tr("¿Eliminar esta lesión?"),tr("Eliminar"),()=>{m.lesiones.splice(i,1);medSave(pid);render()})})}
+function crecForm(pid,id){const m=mDoc(pid);m.crec=m.crec||[];const g0=m.crec.find(x=>x.id===id);const isNew=!g0;const g=g0?{...g0}:{id:uid(),fecha:isoD(new Date())};
+  cxForm(tr("Medida de crecimiento"),[{k:"fecha",l:"Fecha",type:"date"},{k:"alt",l:"Altura (cm)",type:"number"},{k:"peso",l:"Peso (kg)",type:"number"},{k:"sent",l:"Altura sentado (cm)",type:"number"}],g,
+    d=>{if(!d.fecha||!+d.alt)return;d.alt=+d.alt;if(d.peso)d.peso=+d.peso;if(d.sent)d.sent=+d.sent;m.crec=m.crec.filter(x=>x.id!==d.id);m.crec.push({...g,...d});medSave(pid)},isNew?null:()=>{m.crec=m.crec.filter(x=>x.id!==id);medSave(pid)})}
+function enfForm(pid,i){const m=mDoc(pid),isNew=i==null;const e=isNew?{id:uid(),tipo:ENF[0],desde:isoD(new Date()),estado:"Baja"}:{...m.enf[i]};
+  cxForm(isNew?tr("Nueva enfermedad"):tr("Enfermedad"),[{k:"tipo",l:"Enfermedad",type:"select",opts:ENF},{k:"estado",l:"Estado",type:"select",opts:["Baja","Entrena con limitaciones","Recuperado"]},{k:"desde",l:"Desde",type:"date"},{k:"hasta",l:"Vuelta prevista",type:"date"},
+    {k:"temp",l:"Temperatura máx. (°C)",type:"number"},{k:"med",l:"Medicación"},{k:"sint",l:"Síntomas y notas",type:"area",wide:1,rows:3}],e,
+    d=>{if(!d.desde)return;const R=ENFR[d.tipo];if(!d.hasta&&R&&R[0])d.hasta=addD(d.desde,R[0]+1);const o={...e,...d};if(isNew)m.enf.push(o);else m.enf[i]=o;medSave(pid)},isNew?null:()=>{m.enf.splice(i,1);medSave(pid)})}
+function fisForm(pid,i){const m=mDoc(pid),isNew=i==null;const f=isNew?{id:uid(),fecha:isoD(new Date()),tec:[],da:"",dd:""}:{...m.fisio[i],tec:[...(m.fisio[i].tec||[])]};
+  const les=m.lesiones.filter(l=>!l.alta);
+  $("#modalbox").innerHTML=`<h2 style="margin-top:0">${tr(isNew?"Nueva sesión de fisioterapia":"Sesión de fisioterapia")}</h2><div class="form cxf">
+    <label>${tr("Fecha")}<input type="date" id="fsf" value="${esc(f.fecha)}"></label><label>${tr("Lesión")}<select id="fsl"><option value="">—</option>${les.map(l=>`<option value="${esc(l.id)}"${f.les===l.id?" selected":""}>${esc(zName(l.zona))} · ${esc(tr(l.tipo||""))}</option>`).join("")}</select></label>
+    <label class="wide">${tr("Técnicas")}<span class="ftec">${FTEC.map(t=>`<button type="button" class="chip${f.tec.includes(t)?" on":""}" data-ftec="${esc(t)}">${esc(tr(t))}</button>`).join("")}</span></label>
+    <label>${tr("Dolor antes (0–10)")}<input type="range" min="0" max="10" id="fsa" value="${f.da===""?0:f.da}"><b class="fsv" id="fsav">${f.da===""?"—":f.da}</b></label><label>${tr("Dolor después (0–10)")}<input type="range" min="0" max="10" id="fsd" value="${f.dd===""?0:f.dd}"><b class="fsv" id="fsdv">${f.dd===""?"—":f.dd}</b></label>
+    <label class="wide">${tr("Notas")}<textarea id="fsn" rows="2">${esc(f.nota||"")}</textarea></label><label class="wide">${tr("Ejercicios para casa")}<textarea id="fsc" rows="2">${esc(f.casa||"")}</textarea></label></div>
+    <div class="toolbar" style="justify-content:space-between;margin:14px 0 0">${isNew?"<span></span>":`<button class="btn ghost" data-fsx="del" style="color:var(--red);border-color:var(--red)">${tr("Eliminar")}</button>`}<span style="display:flex;gap:8px"><button class="btn ghost" data-fsx="no">${tr("Cancelar")}</button><button class="btn red" data-fsx="ok">${tr("Guardar")}</button></span></div>`;
+  $("#modal").classList.add("on");const tch={a:f.da!=="",d:f.dd!==""};
+  $("#modalbox").oninput=ev=>{if(ev.target.id==="fsa"){tch.a=true;$("#fsav").textContent=ev.target.value}if(ev.target.id==="fsd"){tch.d=true;$("#fsdv").textContent=ev.target.value}};
+  $("#modal").onclick=ev=>{if(ev.target.id==="modal"){$("#modal").classList.remove("on");return}const t=ev.target.closest("[data-ftec]");if(t){const v=t.dataset.ftec;f.tec=f.tec.includes(v)?f.tec.filter(x=>x!==v):[...f.tec,v];t.classList.toggle("on");return}
+    const b=ev.target.closest("[data-fsx]");if(!b)return;const k=b.dataset.fsx;$("#modal").classList.remove("on");$("#modalbox").oninput=null;
+    if(k==="del"){m.fisio.splice(i,1);medSave(pid);render();return}if(k!=="ok")return;
+    const o={...f,fecha:$("#fsf").value||f.fecha,les:$("#fsl").value,da:tch.a?+$("#fsa").value:"",dd:tch.d?+$("#fsd").value:"",nota:$("#fsn").value.trim(),casa:$("#fsc").value.trim()};if(isNew)m.fisio.push(o);else m.fisio[i]=o;medSave(pid);render()}}
+
+document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;let b;
+  if((b=t.closest("[data-medy]"))){ev.stopImmediatePropagation();medYear=+b.dataset.medy;render();return}
+  if((b=t.closest("[data-medv]"))){ev.stopImmediatePropagation();medView=b.dataset.medv;render();return}
+  if((b=t.closest("[data-medp]"))){ev.stopImmediatePropagation();medPid=b.dataset.medp;medZone=null;render();window.scrollTo(0,0);return}
+  if(t.closest("[data-medback]")){ev.stopImmediatePropagation();medPid=null;render();return}
+  if(route!=="medica"||!medPid)return;
+  if((b=t.closest("[data-bz]"))){ev.stopImmediatePropagation();if(!medE())return;medZone=b.dataset.bz;lesForm(medPid,null,medZone);return}
+  if(t.closest("[data-lesnew]")){ev.stopImmediatePropagation();lesForm(medPid,null,medZone);return}
+  if((b=t.closest("[data-lesed]"))){ev.stopImmediatePropagation();lesForm(medPid,+b.dataset.lesed);return}
+  if((b=t.closest("[data-rtp]"))){ev.stopImmediatePropagation();if(!medE())return;const [i,j]=b.dataset.rtp.split("|").map(Number);const l=mDoc(medPid).lesiones[i];if(!l)return;l.fase=j;(l.ff=l.ff||{})[j]=l.ff[j]||isoD(new Date());if(j===lesN(l).length-1)l.alta=l.alta||isoD(new Date());else delete l.alta;medSave(medPid);render();return}
+  if(t.closest("[data-crecnew]")){ev.stopImmediatePropagation();crecForm(medPid);return}
+  if((b=t.closest("[data-creced]"))){ev.stopImmediatePropagation();crecForm(medPid,b.dataset.creced);return}
+  if(t.closest("[data-enfnew]")){ev.stopImmediatePropagation();enfForm(medPid);return}
+  if((b=t.closest("[data-enfed]"))){ev.stopImmediatePropagation();enfForm(medPid,+b.dataset.enfed);return}
+  if(t.closest("[data-fisnew]")){ev.stopImmediatePropagation();fisForm(medPid);return}
+  if((b=t.closest("[data-fised]"))){ev.stopImmediatePropagation();fisForm(medPid,+b.dataset.fised);return}},true);
+document.addEventListener("change",ev=>{const t=ev.target;if(!t.dataset||route!=="medica"||!medPid||!medE())return;
+  if(t.dataset.crit){ev.stopImmediatePropagation();const [i,f,k]=t.dataset.crit.split("|");const l=mDoc(medPid).lesiones[+i];if(!l)return;(l.crit=l.crit||{})[f+"_"+k]=t.checked;medSave(medPid);return}
+  if(t.dataset.mfic){ev.stopImmediatePropagation();mDoc(medPid).ficha[t.dataset.mfic]=t.value;medSave(medPid);if(/^alt/.test(t.dataset.mfic))setTimeout(render,0);return}},true);
+document.addEventListener("input",ev=>{const t=ev.target;if(!t.dataset||!t.dataset.mfic||route!=="medica"||!medPid||!medE())return;ev.stopImmediatePropagation();mDoc(medPid).ficha[t.dataset.mfic]=t.value;medSave(medPid)},true);
 /* ================= COORDINACIÓN (sección principal) ================= */
 const CX0={inst:{salas:["Sala multimedia"],bloq:[],res:[]},pers:{staff:{},sust:[],material:{}},disp:{},even:[],reu:[],av:[]};
 let cx=JSON.parse(JSON.stringify(CX0)),cxT={},cxView="panel",hrView="semana",hrDay=null,hrMonth=null,calView="lista",calTeam="";
@@ -1687,7 +1908,7 @@ function logForm(m){const l=m.log||{};cxForm(`${teamName(genOf(m))} · ${fD(m.da
 /* ---- 11·13 · Personas: staff por equipo, sustituciones, disponibilidad ---- */
 const ROLES=[["ent","Entrenador"],["seg","Segundo entrenador"],["pf","Preparador físico"],["por","Entrenador de porteros"],["del","Delegado"],["fis","Fisioterapeuta"]];
 const DISP=["Disponible","Lesionado","Enfermo","Estudios / exámenes","Selección","Viaje familiar","Otro"];
-function dispList(){return Object.values(players).filter(p=>(p.origen||"Plantilla")==="Plantilla"&&p.estado!=="Descartar"&&YEARS.includes(+p.gen)).map(p=>{const d=(cx.disp||{})[p.id]||{};const act=d.st&&d.st!=="Disponible"&&(!d.hasta||d.hasta>=isoD(new Date()));return {p,st:act?d.st:"Disponible",hasta:act?d.hasta:"",nota:act?d.nota:""}})}
+function dispList(){return Object.values(players).filter(p=>(p.origen||"Plantilla")==="Plantilla"&&p.estado!=="Descartar"&&YEARS.includes(+p.gen)).map(p=>{const d=(cx.disp||{})[p.id]||{};const sm=semOf(p.id);if(sm&&(!d.st||d.st==="Disponible"))return {p,st:SEMC[sm.c][1],hasta:sm.hasta||"",nota:""};const act=d.st&&d.st!=="Disponible"&&(!d.hasta||d.hasta>=isoD(new Date()));return {p,st:act?d.st:"Disponible",hasta:act?d.hasta:"",nota:act?d.nota:""}})}
 function vPersonas(){const E=ed(),S=cx.pers.staff||{};
   const st=`<div class="card"><h2>👥 ${tr("Staff de cada equipo")}</h2><div class="tablewrap"><table class="stt"><tr><th></th>${ROLES.map(r=>`<th>${tr(r[1])}</th>`).join("")}</tr>${YEARS.map(y=>`<tr><td>${tchip(y,String(y))}</td>${ROLES.map(([k])=>`<td><input type="text" data-stf="${y}|${k}" value="${esc((S[y]||{})[k]||"")}"${E?"":" disabled"}></td>`).join("")}</tr>`).join("")}</table></div></div>`;
   const today=isoD(new Date());const su=(cx.pers.sust||[]).filter(s=>s.fecha>=addD(today,-14)).sort((a,b)=>a.fecha.localeCompare(b.fecha));
@@ -1785,7 +2006,7 @@ document.addEventListener("change",ev=>{const t=ev.target;if(!t.dataset||!ed())r
   if(t.dataset.acok!=null){const r=reuCur();if(r){r.acuerdos[+t.dataset.acok].hecho=t.checked;cxSave("reu")}ev.stopImmediatePropagation();return}
   if(t.dataset.stf){const [y,k]=t.dataset.stf.split("|");avAdd(`${tr("Staff")} ${teamName(+y)}: ${tr((ROLES.find(r=>r[0]===k)||[])[1]||k)} → ${t.value||"—"}`);cxSave("av");ev.stopImmediatePropagation();return}},true);
 /* ================= BANDEJA DE NOTIFICACIONES (personal) ================= */
-const NT={chat:{n:"Chat",i:"💬",c:"#282a6f"},coord:{n:"Coordinación",i:"📋",c:"#e08a00"},partido:{n:"Partidos",i:"⚽",c:"#e8151e"},entreno:{n:"Entrenamientos",i:"🏃",c:"#1f8a4c"},tarea:{n:"Tareas",i:"📌",c:"#7B1FA2"},reunion:{n:"Reuniones",i:"🗂",c:"#5b4bc4"},personas:{n:"Personas",i:"🔁",c:"#0b8a8a"},scouting:{n:"Scouting",i:"🔎",c:"#2f6fd6"}};
+const NT={chat:{n:"Chat",i:"💬",c:"#282a6f"},coord:{n:"Coordinación",i:"📋",c:"#e08a00"},partido:{n:"Partidos",i:"⚽",c:"#e8151e"},entreno:{n:"Entrenamientos",i:"🏃",c:"#1f8a4c"},tarea:{n:"Tareas",i:"📌",c:"#7B1FA2"},reunion:{n:"Reuniones",i:"🗂",c:"#5b4bc4"},personas:{n:"Personas",i:"🔁",c:"#0b8a8a"},scouting:{n:"Scouting",i:"🔎",c:"#2f6fd6"},medico:{n:"Médico",i:"✚",c:"#d6336c"}};
 let ntOpen=false,ntTab="todas",ntCat="";
 const ntNorm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
 function ntIsMe(txt){const me=ntNorm(uiUser);if(!me||!txt)return false;const t=ntNorm(txt);if(!t)return false;if(t.includes(me))return true;const m=me.split(" "),w=t.split(" ");
@@ -1828,6 +2049,15 @@ function ntItems(){const out=[],now=Date.now(),today=isoD(new Date()),me=uiUser|
   // 8 · Scouting: fichas cambiadas por otras personas (últimos 7 días)
   if(canMod("scouting")&&typeof actLog!=="undefined"){const seen=new Set();for(const l of actLog){const t=new Date(l.t).getTime();if(now-t>7*864e5||l.quien===me)continue;const key=l.pid+"|"+l.quien+"|"+isoD(new Date(t));if(seen.has(key))continue;seen.add(key);if(seen.size>40)break;
     add({id:"lg:"+(l._id||l.t+l.pid),k:"scouting",t,ti:`${l.quien||tr("Alguien")} ${l.accion==="creado"?tr("ha añadido a"):l.accion==="eliminado"?tr("ha eliminado a"):tr("ha editado a")} ${l.nombre||""}`,bo:`${l.gen?tr("Generación")+" "+l.gen:""}${(l.campos||[]).length?" · "+l.campos.slice(0,4).map(c=>tr(c)).join(", "):""}`,go:()=>{if(players[l.pid]){openId=l.pid;render()}else location.hash="#jugadores"}})}}
+  // 9 · Servicios médicos: fin de baja, revisiones y estirón (solo Área médica y Dirección)
+  if(canMod("medica")&&typeof med!=="undefined"){for(const pid of Object.keys(med)){const p=players[pid];if(!p)continue;const m=med[pid]||{};const goM=()=>{medPid=pid;location.hash="#medica";if(route==="medica")render()};
+    for(const l of m.lesiones||[]){if(l.alta||!l.vuelta||l.vuelta>addD(today,2))continue;const late=l.vuelta<today;
+      add({id:"mv:"+pid+":"+l.id+":"+l.vuelta,k:"medico",t:Math.min(now,dayMs(l.vuelta)-2*864e5),ti:(late?tr("Baja pasada de fecha"):tr("Fin de baja próximo"))+" · "+p.nombre,bo:`${zName(l.zona)} · ${tr(l.tipo||"")} · ${tr("vuelta prevista")} ${fD(l.vuelta)}`,tag:late?tr("Revisar"):"",pri:late,go:goM})}
+    const fi=m.ficha||{};if(fi.revprox&&fi.revprox<=addD(today,7))add({id:"mr:"+pid+":"+fi.revprox,k:"medico",t:Math.min(now,dayMs(fi.revprox)-7*864e5),ti:(fi.revprox<today?tr("Revisión médica pendiente"):tr("Revisión médica"))+" · "+p.nombre,bo:fD(fi.revprox),pri:fi.revprox<today,go:goM});
+    const g=growth(pid);if(g.alert&&g.last)add({id:"mg:"+pid+":"+g.last.fecha,k:"medico",t:Math.min(now,dayMs(g.last.fecha)+12*36e5),ti:tr("Estirón")+" · "+p.nombre,bo:g.alert,go:goM})}}
+  // 10 · Semáforo de los jugadores de mi equipo (sin diagnóstico)
+  else if(hasMine&&typeof sem!=="undefined"){for(const [pid,s0] of Object.entries(sem)){const p=players[pid];if(!p||!mine.includes(+p.gen)||!SEMC[s0.c])continue;
+    add({id:"sm:"+pid+":"+s0.c+":"+(s0.hasta||""),k:"medico",t:now-6e4,ti:`${p.nombre}: ${tr(SEMC[s0.c][1])}`,bo:`${teamName(+p.gen)}${s0.hasta?" · "+tr("vuelta prevista")+" "+fD(s0.hasta):""}`,pri:s0.c==="rojo",go:()=>{location.hash="#equipo"}})}}
   const R=ntRead(),clr=ntClear();
   for(const o of out){if(o.live)continue;o.unread=!(o.rd||R[o.id]||o.t<=clr)}
   return out.sort((a,b)=>(b.unread-a.unread)||(b.pri?1:0)-(a.pri?1:0)||b.t-a.t)}
@@ -2541,6 +2771,7 @@ function startData(){if(db)return;(async()=>{
   if(!subs.l&&canMod("scouting")){subs.l=1;try{let q=db.collection("log");if(typeof q.orderBy==="function")q=q.orderBy("t","desc").limit(300);q.onSnapshot(sn=>{const m=new Map(actLog.map(e=>[e._id,e]));for(const ch of sn.docChanges()){if(ch.type==="removed")m.delete(ch.doc.id);else{const d=ch.doc.data();if(d&&d.t&&d.accion)m.set(ch.doc.id,{...d,_id:ch.doc.id})}}actLog=[...m.values()].sort((a,b)=>a.t<b.t?1:-1).slice(0,300);if(route==="inicio"&&!openId)render()},()=>{})}catch(_){}}
   try{cxSubs();calSubs()}catch(_){}
   try{chatSubs()}catch(_){}
+  try{medSubs()}catch(_){}
   if(!subs.p){clearTimeout(timer);dbOK=true;setStatus("ok","Datos guardados en la nube")}}
   ensureSubs();
   db.doc("settings/main").onSnapshot(s=>{if(s.exists&&!sTimer&&!sWriting){const d=s.data();settings={formato:{...DEF_FMT,...(d.formato||{})},formacion:{...(d.formacion||{})},formacion2:{...(d.formacion2||{})},cortes:{...(d.cortes||{})},preguntas:[...(d.preguntas||[])],decision:{...(d.decision||{})},needs:{...(d.needs||{})},permisos:{...(d.permisos||{})}};ensureSubs();if(!document.activeElement||!document.activeElement.closest||!document.activeElement.closest("textarea,input,select"))render()}},()=>{});
