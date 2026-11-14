@@ -433,6 +433,35 @@ body.mob .rtab tr.nedit{display:block}body.mob .rtab tr.nedit td{display:block}b
 .chgn{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}
 body.mob .chwrap{grid-template-columns:1fr;height:calc(100vh - 230px);height:calc(100dvh - 230px)}body.mob .chwrap.vlist .chmain{display:none}body.mob .chwrap.vconv .chside{display:none}
 body.mob .chback{display:inline-flex}body.mob .chm{max-width:85%}body.mob .chbadge{top:2px;right:calc(50% - 20px)}
+
+/* Bandeja de notificaciones */
+.ntbtn{position:relative;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-right:8px;flex:none}
+.ntbtn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ntbtn:hover{background:rgba(255,255,255,.12)}
+.ntbtn.has svg{animation:ntring 2.4s ease-in-out 1}.ntn{position:absolute;top:-4px;right:-5px;background:var(--red);color:#fff;font-size:10.5px;line-height:1;padding:3px 5px;border-radius:999px;border:2px solid var(--navy);font-weight:800;min-width:18px;text-align:center}
+@keyframes ntring{0%,100%{transform:rotate(0)}10%,30%{transform:rotate(14deg)}20%,40%{transform:rotate(-14deg)}50%{transform:rotate(0)}}
+.tright{display:flex;align-items:center}
+#ntbg{position:fixed;inset:0;background:rgba(20,22,60,.35);opacity:0;pointer-events:none;transition:opacity .2s;z-index:80}#ntbg.on{opacity:1;pointer-events:auto}
+#ntpanel{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100vw;background:#f5f5f9;z-index:81;transform:translateX(105%);transition:transform .25s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.18)}
+#ntpanel.on{transform:none}
+.nthd{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 16px;background:linear-gradient(135deg,var(--navy),#3b3f9a);color:#fff}.nthd b{display:block;font:800 20px var(--fd)}.nthd small{opacity:.8;font-size:12.5px}
+.ntx0{background:rgba(255,255,255,.15);border:0;color:#fff;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer}
+.nttabs{display:flex;gap:6px;align-items:center;padding:10px 14px 4px;background:#fff}.nttabs button{border:0;background:#eef0f7;color:var(--navy);font:700 13px var(--fb);padding:7px 12px;border-radius:999px;cursor:pointer}
+.nttabs button span{background:#fff;border-radius:999px;padding:0 6px;margin-left:3px;font-size:11px}.nttabs button.on{background:var(--navy);color:#fff}.nttabs button.on span{background:rgba(255,255,255,.2)}
+.nttabs .ntall{margin-left:auto;background:none;color:var(--muted);font-size:12px;padding:6px 4px}.nttabs .ntall:hover{color:var(--navy)}
+.ntcats{display:flex;gap:6px;overflow-x:auto;padding:8px 14px 10px;background:#fff;border-bottom:1px solid var(--line);scrollbar-width:none}
+.ntcats button{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px;font:700 12px var(--fb);color:var(--ink);cursor:pointer;white-space:nowrap}
+.ntcats button.on{background:var(--nc,var(--navy));border-color:var(--nc,var(--navy));color:#fff}
+.ntlist{flex:1;overflow-y:auto;padding:6px 12px 20px}.ntg{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 4px 6px}
+.nti{position:relative;display:flex;gap:12px;width:100%;text-align:left;border:0;background:#fff;border-radius:14px;padding:12px 14px 12px 12px;margin:0 0 8px;cursor:pointer;font:inherit;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.05);border-left:4px solid transparent;transition:transform .12s,box-shadow .12s}
+.nti:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.08)}.nti.un{border-left-color:var(--nc)}.nti:not(.un){opacity:.72}.nti.pri.un{background:linear-gradient(90deg,color-mix(in srgb,var(--nc) 8%,#fff),#fff 60%)}
+.ntic{width:40px;height:40px;border-radius:12px;background:color-mix(in srgb,var(--nc) 14%,#fff);display:inline-flex;align-items:center;justify-content:center;font-size:19px;flex:none}
+.ntb{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.ntt{display:flex;align-items:center;gap:6px}.ntt b{font-size:14px;line-height:1.25}.ntt em{font-style:normal;background:var(--nc);color:#fff;font-size:11px;font-weight:800;border-radius:999px;padding:1px 7px}
+.ntx{font-size:13px;color:#4a4c66;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ntm{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:11px;color:var(--muted)}.ntm i{font-style:normal;font-weight:800;color:var(--nc)}.ntm u{text-decoration:none;background:var(--red);color:#fff;border-radius:6px;padding:1px 6px;font-weight:800}
+.ntdot{position:absolute;top:14px;right:12px;width:9px;height:9px;border-radius:50%;background:var(--nc)}
+.ntempty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:60px 24px;color:var(--muted)}.ntempty span{font-size:40px}.ntempty b{color:var(--navy);font-size:16px}
+body.ntopen{overflow:hidden}
+body.mob #ntpanel{width:100vw;top:0;border-radius:0}body.mob .ntbtn{width:34px;height:34px;margin-right:6px}
 .cv-first{background:none;border:0;color:#666;text-decoration:underline;font-size:.82em;margin-top:10px;cursor:pointer;width:100%}
 .ucard .utab td{vertical-align:middle;padding:8px 6px}.ucard .uar{display:flex;flex-wrap:wrap;gap:6px}.ucard .uar label{display:flex;align-items:center;gap:4px;font-size:.85em;background:#f3f4f8;border-radius:999px;padding:4px 10px;cursor:pointer}.ucard .uar label.on{background:#dfe4fb;color:#1F2A6B;font-weight:700}.ucard .uform{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}.ucard .uform input{width:100%}body.mob .ucard .uform{grid-template-columns:1fr}.ucard .umail{color:#777;font-size:.82em;display:block}
 </style>
@@ -474,7 +503,7 @@ body.mob .chback{display:inline-flex}body.mob .chm{max-width:85%}body.mob .chbad
   <nav class="tabs" id="tabs">
     <a href="#inicio"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Inicio</span></a><a href="#coordinacion"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M12 4v16"/><circle cx="12" cy="12" r="2.6"/><path d="M3 9h3v6H3M21 9h-3v6h3"/></svg><span>Coordinación</span></a><a href="#campograma"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/><path d="M11 8v6M8 11h6"/></svg><span>Scouting</span></a><a href="#equipo"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h3v3H8z"/></svg><span>Entrenamiento</span></a><a href="#medica"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.3-9.6C1.4 7.8 3.6 4.5 7 4.5c2 0 3.5 1.1 5 3 1.5-1.9 3-3 5-3 3.4 0 5.6 3.3 4.3 6.9C19.5 16.4 12 21 12 21z"/><path d="M12 10v5M9.5 12.5h5"/></svg><span>Médica</span></a><a href="#marketing"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v3a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11"/></svg><span>Marketing</span></a><a href="#chat"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span>Chat</span></a><a href="#exportar"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg><span>Exportar</span></a>
   </nav>
-  <div class="tright"><div class="langs" id="langs" data-noi18n></div><button class="ubtn" id="ubtn" data-act="umenu" aria-label="Usuario"></button></div>
+  <div class="tright"><div class="langs" id="langs" data-noi18n></div><button class="ntbtn" id="ntbtn" hidden aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10a6 6 0 0 1 12 0c0 5 2 6.5 2 6.5H4S6 15 6 10z"/><path d="M10 19.5a2.2 2.2 0 0 0 4 0"/></svg><b class="ntn" hidden></b></button><button class="ubtn" id="ubtn" data-act="umenu" aria-label="Usuario"></button></div>
 </div></header>
 <div class="years"><div class="yearsin" id="years"></div></div>
 <main id="view"></main>
@@ -1419,7 +1448,7 @@ function chatPaint(isMsg){
   const L=$("#chatlist"),M=$("#chatmsgs");if(!L){render();return}
   L.innerHTML=chatListHtml();if(M){const atEnd=M.scrollHeight-M.scrollTop-M.clientHeight<80;M.innerHTML=chatMsgsHtml(chatCur);if(atEnd)M.scrollTop=M.scrollHeight}
   const H=$("#chathead");if(H&&chats[chatCur])H.innerHTML=chatHeadHtml(chats[chatCur])}
-function chatBadge(){const a=document.querySelector('#tabs a[href="#chat"]');if(!a)return;const n=chatUnreadAll();let b=a.querySelector(".chbadge");if(!n){if(b)b.remove();return}if(!b){b=document.createElement("b");b.className="chbadge";a.appendChild(b)}b.textContent=n>99?"99+":n}
+function chatBadge(){try{ntBadge()}catch(_){}const a=document.querySelector('#tabs a[href="#chat"]');if(!a)return;const n=chatUnreadAll();let b=a.querySelector(".chbadge");if(!n){if(b)b.remove();return}if(!b){b=document.createElement("b");b.className="chbadge";a.appendChild(b)}b.textContent=n>99?"99+":n}
 
 function chatListHtml(){const L=chatList();if(!L.length)return `<p class="hint" style="padding:12px">${tr("Todavía no tienes conversaciones. Empieza un chat o crea un grupo.")}</p>`;
   return L.map(ch=>{const l=chatLast(ch.id),n=chatUnread(ch.id);return `<button class="chi${ch.id===chatCur?" on":""}" data-chopen="${esc(ch.id)}">${chatAv(ch)}<span class="chim"><span class="chit"><b data-noi18n>${esc(chatTitle(ch))}</b><small>${l?chatTime(l.t):""}</small></span><span class="chip2"><span data-noi18n>${l?esc((ch.grupo&&l.de!==chatMe()?chatName(l.de).split(" ")[0]+": ":l.de===chatMe()?tr("Tú")+": ":"")+l.txt):`<i>${tr("Sin mensajes")}</i>`}</span>${n?`<b class="chn">${n}</b>`:""}</span></span></button>`}).join("")}
@@ -1489,7 +1518,7 @@ let k_av_timer=null;
 function cxSubs(){if(!db||cxSubs.done||!canMod("equipo"))return;cxSubs.done=1;
   for(const k of CX_KEYS){try{db.doc("coord/"+k).onSnapshot(sn=>{if(cxT[k])return;const d=sn.exists?sn.data():null;if(d&&d.v!==undefined)cx[k]=d.v;cxRefresh()},()=>{})}catch(_){}}}
 function calSubs(){if(!db||calSubs.done)return;calSubs.done=1;try{db.doc("calendario/state").onSnapshot(sn=>{if(cxT.cal)return;const d=sn.exists?sn.data():null;if(d&&Array.isArray(d.matches)){calRaw=d;CALP=calFrom(d)}cxRefresh()},()=>{})}catch(_){}}
-function cxRefresh(){const ae=document.activeElement;if(["coordinacion","equipo","marketing","inicio"].includes(route)&&!openId&&!(ae&&ae.closest&&ae.closest("input,textarea,select"))&&!$("#modal").classList.contains("on"))render()}
+function cxRefresh(){try{ntBadge()}catch(_){}const ae=document.activeElement;if(["coordinacion","equipo","marketing","inicio"].includes(route)&&!openId&&!(ae&&ae.closest&&ae.closest("input,textarea,select"))&&!$("#modal").classList.contains("on"))render()}
 const calBase=()=>calRaw||CALP_RAW||CALP_SNAP;
 function calEdit(fn,aviso){const d=JSON.parse(JSON.stringify(calBase()));fn(d);d.savedAt=Date.now();calRaw=d;CALP=calFrom(d);if(aviso)avAdd(aviso);if(!db)return;clearTimeout(cxT.cal);cxT.cal=setTimeout(()=>{cxT.cal=null;db.doc("calendario/state").set(JSON.parse(JSON.stringify(d))).then(()=>setStatus("ok",tr("Guardado"))).catch(()=>setStatus("warn",tr("No se pudo guardar")))},300)}
 const genId=y=>"g"+y;const genOf=m=>+String(m.gen||"").replace(/\D/g,"");
@@ -1755,6 +1784,79 @@ document.addEventListener("input",ev=>{const t=ev.target;if(!t.dataset||!ed())re
 document.addEventListener("change",ev=>{const t=ev.target;if(!t.dataset||!ed())return;
   if(t.dataset.acok!=null){const r=reuCur();if(r){r.acuerdos[+t.dataset.acok].hecho=t.checked;cxSave("reu")}ev.stopImmediatePropagation();return}
   if(t.dataset.stf){const [y,k]=t.dataset.stf.split("|");avAdd(`${tr("Staff")} ${teamName(+y)}: ${tr((ROLES.find(r=>r[0]===k)||[])[1]||k)} → ${t.value||"—"}`);cxSave("av");ev.stopImmediatePropagation();return}},true);
+/* ================= BANDEJA DE NOTIFICACIONES (personal) ================= */
+const NT={chat:{n:"Chat",i:"💬",c:"#282a6f"},coord:{n:"Coordinación",i:"📋",c:"#e08a00"},partido:{n:"Partidos",i:"⚽",c:"#e8151e"},entreno:{n:"Entrenamientos",i:"🏃",c:"#1f8a4c"},tarea:{n:"Tareas",i:"📌",c:"#7B1FA2"},reunion:{n:"Reuniones",i:"🗂",c:"#5b4bc4"},personas:{n:"Personas",i:"🔁",c:"#0b8a8a"},scouting:{n:"Scouting",i:"🔎",c:"#2f6fd6"}};
+let ntOpen=false,ntTab="todas",ntCat="";
+const ntNorm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+function ntIsMe(txt){const me=ntNorm(uiUser);if(!me||!txt)return false;const t=ntNorm(txt);if(!t)return false;if(t.includes(me))return true;const m=me.split(" "),w=t.split(" ");
+  // "Javier González" coincide con "Javier", "Javi González", "J. González"…
+  if(w.length===1)return w[0].length>=3&&(m[0]===w[0]||(m[0].startsWith(w[0])&&w[0].length>=4));
+  return w.some(x=>x===m[0]||(x.length>=4&&m[0].startsWith(x)))&&(m.length<2||w.some(x=>x===m[m.length-1]||x===m[1]))}
+function ntMyTeams(){const S=(typeof cx!=="undefined"&&cx.pers&&cx.pers.staff)||{};return YEARS.filter(y=>Object.values(S[y]||{}).some(v=>String(v||"").split(/[,/;]| y /).some(ntIsMe)))}
+function ntRead(){try{return JSON.parse(localStorage.getItem("kz_nt_read")||"{}")}catch(_){return {}}}
+function ntSetRead(ids){const r=ntRead();ids.forEach(i=>r[i]=Date.now());const lim=Date.now()-60*864e5;for(const k in r)if(r[k]<lim)delete r[k];try{localStorage.setItem("kz_nt_read",JSON.stringify(r))}catch(_){}}
+const ntClear=()=>+(lsGet("kz_nt_clear","0"))||0;
+const dayMs=d=>new Date(d+"T00:00:00").getTime();
+
+function ntItems(){const out=[],now=Date.now(),today=isoD(new Date()),me=uiUser||"";const mine=ntMyTeams(),hasMine=mine.length>0;
+  const add=o=>out.push(o);
+  // 1 · Chat: una notificación por conversación con mensajes sin leer
+  if(typeof chats!=="undefined"){for(const ch of chatList()){const n=chatUnread(ch.id);if(!n)continue;const l=chatLast(ch.id);
+    add({id:"chat:"+ch.id+":"+(l&&l.id),k:"chat",t:l?l.t:now,ti:chatTitle(ch),bo:(ch.grupo?chatName(l.de).split(" ")[0]+": ":"")+(l?l.txt:""),cnt:n,unread:true,live:true,go:()=>{chatCur=ch.id;chatMob="conv";location.hash="#chat";if(route==="chat")render()}})}}
+  if(canMod("equipo")&&typeof cx!=="undefined"){
+    // 2 · Avisos de Coordinación (cambios hechos por otras personas)
+    let avSeen=0;try{avSeen=+localStorage.getItem("kz_av_seen")||0}catch(_){}
+    for(const a of (cx.av||[])){if(a.who===me||now-a.t>21*864e5)continue;const tuyo=hasMine&&mine.some(y=>a.txt.includes(String(y)));
+      add({id:"av:"+a.t,k:"coord",t:a.t,ti:a.txt.split(":")[0],bo:a.txt.includes(":")?a.txt.slice(a.txt.indexOf(":")+1).trim():a.txt,by:a.who,tag:tuyo?tr("Tu equipo"):"",pri:tuyo,rd:a.t<=avSeen,go:()=>{cxView="avisos";location.hash="#coordinacion";if(route==="coordinacion")render()}})}
+    // 3 · Tareas de reuniones asignadas a mí
+    for(const r of (cx.reu||[]))(r.acuerdos||[]).forEach((a,i)=>{if(a.hecho||!a.t||!ntIsMe(a.r))return;const late=a.f&&a.f<today;
+      add({id:"ac:"+r.id+":"+i+":"+(a.f||""),k:"tarea",t:dayMs(r.fecha||today)+12*36e5,ti:late?tr("Tarea atrasada"):tr("Tarea para ti"),bo:a.t+(a.f?` · ${tr("antes del")} ${fD(a.f,{day:"numeric",month:"short"})}`:""),tag:late?tr("Atrasada"):"",pri:late,go:()=>{cxView="reuniones";reuOpen=r.id;location.hash="#coordinacion";if(route==="coordinacion")render()}})});
+    // 4 · Reuniones de los próximos 3 días en las que estoy (o sin lista de asistentes)
+    for(const r of (cx.reu||[])){if(!r.fecha||r.fecha<today||r.fecha>addD(today,3))continue;const asist=String(r.asist||"");if(asist&&!asist.split(/[,;]| y /).some(ntIsMe))continue;
+      add({id:"reu:"+r.id+":"+r.fecha+(r.hora||""),k:"reunion",t:Math.min(now,dayMs(r.fecha)-2*864e5)||now,ti:r.fecha===today?tr("Reunión hoy"):tr("Próxima reunión"),bo:`${r.titulo||tr("Reunión")} · ${fD(r.fecha)}${r.hora?" "+r.hora:""}`,go:()=>{cxView="reuniones";reuOpen=r.id;location.hash="#coordinacion";if(route==="coordinacion")render()}})}
+    // 5 · Sustituciones que me afectan
+    for(const s of (cx.pers.sust||[])){if(!s.fecha||s.fecha<today)continue;const yo=ntIsMe(s.sustituto),aus=ntIsMe(s.ausente);if(!yo&&!aus&&!(hasMine&&mine.includes(+s.gen)))continue;
+      add({id:"sus:"+s.id,k:"personas",t:Math.min(now,dayMs(s.fecha)-3*864e5),ti:yo?tr("Te toca sustituir"):tr("Sustitución en tu equipo"),bo:`${teamName(+s.gen)} · ${fD(s.fecha)} · ${s.ausente} → ${s.sustituto}`,pri:yo,go:()=>{cxView="personas";location.hash="#coordinacion";if(route==="coordinacion")render()}})}
+    // 6 · Entrenamientos de mi equipo hoy y mañana (solo si estoy en el staff de algún equipo)
+    if(hasMine)for(const d of [today,addD(today,1)])for(const t of trainingsOn(d).filter(x=>mine.includes(x.gen))){const r=turnoRange(t.turno);
+      add({id:"tr:"+d+":"+t.gen+":"+t.turno.k+":"+t.ci,k:"entreno",t:dayMs(d)-(d===today?0:864e5)+7*36e5,ti:(d===today?tr("Hoy entrenas"):tr("Mañana entrenas"))+" · "+teamName(t.gen),bo:`${r?r[0]+"–"+r[1]:tr(t.turno.n)} · ${t.campo}${t.half!=="entero"?" ("+tr("mitad")+" "+tr(t.half)+")":""}`,tag:t.blocked?tr("Campo bloqueado"):"",pri:t.blocked,go:()=>{cxView="horarios";hrView="dia";hrDay=d;location.hash="#coordinacion";if(route==="coordinacion")render()}})}
+  }
+  // 7 · Partidos de los próximos 3 días (mis equipos si los tengo; si no, todos)
+  if(canMod("equipo")||canMod("partidos")||canMod("marketing")){for(let i=0;i<=3;i++){const d=addD(today,i);for(const e of matchesOn(d)){if(e.tipo!=="partido"||e.fecha!==d)continue;if(hasMine&&!mine.includes(e.gen))continue;
+    const lg=(typeof logOf==="function"&&logOf(e))||{};const falta=e.campo==="visitante"&&!lg.trans&&canMod("equipo");
+    add({id:"pt:"+e.id+":"+d+(e.hora||""),k:"partido",t:Math.min(now,dayMs(d)-3*864e5+8*36e5),ti:(i===0?tr("Hoy juega"):i===1?tr("Mañana juega"):fD(d)+" ·")+" "+teamName(e.gen),bo:`${e.hora||"--:--"} ${e.campo==="visitante"?"@":"vs"} ${e.rival||tr("Rival por confirmar")}${e.lugar?" · 📍 "+e.lugar:""}${lg.salida?` · 🚌 ${tr("salida")} ${lg.salida}`:""}`,tag:falta?tr("Falta transporte"):"",pri:falta,go:()=>{if(canMod("equipo")){cxView=falta?"logistica":"partidos";location.hash="#coordinacion";if(route==="coordinacion")render()}else{location.hash="#equipo"}}})}}}
+  // 8 · Scouting: fichas cambiadas por otras personas (últimos 7 días)
+  if(canMod("scouting")&&typeof actLog!=="undefined"){const seen=new Set();for(const l of actLog){const t=new Date(l.t).getTime();if(now-t>7*864e5||l.quien===me)continue;const key=l.pid+"|"+l.quien+"|"+isoD(new Date(t));if(seen.has(key))continue;seen.add(key);if(seen.size>40)break;
+    add({id:"lg:"+(l._id||l.t+l.pid),k:"scouting",t,ti:`${l.quien||tr("Alguien")} ${l.accion==="creado"?tr("ha añadido a"):l.accion==="eliminado"?tr("ha eliminado a"):tr("ha editado a")} ${l.nombre||""}`,bo:`${l.gen?tr("Generación")+" "+l.gen:""}${(l.campos||[]).length?" · "+l.campos.slice(0,4).map(c=>tr(c)).join(", "):""}`,go:()=>{if(players[l.pid]){openId=l.pid;render()}else location.hash="#jugadores"}})}}
+  const R=ntRead(),clr=ntClear();
+  for(const o of out){if(o.live)continue;o.unread=!(o.rd||R[o.id]||o.t<=clr)}
+  return out.sort((a,b)=>(b.unread-a.unread)||(b.pri?1:0)-(a.pri?1:0)||b.t-a.t)}
+function ntGroup(t){const d=isoD(new Date(t)),today=isoD(new Date());if(d>=today)return tr("Hoy");if(d===addD(today,-1))return tr("Ayer");if(d>=addD(today,-7))return tr("Esta semana");return tr("Antes")}
+function ntBadge(){const b=$("#ntbtn");if(!b)return;b.hidden=!uiUser;const n=uiUser?ntItems().filter(o=>o.unread).length:0;const s=b.querySelector(".ntn");s.textContent=n>99?"99+":n;s.hidden=!n;b.classList.toggle("has",!!n);
+  if(ntOpen){const p=$("#ntpanel");if(p&&!p.contains(document.activeElement))p.innerHTML=ntPanelHtml()}}
+function ntPanelHtml(){const all=ntItems(),un=all.filter(o=>o.unread);let L=ntTab==="sin"?un:all;if(ntCat)L=L.filter(o=>o.k===ntCat);
+  const cats=Object.keys(NT).filter(k=>all.some(o=>o.k===k));
+  let g="",html="";for(const o of L){const grp=o.unread?tr("Sin leer"):ntGroup(o.t);if(grp!==g){g=grp;html+=`<div class="ntg">${esc(grp)}</div>`}const T=NT[o.k];
+    html+=`<button class="nti${o.unread?" un":""}${o.pri?" pri":""}" data-nt="${esc(o.id)}" style="--nc:${T.c}"><span class="ntic">${T.i}</span><span class="ntb"><span class="ntt"><b data-noi18n>${esc(o.ti)}</b>${o.cnt?`<em>${o.cnt}</em>`:""}</span><span class="ntx" data-noi18n>${esc(o.bo||"")}</span><span class="ntm"><i>${tr(T.n)}</i>${o.tag?`<u>${esc(o.tag)}</u>`:""}${o.by?`<span data-noi18n>${esc(o.by)}</span>`:""}${["coord","chat","scouting"].includes(o.k)?`<span>${String(agoTxt(o.t)).replace("hace 1 días","ayer").replace("1 days ago","yesterday")}</span>`:""}</span></span>${o.unread?'<span class="ntdot"></span>':""}</button>`}
+  return `<div class="nthd"><div><b>${tr("Notificaciones")}</b><small>${un.length?`${un.length} ${tr(un.length===1?"sin leer":"sin leer")}`:tr("Estás al día")}</small></div><button class="ntx0" data-ntx aria-label="${tr("Cerrar")}">✕</button></div>
+   <div class="nttabs"><button class="${ntTab==="todas"?"on":""}" data-ntt="todas">${tr("Todas")} <span>${all.length}</span></button><button class="${ntTab==="sin"?"on":""}" data-ntt="sin">${tr("Sin leer")} <span>${un.length}</span></button>${un.length?`<button class="ntall" data-ntall>✓ ${tr("Marcar todo como leído")}</button>`:""}</div>
+   ${cats.length>1?`<div class="ntcats"><button class="${!ntCat?"on":""}" data-ntc="">${tr("Todo")}</button>${cats.map(k=>`<button class="${ntCat===k?"on":""}" data-ntc="${k}" style="--nc:${NT[k].c}">${NT[k].i} ${tr(NT[k].n)}</button>`).join("")}</div>`:""}
+   <div class="ntlist">${html||`<div class="ntempty"><span>🔔</span><b>${tr(ntTab==="sin"?"No tienes nada pendiente":"No hay notificaciones")}</b><small>${tr("Aquí verás los mensajes, los cambios de Coordinación, tus partidos, tus tareas y lo que te afecte.")}</small></div>`}</div>`}
+function ntShow(on){ntOpen=on;let p=$("#ntpanel"),bg=$("#ntbg");
+  if(!p){p=document.createElement("aside");p.id="ntpanel";document.body.appendChild(p);bg=document.createElement("div");bg.id="ntbg";document.body.appendChild(bg);bg.onclick=()=>ntShow(false)}
+  if(on)p.innerHTML=ntPanelHtml();p.classList.toggle("on",on);bg.classList.toggle("on",on);document.body.classList.toggle("ntopen",on)}
+document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;let b;
+  if(t.closest("#ntbtn")){ev.stopImmediatePropagation();ntShow(!ntOpen);return}
+  if(!t.closest("#ntpanel"))return;
+  if(t.closest("[data-ntx]")){ev.stopImmediatePropagation();ntShow(false);return}
+  if((b=t.closest("[data-ntt]"))){ev.stopImmediatePropagation();ntTab=b.dataset.ntt;ntShow(true);return}
+  if((b=t.closest("[data-ntc]"))){ev.stopImmediatePropagation();ntCat=b.dataset.ntc;ntShow(true);return}
+  if(t.closest("[data-ntall]")){ev.stopImmediatePropagation();const now=Date.now();lsSet("kz_nt_clear",String(now));try{localStorage.setItem("kz_av_seen",String(now))}catch(_){}
+    if(typeof chats!=="undefined")Object.keys(chats).forEach(c=>chatMarkSeen(c));ntSetRead(ntItems().map(o=>o.id));ntShow(true);ntBadge();return}
+  if((b=t.closest("[data-nt]"))){ev.stopImmediatePropagation();const o=ntItems().find(x=>x.id===b.dataset.nt);if(!o)return;ntSetRead([o.id]);ntShow(false);openId=null;o.go();ntBadge();window.scrollTo(0,0);return}},true);
+document.addEventListener("keydown",ev=>{if(ev.key==="Escape"&&ntOpen)ntShow(false)});
+{const r0=render;render=function(){const x=r0.apply(this,arguments);try{ntBadge()}catch(_){}return x}}
+setInterval(()=>{try{ntBadge()}catch(_){}},30000);
 function vCoord(){const ed=canEdit("equipo"),c=Math.min(coordCampo,coord.campos.length-1),today=isoD(new Date()),days=[0,1,2,3,4].map(i=>addD(wkStart,i));
   const ov=coord.sem&&coord.sem[wkStart]&&Object.keys(coord.sem[wkStart]).length;
   const hdr=(d,i)=>`<span class="cgdn">${tr(DIAS_S[i])}</span><span class="cgds">${tr(DIAS_S[i]).slice(0,2)}</span> <b class="cgdd${d===today?" tod":""}">${+d.slice(8)}</b> <span class="cgdm">${fDate(d,{month:"short"})}</span>`;
