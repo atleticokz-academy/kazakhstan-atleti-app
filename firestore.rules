@@ -1,0 +1,72 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Solo entra quien tenga sesión iniciada Y esté dado de alta en la colección "staff".
+    // Documento por persona: ID = su correo en minúsculas; campos "nombre" y "area".
+    // Áreas: direccion, scouting, tecnico, medico, marketing (varias separadas por comas).
+    function correo() { return request.auth.token.email.lower(); }
+    function ficha() { return get(/databases/$(database)/documents/staff/$(correo())).data; }
+    function esStaff() {
+      return request.auth != null && request.auth.token.email != null
+        && exists(/databases/$(database)/documents/staff/$(correo()));
+    }
+    function tiene(a) { return esStaff() && ficha().get('area', '').matches('.*' + a + '.*'); }
+    function esDireccion() { return tiene('direccion'); }
+    // Privacidad: cada área solo lee lo suyo; Dirección da permisos extra desde la app (settings/main.permisos).
+    function permisos() { return get(/databases/$(database)/documents/settings/main).data.get('permisos', {}); }
+    function concedido(m) {
+      return (tiene('scouting') && permisos().get('scouting', []).hasAny([m]))
+        || (tiene('tecnico') && permisos().get('tecnico', []).hasAny([m]))
+        || (tiene('medico') && permisos().get('medico', []).hasAny([m]))
+        || (tiene('marketing') && permisos().get('marketing', []).hasAny([m]));
+    }
+
+    match /staff/{email} {
+      allow read: if request.auth != null && correo() == email;
+      allow write: if false;   // la lista de staff solo se cambia desde la consola de Firebase
+    }
+    // Jugadores: los ven Dirección, Scouting, Cuerpo técnico (necesita la plantilla) y quien tenga permiso de Scouting.
+    // Editan Dirección, Scouting y Cuerpo técnico.
+    // Solo Dirección y Scouting cambian el estado (Base / Proyecto / Descartar...). Solo Dirección elimina.
+    match /players/{id} {
+      allow read: if esDireccion() || tiene('scouting') || tiene('tecnico') || concedido('scouting');
+      allow create: if esDireccion() || tiene('scouting') || tiene('tecnico');
+      allow update: if esDireccion() || tiene('scouting')
+        || (tiene('tecnico') && request.resource.data.get('estado', '') == resource.data.get('estado', ''));
+      allow delete: if esDireccion();
+    }
+    // Entrenamientos, asistencia y minutos: Dirección, Cuerpo técnico y quien tenga ese permiso. Editan Dirección y Cuerpo técnico.
+    // (El calendario oficial de partidos y el planificador de eventos no están aquí: van dentro de la app.)
+    match /events/{id} {
+      allow read: if esDireccion() || tiene('tecnico') || concedido('equipo');
+      allow create, update: if esDireccion() || tiene('tecnico');
+      allow delete: if esDireccion();
+    }
+    // Biblioteca de tareas de entrenamiento: misma regla que los entrenamientos.
+    match /tasks/{id} {
+      allow read: if esDireccion() || tiene('tecnico') || concedido('equipo');
+      allow create, update, delete: if esDireccion() || tiene('tecnico');
+    }
+    // Coordinación de campos y turnos (plantilla semanal).
+    match /coord/{id} {
+      allow read: if esDireccion() || tiene('tecnico') || concedido('equipo');
+      allow write: if esDireccion() || tiene('tecnico');
+    }
+    // Ajustes (sistemas, cortes, necesidades): solo Dirección.
+    match /settings/{id} {
+      allow read: if esStaff();
+      allow write: if esDireccion();
+    }
+    // Historial de cambios de fichas: lo leen Dirección, Scouting y quien tenga permiso de Scouting. Se añade, nunca se borra.
+    match /log/{id} {
+      allow read: if esDireccion() || tiene('scouting') || concedido('scouting');
+      allow create, update: if esStaff();
+      allow delete: if false;
+    }
+    // Área médica (próxima fase): Dirección y Área médica; lectura para quien tenga ese permiso.
+    match /medical/{id} {
+      allow read: if esDireccion() || tiene('medico') || concedido('medica');
+      allow write: if esDireccion() || tiene('medico');
+    }
+  }
+}
