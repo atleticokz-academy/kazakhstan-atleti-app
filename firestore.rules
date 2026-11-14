@@ -21,9 +21,20 @@ service cloud.firestore {
         || (tiene('marketing') && permisos().get('marketing', []).hasAny([m]));
     }
 
+    // Fichas del staff: cada uno lee la suya; Dirección las ve y las cambia desde "Usuarios y accesos".
+    // Primer acceso: si aún no existe settings/fundador, la primera persona puede crearse su ficha de Dirección (una sola vez).
+    function sinFundador() { return !exists(/databases/$(database)/documents/settings/fundador); }
     match /staff/{email} {
-      allow read: if request.auth != null && correo() == email;
-      allow write: if false;   // la lista de staff solo se cambia desde la consola de Firebase
+      allow read: if request.auth != null && (correo() == email || esDireccion());
+      allow write: if esDireccion();
+      allow create: if request.auth != null && correo() == email && sinFundador()
+        && existsAfter(/databases/$(database)/documents/settings/fundador)
+        && request.resource.data.area == 'direccion';
+    }
+    match /settings/fundador {
+      allow create: if request.auth != null && sinFundador()
+        && request.resource.data.email == correo()
+        && getAfter(/databases/$(database)/documents/staff/$(correo())).data.area == 'direccion';
     }
     // Jugadores: los ven Dirección, Scouting, Cuerpo técnico (necesita la plantilla) y quien tenga permiso de Scouting.
     // Editan Dirección, Scouting y Cuerpo técnico.
