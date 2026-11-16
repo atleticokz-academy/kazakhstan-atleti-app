@@ -80,8 +80,7 @@ service cloud.firestore {
       allow read: if esDireccion() || tiene('medico') || concedido('medica');
       allow write: if esDireccion() || tiene('medico');
     }
-  }
-}    // Chat: cada persona solo ve las conversaciones y mensajes en los que está.
+    // Chat: cada persona solo ve las conversaciones y mensajes en los que está.
     match /chats/{id} {
       allow read: if esStaff() && correo() in resource.data.miembros;
       allow create: if esStaff() && correo() in request.resource.data.miembros;
@@ -97,4 +96,5 @@ service cloud.firestore {
         && correo() in get(/databases/$(database)/documents/chats/$(request.resource.data.c)).data.miembros;
       allow update, delete: if false;
     }
-
+  }
+}
