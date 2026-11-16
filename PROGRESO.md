@@ -26,11 +26,15 @@ Mejoras de Marketing hechas con Codex: publicadas en `main` (2026-11-16). Market
 - Tics: ✓ gris = enviado · ✓✓ gris = recibido en un aparato · ✓✓ verde = leído (en grupos, cuando lo han recibido o leído todos). Se guardan en `chats/{id}.rec[correo] = {e, l}`, con la hora del propio mensaje. Funciones `chatRec`, `chatTick`, `chatSeenT`. El «no leído» ya se sincroniza entre aparatos.
 - No hace falta tocar reglas: los miembros ya pueden actualizar su chat.
 
+## 💬 v52 (Claude, hilo de la app)
+- En pantallas anchas, fuera de la pestaña Chat, el chat sale como barra lateral a la izquierda (`#chdock`, código «CHAT EN BARRA LATERAL»). Se pliega con ⟨; si no cabe, botón 💬 abajo a la izquierda que la abre por encima. En móvil no cambia nada.
+- El botón rojo flotante («Informe de partido», apuntar rápido a un jugador visto en un partido) solo sale en las pantallas de Scouting.
+
 ## ⏭️ Siguiente
 - Probar la portada y el chat en un móvil real.
 
 ## 🧠 Decisiones tomadas
-- Las reglas nuevas se AÑADEN; no se sustituye todo el archivo. El `firestore.rules` del repo no incluye colecciones que la app sí usa (almacen, avisos, perfiles…), así que las reglas publicadas en Firebase deben ser distintas. Pegarlo entero podría romper esas secciones.
+- Desde v52 el `firestore.rules` del repo es el archivo COMPLETO (las 30 colecciones, incluido el bloque de chat). Se puede pegar entero en Firebase.
 - Servidor local: Python no está instalado; se usa un mini servidor Node (`node serve.js <carpeta> 8765`).
 
 ## ⚠️ Problemas / dudas abiertas
