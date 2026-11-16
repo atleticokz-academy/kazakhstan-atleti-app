@@ -3,7 +3,7 @@
 **Última actualización:** 2026-11-16 · **Por:** Claude Code
 
 ## 🎯 Objetivo actual
-Chat mejorado y publicado en `main` (2026-11-16). Reglas del chat pegadas en Firebase por el usuario.
+Tics estilo WhatsApp en el chat: publicados en `main` (2026-11-16).
 
 ## ✅ Hecho
 - Portada nueva publicada en `main` (dirección "B · Foto completa"; enlace «Primer acceso» oculto con `hidden` en `#cvfirst`).
@@ -20,6 +20,10 @@ Chat mejorado y publicado en `main` (2026-11-16). Reglas del chat pegadas en Fir
 ## 🔄 En curso
 - Nada en curso.
 
+## 📌 Cómo funcionan los tics
+- Tics: ✓ gris = enviado · ✓✓ gris = recibido en un aparato · ✓✓ verde = leído (en grupos, cuando lo han recibido o leído todos). Se guardan en `chats/{id}.rec[correo] = {e, l}`, con la hora del propio mensaje. Funciones `chatRec`, `chatTick`, `chatSeenT`. El «no leído» ya se sincroniza entre aparatos.
+- No hace falta tocar reglas: los miembros ya pueden actualizar su chat.
+
 ## ⏭️ Siguiente
 - Probar la portada y el chat en un móvil real.
 
@@ -29,5 +33,4 @@ Chat mejorado y publicado en `main` (2026-11-16). Reglas del chat pegadas en Fir
 
 ## ⚠️ Problemas / dudas abiertas
 - No sabemos qué reglas hay publicadas ahora en Firebase. Para comprobarlo: Perfil → «Comprobar conexión» → fila «Leer chat».
-- «No leído» se guarda en cada aparato (localStorage): leer en el móvil no lo marca en el ordenador.
 - Se cargan todos los mensajes de la historia; si un día hay miles, convendrá limitarlos (necesita un índice en Firebase).
