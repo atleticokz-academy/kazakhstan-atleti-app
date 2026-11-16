@@ -25,7 +25,8 @@ service cloud.firestore {
     // Primer acceso: si aún no existe settings/fundador, la primera persona puede crearse su ficha de Dirección (una sola vez).
     function sinFundador() { return !exists(/databases/$(database)/documents/settings/fundador); }
     match /staff/{email} {
-      allow read: if request.auth != null && (correo() == email || esDireccion());
+      // Todo el staff ve la lista (nombre y área) para poder abrir chats con los compañeros.
+      allow read: if request.auth != null && (correo() == email || esStaff());
       allow write: if esDireccion();
       allow create: if request.auth != null && correo() == email && sinFundador()
         && existsAfter(/databases/$(database)/documents/settings/fundador)
@@ -80,4 +81,20 @@ service cloud.firestore {
       allow write: if esDireccion() || tiene('medico');
     }
   }
-}
+}    // Chat: cada persona solo ve las conversaciones y mensajes en los que está.
+    match /chats/{id} {
+      allow read: if esStaff() && correo() in resource.data.miembros;
+      allow create: if esStaff() && correo() in request.resource.data.miembros;
+      allow update: if esStaff() && correo() in resource.data.miembros;
+      allow delete: if false;
+    }
+    // Mensajes: solo los escribe su autor, dentro de una conversación suya, y no se editan ni se borran.
+    match /chatmsgs/{id} {
+      allow read: if esStaff() && correo() in resource.data.miembros;
+      allow create: if esStaff() && request.resource.data.de == correo()
+        && correo() in request.resource.data.miembros
+        && request.resource.data.txt is string && request.resource.data.txt.size() <= 4000
+        && correo() in get(/databases/$(database)/documents/chats/$(request.resource.data.c)).data.miembros;
+      allow update, delete: if false;
+    }
+

@@ -3,28 +3,31 @@
 **Última actualización:** 2026-11-16 · **Por:** Claude Code
 
 ## 🎯 Objetivo actual
-Rediseño de la PORTADA (pantalla de acceso, `#cover` en `index.html`) con la skill anti-ui-slop. Solo diseño: no se tocan el inicio de sesión ni Firebase.
+Chat mejorado y publicado en `main` (2026-11-16). Reglas del chat pegadas en Firebase por el usuario.
 
 ## ✅ Hecho
-- Portada nueva publicada (commit en `prueba-portada`, pasado a `main` y subido a GitHub el 2026-11-16). Se ve en https://atleticokz-academy.github.io/kazakhstan-atleti-app/
-- Aplicada la dirección "B · Foto completa":
-  - Ordenador: la foto ocupa toda la pantalla, el escudo y el nombre arriba a la izquierda, ES/EN/RU arriba a la derecha, la frase grande arriba a la izquierda y la tarjeta blanca de acceso a la derecha.
-  - Móvil: el formulario es una hoja blanca que sube desde abajo, y «Entrar» se ve sin desplazar (probado en 390×844 y 360×640).
-  - Fallos corregidos: «Nombre» ya solo sale en «Primer acceso» (`.cv-card label[hidden]{display:none}`); en portátil 1280×720 «Entrar» ya se ve y la portada permite scroll; «Contraseña» tiene el mismo borde que «Correo».
-- Enlace «Primer acceso: crear el administrador» (`#cvfirst`) oculto con `hidden`, porque el administrador ya existe. Su código JS sigue ahí; para volver a mostrarlo hay que quitar `hidden`.
-- Cambios: CSS bajo `/* portada */` (~línea 270), `@media (max-width:820px)` de la portada y bloque `body.mob .cover…` (~línea 325). En el HTML solo se movió el selector de idioma `#cvlangs` fuera del formulario (el JS lo busca por id).
+- Portada nueva publicada en `main` (dirección "B · Foto completa"; enlace «Primer acceso» oculto con `hidden` en `#cvfirst`).
+- Chat (`index.html`, ~líneas 1776-1870):
+  - Causa probable del fallo: `firestore.rules` no tenía reglas para `chats` ni `chatmsgs` (y solo Dirección podía leer `staff`, así que el resto veía «No hay más usuarios»).
+  - Añadidas a `firestore.rules`: los bloques `match /chats` y `match /chatmsgs`, y la lectura de `staff` para todo el staff. **Hay que pegarlos a mano en la consola de Firebase** (Firestore → Reglas); no se publican solos.
+  - Si leer el chat falla, la app lo reintenta sola (2 s, 4 s… hasta 1 min); antes se quedaba muerto hasta recargar.
+  - Mis mensajes muestran 🕓 mientras se envían y ✓ cuando ya están en el servidor (`includeMetadataChanges`).
+  - Mensajes indexados por conversación (`chatIndex`, se rehace en `chatPaint`); antes se recorría todo por cada chat.
+  - Abrir un chat privado usa `set(...,{merge:true})` y ya no machaca el existente.
+  - Si no se puede leer `staff`, la lista de personas sale de los perfiles y los chats.
+- Probado en Chrome con una base de datos falsa (script `chattest.js` en la carpeta temporal): reintento, ✓/🕓, no leídos, lista de personas.
 
 ## 🔄 En curso
 - Nada en curso.
 
 ## ⏭️ Siguiente
-- Probar la portada en un móvil real (iPhone/Safari y Android).
+- Probar la portada y el chat en un móvil real.
 
 ## 🧠 Decisiones tomadas
-- La frase va arriba a la izquierda (no abajo como en el boceto) para no taparle las piernas al jugador de la foto.
-- En el móvil se oculta el texto pequeño bajo la frase y la palabra «App», para que todo quepa.
-- Servidor local: Python no está instalado (el `python` de Windows es el atajo de la Store). Se usa un mini servidor Node que está en la carpeta temporal de la sesión: `node serve.js <carpeta> 8765`.
+- Las reglas nuevas se AÑADEN; no se sustituye todo el archivo. El `firestore.rules` del repo no incluye colecciones que la app sí usa (almacen, avisos, perfiles…), así que las reglas publicadas en Firebase deben ser distintas. Pegarlo entero podría romper esas secciones.
+- Servidor local: Python no está instalado; se usa un mini servidor Node (`node serve.js <carpeta> 8765`).
 
 ## ⚠️ Problemas / dudas abiertas
-- Sin comprobar: que en Firebase exista el documento `settings/fundador` y que las reglas de `firestore.rules` estén publicadas. Son lo que impide que alguien más se haga administrador.
-- No probado en un iPhone/Android real ni en Safari; solo Chrome con emulación.
+- No sabemos qué reglas hay publicadas ahora en Firebase. Para comprobarlo: Perfil → «Comprobar conexión» → fila «Leer chat».
+- «No leído» se guarda en cada aparato (localStorage): leer en el móvil no lo marca en el ordenador.
+- Se cargan todos los mensajes de la historia; si un día hay miles, convendrá limitarlos (necesita un índice en Firebase).
