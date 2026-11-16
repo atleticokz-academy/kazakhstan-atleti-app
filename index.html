@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head><meta name="kzv" content="1611-0615">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kazakhstan Atlético App</title>
@@ -805,6 +805,7 @@ img.chav{object-fit:cover}
 .cpkd{position:relative;border:0;background:none;height:34px;border-radius:8px;font:inherit;font-size:13.5px;color:#1d1f3d;cursor:pointer}.cpkd:hover{background:#282a6f;color:#fff}.cpkd.out{color:#b5b8c9}.cpkd.tod{font-weight:800;color:#e1251b;box-shadow:inset 0 0 0 1.5px #e1251b}.cpkd.sel{background:#282a6f;color:#fff}
 .cpkd i{position:absolute;left:50%;bottom:4px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#e1251b}.cpkf{display:flex;justify-content:center;margin-top:6px}.cpkf button{border:1px solid #dfe1ec;background:#fff;border-radius:999px;padding:5px 14px;font:inherit;font-size:13px;font-weight:700;color:#282a6f;cursor:pointer}
 @media(max-width:640px){.cpkb span{display:none}}
+.diagt td{font-size:13px;padding:6px 8px;vertical-align:top}.diagt td:first-child{color:#667;white-space:nowrap}.diagt td b{word-break:break-word}
 .qnew{background:#fff7e6;border:1px solid #f3d9a4;border-radius:10px;padding:8px 10px;display:grid;gap:6px}.qnew small{color:#8a6d1f}
 .qtags{display:flex;flex-wrap:wrap;gap:6px}.qtags button,.qtags span{border:1px solid #d5d8e3;background:#fff;border-radius:99px;padding:5px 11px;font-size:13px;font-weight:600;color:inherit}.qtags button.on{background:#282a6f;color:#fff;border-color:#282a6f}.qtags.ro{margin:6px 0}.qtags.ro span{background:#eef0f8;padding:2px 9px;font-size:12px}
 .qvoz{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.qvoz .rec{background:#e8151e;color:#fff;border-color:#e8151e}#qaud,.vozau{width:100%;height:36px}
@@ -3737,6 +3738,34 @@ document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;le
   if((b=t.closest("[data-cpkm]"))){const m=new Date(cpkM+"T12:00:00");m.setMonth(m.getMonth()+(+b.dataset.cpkm));cpkM=isoD(m).slice(0,7)+"-01";p.innerHTML=cpkHtml();return}
   if((b=t.closest("[data-cpkd]")))cpkPick(b.dataset.cpkd)},true);
 addEventListener("hashchange",cpkClose);
+/* ================= COMPROBAR CONEXIÓN (diagnóstico desde el perfil) ================= */
+// Cualquier usuario puede abrirlo desde su perfil: dice con qué cuenta y área entra, qué datos le llegan
+// y prueba a leer jugadores y chat directamente del servidor. Sirve para ver por qué a alguien no le salen los datos.
+const diagLog=[];{const _ss=setStatus;setStatus=function(k,t){if(k==="warn")diagLog.push(new Date().toLocaleTimeString()+" · "+t);if(diagLog.length>8)diagLog.shift();return _ss(k,t)}}
+async function diagOpen(){const fb=typeof firebase!=="undefined"&&firebase.auth;const u=fb?firebase.auth().currentUser:null;
+  const byGen={};for(const p of Object.values(players))byGen[p.gen]=(byGen[p.gen]||0)+1;
+  const row=(k,v)=>`<tr><td>${esc(k)}</td><td data-noi18n><b>${v}</b></td></tr>`;
+  const base=[["Cuenta",esc(u?u.email:(uiUser||"—"))],["Áreas",esc((typeof uiAreas!=="undefined"?uiAreas:[]).join(", ")||"—")],["Versión","v"+esc(String((document.querySelector('meta[name="kzv"]')||{}).content||"web"))],
+    ["Conexión",navigator.onLine?"✓ online":"✗ offline"],["Modo sin cobertura",offOn&&offOn()?"activado":"no"],["Estado",esc(($("#st")||{}).textContent||"—")],
+    ["Jugadores cargados",Object.keys(players).length+" ("+(Object.keys(byGen).sort().map(g=>g+": "+byGen[g]).join(" · ")||"—")+")"],
+    ["Conversaciones / mensajes",Object.keys(typeof chats!=="undefined"?chats:{}).length+" / "+Object.keys(typeof cmsgs!=="undefined"?cmsgs:{}).length]];
+  $("#modalbox").innerHTML=`<h2 style="margin-top:0">🩺 ${tr("Comprobar conexión")}</h2><table class="mtab diagt">${base.map(([k,v])=>row(tr(k),v)).join("")}<tbody id="diagsrv">${row(tr("Servidor"),"…")}</tbody></table>
+   ${diagLog.length?`<p class="hint" style="margin:8px 0 0"><b>${tr("Avisos")}:</b><br>${diagLog.map(esc).join("<br>")}</p>`:""}
+   <p class="hint">${tr("Si algo sale mal, haz una captura de esta pantalla y mándasela a Iván.")}</p>
+   <div class="toolbar" style="justify-content:space-between;margin:12px 0 0"><button class="btn ghost" data-diagfix>↻ ${tr("Reiniciar datos de este móvil")}</button><button class="btn red" data-diagx>${tr("Cerrar")}</button></div>`;
+  $("#modalbox").className="box";$("#modal").classList.add("on");
+  $("#modal").onclick=async ev=>{if(ev.target.id==="modal"||ev.target.closest("[data-diagx]")){$("#modal").classList.remove("on");return}
+    if(ev.target.closest("[data-diagfix]")){try{localStorage.removeItem("kz_chat_seen")}catch(_){}try{const f=firebase.firestore();await f.terminate();await f.clearPersistence()}catch(_){}try{if(navigator.serviceWorker){const R=await navigator.serviceWorker.getRegistrations();await Promise.all(R.map(r=>r.unregister()))}if(window.caches){const K=await caches.keys();await Promise.all(K.map(k=>caches.delete(k)))}}catch(_){}location.reload()}};
+  if(!db||!db.collection){$("#diagsrv").innerHTML=row(tr("Servidor"),"—");return}
+  const me=(u&&u.email||"").toLowerCase(),out=[];
+  const t=async(lab,f)=>{try{const r=await Promise.race([f(),new Promise((_,k)=>setTimeout(()=>k({code:"timeout"}),12000))]);out.push(row(lab,"✓ "+r))}catch(e){out.push(row(lab,"✗ "+esc((e&&e.code)||String(e))))}};
+  await t(tr("Ficha de staff"),async()=>{const d=await db.doc("staff/"+me).get({source:"server"});return d.exists?esc(JSON.stringify({nombre:d.data().nombre,area:d.data().area})):"no existe"});
+  await t(tr("Leer jugadores"),async()=>{const s=await db.collection("players").get({source:"server"});const g={};s.forEach(d=>{const x=d.data().gen;g[x]=(g[x]||0)+1});return s.size+" ("+Object.keys(g).sort().map(k=>k+": "+g[k]).join(" · ")+")"});
+  await t(tr("Leer chat"),async()=>{const s=await db.collection("chats").where("miembros","array-contains",me).get({source:"server"});const m=await db.collection("chatmsgs").where("miembros","array-contains",me).get({source:"server"});return s.size+" / "+m.size});
+  const el=$("#diagsrv");if(el)el.innerHTML=out.join("")}
+document.addEventListener("click",ev=>{if(ev.target.closest&&ev.target.closest("[data-diagopen]")){ev.stopImmediatePropagation();diagOpen()}},true);
+if(typeof profOpen==="function"){const _po4=profOpen;profOpen=function(){_po4();const st=$("#modalbox .profst");if(st&&!$("#modalbox [data-diagopen]"))
+  st.insertAdjacentHTML("afterend",`<button type="button" class="fmbtn" data-diagopen><span>🩺</span><span><b>${tr("Comprobar conexión")}</b><small>${tr("Mira si te llegan los jugadores y el chat, y arregla este móvil si no.")}</small></span></button>`)}}
 /* ================= COORDINACIÓN (sección principal) ================= */
 const CX0={inst:{salas:["Sala multimedia"],bloq:[],res:[]},pers:{staff:{},sust:[],material:{}},disp:{},even:[],reu:[],av:[]};
 let cx=JSON.parse(JSON.stringify(CX0)),cxT={},cxView="panel",hrView="semana",hrDay=null,hrMonth=null,calView="lista",calTeam="";
@@ -4694,6 +4723,7 @@ Object.assign(I18N,{"1er día": {"en": "1st day", "ru": "1-й день"}, "2º d
 Object.assign(I18N,{"Elegir en el calendario": {"en": "Pick on the calendar", "ru": "Выбрать в календаре"}, "Elegir semana": {"en": "Pick week", "ru": "Выбрать неделю"}, "Elegir día": {"en": "Pick day", "ru": "Выбрать день"}, "Elegir mes": {"en": "Pick month", "ru": "Выбрать месяц"}});
 Object.assign(I18N,{"Concepto": {"en": "Concept", "ru": "Тема"}, "La planificación del mesociclo con el mismo diseño del documento de la academia. Toca cualquier hueco para rellenarlo. Con la fecha de inicio puesta, cada entrenamiento muestra el concepto que toca ese día.": {"en": "Mesocycle planning with the same design as the academy document. Tap any blank to fill it in. Once the start date is set, each training session shows that day's concept.", "ru": "Планирование мезоцикла в том же дизайне, что и документ академии. Нажмите на любое пустое поле, чтобы заполнить его. Если указать дату начала, в каждой тренировке будет видна тема дня."}, "Todavía no hay mesociclos. Pulsa «Nuevo mesociclo»: sale la planificación vacía (4 microciclos y 4 días) con los huecos para rellenar.": {"en": "No mesocycles yet. Tap «New mesocycle»: the empty planning appears (4 microcycles and 4 days) with blanks to fill in.", "ru": "Мезоциклов пока нет. Нажмите «Новый мезоцикл»: появится пустое планирование (4 микроцикла и 4 дня) с полями для заполнения."}});
 Object.assign(I18N,{"No se puede leer el chat":{"en":"Can't read the chat","ru":"Не удаётся загрузить чат"}});
+Object.assign(I18N,{"Comprobar conexión": {"en": "Check connection", "ru": "Проверить соединение"}, "Áreas": {"en": "Areas", "ru": "Отделы"}, "Conexión": {"en": "Connection", "ru": "Соединение"}, "Modo sin cobertura": {"en": "Offline mode", "ru": "Офлайн-режим"}, "Jugadores cargados": {"en": "Players loaded", "ru": "Загружено игроков"}, "Conversaciones / mensajes": {"en": "Chats / messages", "ru": "Чаты / сообщения"}, "Servidor": {"en": "Server", "ru": "Сервер"}, "Si algo sale mal, haz una captura de esta pantalla y mándasela a Iván.": {"en": "If something is wrong, take a screenshot of this screen and send it to Iván.", "ru": "Если что-то не так, сделайте снимок экрана и отправьте Ивану."}, "Reiniciar datos de este móvil": {"en": "Reset data on this phone", "ru": "Сбросить данные на этом телефоне"}, "Ficha de staff": {"en": "Staff record", "ru": "Карточка сотрудника"}, "Leer jugadores": {"en": "Read players", "ru": "Чтение игроков"}, "Leer chat": {"en": "Read chat", "ru": "Чтение чата"}, "Mira si te llegan los jugadores y el chat, y arregla este móvil si no.": {"en": "Check that players and chat reach you, and fix this phone if not.", "ru": "Проверьте, приходят ли игроки и чат, и исправьте телефон, если нет."}});
 const I18P=[
  [/^Rojo: jugador\. Discontinua: media de su posición en (\d+)\. 1–3 bajo · 4–6 medio · 7–9 alto para su año\.$/,{en:"Red: player. Dashed: average for his position in $1. 1–3 low · 4–6 medium · 7–9 high for his year.",ru:"Красный: игрок. Пунктир: среднее по его позиции в $1. 1–3 низкий · 4–6 средний · 7–9 высокий для его года."}],
  [/^Sin sistema elegido para (\d+): vista por puestos\. Elige el Sistema A y B en$/,{en:"No system chosen for $1: view by position. Choose System A and B in",ru:"Схема для $1 не выбрана: вид по позициям. Выберите схемы A и B в разделе"}],
