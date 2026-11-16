@@ -3,7 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Solo entra quien tenga sesión iniciada Y esté dado de alta en la colección "staff".
     // Documento por persona: ID = su correo en minúsculas; campos "nombre" y "area".
-    // Áreas: direccion, scouting, tecnico, medico, marketing (varias separadas por comas).
+    // Áreas: direccion, scouting, tecnico, medico, marketing, almacen, residencia (varias separadas por comas).
     function correo() { return request.auth.token.email.lower(); }
     function ficha() { return get(/databases/$(database)/documents/staff/$(correo())).data; }
     function esStaff() {
@@ -18,14 +18,17 @@ service cloud.firestore {
       return (tiene('scouting') && permisos().get('scouting', []).hasAny([m]))
         || (tiene('tecnico') && permisos().get('tecnico', []).hasAny([m]))
         || (tiene('medico') && permisos().get('medico', []).hasAny([m]))
-        || (tiene('marketing') && permisos().get('marketing', []).hasAny([m]));
+        || (tiene('marketing') && permisos().get('marketing', []).hasAny([m]))
+        || (tiene('almacen') && permisos().get('almacen', []).hasAny([m]))
+        || (tiene('residencia') && permisos().get('residencia', []).hasAny([m]));
     }
 
-    // Fichas del staff: cada uno lee la suya; Dirección las ve y las cambia desde "Usuarios y accesos".
+    // Fichas del staff: las ve todo el staff; Dirección las cambia desde "Usuarios y accesos".
     // Primer acceso: si aún no existe settings/fundador, la primera persona puede crearse su ficha de Dirección (una sola vez).
     function sinFundador() { return !exists(/databases/$(database)/documents/settings/fundador); }
+    // Todo el staff ve la lista de compañeros (nombre y área) para poder abrir chats.
+    // Cada persona puede leer su propia ficha al entrar. Dirección las cambia desde "Usuarios y accesos".
     match /staff/{email} {
-      // Todo el staff ve la lista (nombre y área) para poder abrir chats con los compañeros.
       allow read: if request.auth != null && (correo() == email || esStaff());
       allow write: if esDireccion();
       allow create: if request.auth != null && correo() == email && sinFundador()
@@ -41,7 +44,7 @@ service cloud.firestore {
     // Editan Dirección, Scouting y Cuerpo técnico.
     // Solo Dirección y Scouting cambian el estado (Base / Proyecto / Descartar...). Solo Dirección elimina.
     match /players/{id} {
-      allow read: if esDireccion() || tiene('scouting') || tiene('tecnico') || concedido('scouting');
+      allow read: if esDireccion() || tiene('scouting') || tiene('tecnico') || tiene('residencia') || concedido('scouting');
       allow create: if esDireccion() || tiene('scouting') || tiene('tecnico');
       allow update: if esDireccion() || tiene('scouting')
         || (tiene('tecnico') && request.resource.data.get('estado', '') == resource.data.get('estado', ''));
@@ -50,7 +53,7 @@ service cloud.firestore {
     // Entrenamientos, asistencia y minutos: Dirección, Cuerpo técnico y quien tenga ese permiso. Editan Dirección y Cuerpo técnico.
     // (El calendario oficial de partidos y el planificador de eventos no están aquí: van dentro de la app.)
     match /events/{id} {
-      allow read: if esDireccion() || tiene('tecnico') || concedido('equipo');
+      allow read: if esDireccion() || tiene('tecnico') || tiene('residencia') || concedido('equipo');
       allow create, update: if esDireccion() || tiene('tecnico');
       allow delete: if esDireccion();
     }
@@ -60,6 +63,27 @@ service cloud.firestore {
       allow create, update, delete: if esDireccion() || tiene('tecnico');
     }
     // Coordinación de campos y turnos (plantilla semanal).
+    // Chat: cada persona solo ve las conversaciones y mensajes en los que está.
+    match /chats/{id} {
+      allow read: if esStaff() && correo() in resource.data.miembros;
+      allow create: if esStaff() && correo() in request.resource.data.miembros;
+      allow update: if esStaff() && correo() in resource.data.miembros;
+      allow delete: if false;
+    }
+    // Mensajes: solo los escribe su autor, en una conversación suya; no se editan ni se borran.
+    match /chatmsgs/{id} {
+      allow read: if esStaff() && correo() in resource.data.miembros;
+      allow create: if esStaff() && request.resource.data.de == correo()
+        && correo() in request.resource.data.miembros
+        && request.resource.data.txt is string && request.resource.data.txt.size() <= 4000
+        && correo() in get(/databases/$(database)/documents/chats/$(request.resource.data.c)).data.miembros;
+      allow update, delete: if false;
+    }
+    // Calendario oficial de partidos (Coordinación → Partidos y Logística).
+    match /calendario/{id} {
+      allow read: if esStaff();
+      allow write: if esDireccion() || tiene('tecnico');
+    }
     match /coord/{id} {
       allow read: if esDireccion() || tiene('tecnico') || concedido('equipo');
       allow write: if esDireccion() || tiene('tecnico');
@@ -71,30 +95,109 @@ service cloud.firestore {
     }
     // Historial de cambios de fichas: lo leen Dirección, Scouting y quien tenga permiso de Scouting. Se añade, nunca se borra.
     match /log/{id} {
-      allow read: if esDireccion() || tiene('scouting') || concedido('scouting');
+      allow read: if esDireccion() || tiene('scouting') || tiene('tecnico') || concedido('scouting');
       allow create, update: if esStaff();
       allow delete: if false;
     }
-    // Área médica (próxima fase): Dirección y Área médica; lectura para quien tenga ese permiso.
+    // Semáforo médico (verde/amarillo/rojo, sin diagnóstico): lo ve todo el staff; lo escriben Dirección y Área médica.
+    match /semaforo/{id} {
+      allow read: if esStaff();
+      allow write: if esDireccion() || tiene('medico');
+    }
+    // Servicios médicos: Dirección y Área médica; lectura para quien tenga ese permiso.
     match /medical/{id} {
       allow read: if esDireccion() || tiene('medico') || concedido('medica');
       allow write: if esDireccion() || tiene('medico');
     }
-    // Chat: cada persona solo ve las conversaciones y mensajes en los que está.
-    match /chats/{id} {
-      allow read: if esStaff() && correo() in resource.data.miembros;
-      allow create: if esStaff() && correo() in request.resource.data.miembros;
-      allow update: if esStaff() && correo() in resource.data.miembros;
-      allow delete: if false;
+    // Marketing (incluye contactos de antiguos jugadores, menores): solo Dirección y Marketing.
+    match /mk/{id} {
+      allow read: if esDireccion() || tiene('marketing') || concedido('marketing');
+      allow write: if esDireccion() || tiene('marketing');
     }
-    // Mensajes: solo los escribe su autor, dentro de una conversación suya, y no se editan ni se borran.
-    match /chatmsgs/{id} {
-      allow read: if esStaff() && correo() in resource.data.miembros;
-      allow create: if esStaff() && request.resource.data.de == correo()
-        && correo() in request.resource.data.miembros
-        && request.resource.data.txt is string && request.resource.data.txt.size() <= 4000
-        && correo() in get(/databases/$(database)/documents/chats/$(request.resource.data.c)).data.miembros;
+    // Perfil de usuario (foto, cargo...): lo ve todo el staff; cada uno solo edita el suyo.
+    match /perfiles/{id} {
+      allow read: if esStaff();
+      allow write: if esStaff() && correo() == id;
+    }
+    // ===== ALMACÉN =====
+    // Responsable de almacén y Dirección: todo. Entrenadores: ven el stock y el mapa, piden material y ven SUS pedidos.
+    // Un entrenador nunca puede cambiar cantidades: stock, movimientos y proveedores solo los escriben Almacén y Dirección.
+    function almacen() { return esDireccion() || tiene('almacen'); }
+    match /almacen/{id} {
+      allow read: if almacen() || tiene('tecnico') || concedido('almacen');
+      allow write: if almacen();
+    }
+    // Historial de movimientos: se añade, nunca se cambia ni se borra.
+    match /almmov/{id} {
+      allow read: if almacen() || concedido('almacen');
+      allow create: if almacen();
       allow update, delete: if false;
+    }
+    // Pedidos de material. El entrenador crea los suyos (siempre "pendiente") y solo puede cancelarlos mientras estén pendientes.
+    // Preparar, entregar y registrar devoluciones con firma: solo Almacén y Dirección.
+    match /almsol/{id} {
+      allow read: if almacen() || concedido('almacen') || (esStaff() && resource.data.de == correo());
+      allow create: if esStaff() && (almacen() || tiene('tecnico'))
+        && request.resource.data.de == correo() && request.resource.data.estado == 'pendiente';
+      allow update: if almacen()
+        || (esStaff() && resource.data.de == correo() && resource.data.estado == 'pendiente'
+            && request.resource.data.de == correo() && request.resource.data.estado in ['pendiente', 'cancelado']);
+      allow delete: if esDireccion();
+    }
+    // Tallas de los jugadores por equipo: las ponen el cuerpo técnico y Almacén.
+    match /almtallas/{id} {
+      allow read, write: if almacen() || tiene('tecnico');
+    }
+
+    // ===== ENTRENAMIENTO: preparación física (tests, GPS) y metodología (modelo de juego, contenidos por edad) =====
+    match /pf/{id} {
+      allow read: if esDireccion() || tiene('tecnico') || concedido('equipo');
+      allow write: if esDireccion() || tiene('tecnico');
+    }
+    match /metodo/{id} {
+      allow read: if esDireccion() || tiene('tecnico') || concedido('equipo');
+      allow write: if esDireccion() || tiene('tecnico');
+    }
+    // ===== RESIDENCIA, EDUCACIÓN Y PSICOLOGÍA (menores): solo Residencia y Dirección =====
+    function residencia() { return esDireccion() || tiene('residencia'); }
+    // Salidas, entradas y permisos con la firma de la familia.
+    match /salidas/{id} {
+      allow read, write: if residencia();
+    }
+    match /residencia/{id} {
+      allow read, write: if residencia();
+    }
+    match /educacion/{id} {
+      allow read, write: if residencia();
+    }
+    match /psico/{id} {
+      allow read, write: if residencia();
+    }
+    // ===== MI FORMACIÓN (perfil): privado, solo la propia persona =====
+    // Notas de voz de los informes de partido (scouting).
+    match /voz/{id} {
+      allow read: if esDireccion() || tiene('scouting') || tiene('tecnico') || concedido('scouting');
+      allow create: if esDireccion() || tiene('scouting') || tiene('tecnico');
+      allow update, delete: if esDireccion();
+    }
+    // Incidencias de instalaciones: cualquiera del staff las apunta y las actualiza; solo Dirección las borra.
+    match /incid/{id} {
+      allow read, create, update: if esStaff();
+      allow delete: if esDireccion();
+    }
+    // Avisos importantes y protocolos: los publica Dirección y los lee todo el staff.
+    match /avisos/{id} {
+      allow read: if esStaff();
+      allow write: if esDireccion();
+    }
+    // Confirmaciones de lectura y firmas «leído y entendido»: cada uno firma solo por sí mismo y no se pueden borrar.
+    match /leido/{id} {
+      allow read: if esDireccion() || (esStaff() && resource.data.email == correo());
+      allow create: if esStaff() && request.resource.data.email == correo();
+      allow update, delete: if false;
+    }
+    match /formacion/{email} {
+      allow read, write: if esStaff() && correo() == email;
     }
   }
 }
