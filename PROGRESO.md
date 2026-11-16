@@ -3,7 +3,7 @@
 **Última actualización:** 2026-11-16 · **Por:** Claude Code
 
 ## 🎯 Objetivo actual
-Integrar las mejoras de Marketing hechas con Codex (rama `marketing-codex`, con commit, pendiente de publicar en `main`). Marketing es interno: NO familias, matrículas ni CRM.
+Mejoras de Marketing hechas con Codex: publicadas en `main` (2026-11-16). Marketing es interno: NO familias, matrículas ni CRM.
 
 ## ✅ Hecho
 - Portada nueva publicada en `main` (dirección "B · Foto completa"; enlace «Primer acceso» oculto con `hidden` en `#cvfirst`).
@@ -21,7 +21,6 @@ Integrar las mejoras de Marketing hechas con Codex (rama `marketing-codex`, con 
 - Marketing (paquete de Codex `marketing.patch`, aplicado sin conflictos): objetivos con responsable y próxima revisión; campañas con responsable, presupuesto, gasto real, moneda y coste por inscrito; validaciones (el formulario no se cierra si hay datos malos); Stats compara solo con el mes anterior; etiquetas del Panel más claras. `cxForm` tiene un 6º argumento opcional `validate`.
 - Probado: `node comprobar-marketing.cjs` de Codex pasa; prueba visual con datos inventados en ordenador y móvil (campaña antigua, gasto 0, 0 inscritos, validación de moneda).
 - Corregido: en `firestore.rules` del repo, los bloques del chat estaban fuera del cierre del servicio (fallo mío con los saltos de línea CRLF). Las reglas de la consola no estaban afectadas.
-- Publicar: `git checkout main && git merge --ff-only marketing-codex && git push origin main`.
 
 ## 📌 Cómo funcionan los tics
 - Tics: ✓ gris = enviado · ✓✓ gris = recibido en un aparato · ✓✓ verde = leído (en grupos, cuando lo han recibido o leído todos). Se guardan en `chats/{id}.rec[correo] = {e, l}`, con la hora del propio mensaje. Funciones `chatRec`, `chatTick`, `chatSeenT`. El «no leído» ya se sincroniza entre aparatos.
