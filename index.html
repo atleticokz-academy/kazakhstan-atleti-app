@@ -840,6 +840,30 @@ img.chav{object-fit:cover}
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script src="config.js"></script>
+<script>/* v53 · iconos de línea y estados vacíos (antes del primer render) */
+const ICN={
+ inicio:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
+ coord:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 10h6M9 14h6M9 18h4"/>',
+ scouting:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+ entreno:'<path d="M12 3 4 21h16Z"/><path d="M8 13h8M6.5 17h11"/>',
+ medica:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/>',
+ marketing:'<path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1Z"/><path d="M17 8a5 5 0 0 1 0 8"/>',
+ almacen:'<path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5Z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/>',
+ residencia:'<path d="M3 20V8l9-5 9 5v12"/><path d="M3 20h18"/><path d="M8 20v-5h8v5"/>',
+ chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/>',
+ calendario:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+ notif:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4Z"/><path d="M10 21h4"/>',
+ perfil:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+ exportar:'<path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/>',
+ partido:'<circle cx="12" cy="12" r="9"/><path d="m12 7 4 3-1.5 5h-5L8 10Z"/>',
+ avisos:'<path d="M12 3 2 20h20Z"/><path d="M12 10v4M12 17h.01"/>',
+ incid:'<path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 8-8-1.3-1.3a4 4 0 0 0-5-5Z"/><path d="m3 21 6-6"/>',
+ equipo:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
+ mas:'<path d="M12 5v14M5 12h14"/>'};
+function icn(k,sz,col){return `<svg class="icn" width="${sz||18}" height="${sz||18}" viewBox="0 0 24 24" fill="none" stroke="${col||"var(--navy)"}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICN[k]||ICN.inicio}</svg>`}
+function emptyState(ic,title,text,btn){return `<div class="empty"><div class="emi">${icn(ic,26)}</div><b>${esc(title)}</b>${text?`<p>${esc(text)}</p>`:""}${btn||""}</div>`}
+
+</script>
 </head>
 <body>
 <div class="cover" id="cover" hidden>
@@ -1189,14 +1213,14 @@ function vInicio(){
   const ev1=up[0];
   return `<div class="hero"><div><h1>Kazakhstan Atlético App</h1><p class="sub" style="margin-bottom:0">${hi}, <span data-noi18n>${esc(uiUser||"")}</span> · ${uiAreas.map(a=>tr(AREAS[a].n)).join(" · ")}</p></div></div>
   <div class="grid g4 acards">
-   ${card("campograma","🔎","Scouting",pl.length,tr("jugadores en plantilla"),`${seg.length} ${tr("en seguimiento")} · ${ya.length} ${tr("para fichar ya")}`)}
-   ${card("equipo","📅",ownsMod("equipo")?tr("Área de entrenamiento"):tr("Calendario"),week.length,tr("actividades en los próximos 7 días"),ev1?`${tr("Próximo")}: ${esc(fdate(ev1.fecha))} · <span data-noi18n>${esc(evTitle(ev1))}</span>`:tr("Sin nada programado"))}
-   ${card("medica","✚",tr("Servicios médicos"),Object.values(med).reduce((n,m)=>n+((m&&m.lesiones)||[]).filter(l=>!l.alta&&(+l.fase||0)<4).length,0),tr("lesiones activas"),tr("Mapa corporal, lesiones con grados, return to play, enfermedades y fisioterapia."))}
-   ${card("marketing","📣","Marketing","—",tr("piezas programadas"),tr("Calendario de contenidos y diseños automáticos con la marca del club."),1)}
+   ${card("campograma",icn("scouting"),"Scouting",pl.length,tr("jugadores en plantilla"),`${seg.length} ${tr("en seguimiento")} · ${ya.length} ${tr("para fichar ya")}`)}
+   ${card("equipo",icn("calendario"),ownsMod("equipo")?tr("Área de entrenamiento"):tr("Calendario"),week.length,tr("actividades en los próximos 7 días"),ev1?`${tr("Próximo")}: ${esc(fdate(ev1.fecha))} · <span data-noi18n>${esc(evTitle(ev1))}</span>`:tr("Sin nada programado"))}
+   ${card("medica",icn("medica"),tr("Servicios médicos"),Object.values(med).reduce((n,m)=>n+((m&&m.lesiones)||[]).filter(l=>!l.alta&&(+l.fase||0)<4).length,0),tr("lesiones activas"),tr("Mapa corporal, lesiones con grados, return to play, enfermedades y fisioterapia."))}
+   ${card("marketing",icn("marketing"),"Marketing",typeof mkCounts==="function"?mkCounts().rrss:0,tr("publicaciones en marcha"),tr("Calendario, redes, prensa, patrocinadores y captación."))}
   </div>
   <div class="grid g2" style="margin-top:16px">
-   ${canSee("equipo")?`<div class="card"><h2>${tr("Próximas actividades")}</h2>${up.length?`<ul class="lg">${up.slice(0,6).map(e=>`<li><span class="evi" style="--evc:${(EVT[e.tipo]||EVT.evento).c}">${(EVT[e.tipo]||EVT.evento).i}</span><a role="button" tabindex="0" style="cursor:pointer" ${e.ext?`data-goext="${esc(e.gen)}"`:`data-goev="${esc(e.id)}"`} data-noi18n>${esc(evTitle(e))}</a><small>(${esc(e.gen)})</small><time data-noi18n>${esc(fdate(e.fecha))} ${esc(e.hora||"")}</time></li>`).join("")}</ul>`:`<p class="hint">${tr("No hay nada programado. Añade un entrenamiento o un partido.")}</p>`}</div>`:""}
-   ${canMod("scouting")?`<div class="card actv" style="margin-top:0"><h2>Actividad reciente</h2>${actLog.length?`<ul class="lg">${actLog.slice(0,8).map(logLine).join("")}</ul>`:`<p class="hint">Aquí aparecerá quién cambia qué y cuándo.</p>`}</div>`:""}
+   ${canSee("equipo")?`<div class="card"><h2>${tr("Próximas actividades")}</h2>${up.length?`<ul class="lg">${up.slice(0,6).map(e=>`<li><span class="evi" style="--evc:${(EVT[e.tipo]||EVT.evento).c}">${(EVT[e.tipo]||EVT.evento).i}</span><a role="button" tabindex="0" style="cursor:pointer" ${e.ext?`data-goext="${esc(e.gen)}"`:`data-goev="${esc(e.id)}"`} data-noi18n>${esc(evTitle(e))}</a><small>(${esc(e.gen)})</small><time data-noi18n>${esc(fdate(e.fecha))} ${esc(e.hora||"")}</time></li>`).join("")}</ul>`:emptyState("calendario",tr("No hay nada programado"),tr("Cuando el cuerpo técnico añada un entrenamiento o un partido, aparecerá aquí."))}</div>`:""}
+   ${canMod("scouting")?`<div class="card actv" style="margin-top:0"><h2>Actividad reciente</h2>${actLog.length?`<ul class="lg">${actLog.slice(0,8).map(logLine).join("")}</ul>`:emptyState("notif",tr("Aún no hay actividad reciente"),tr("Aquí verás quién cambia qué y cuándo. Empieza registrando un informe o un entrenamiento."))}</div>`:""}
   </div>
   ${isAdmin()?usersCard()+privCard():""}
   ${canSee("campograma")?`<div style="margin-top:26px">${genSummary()}</div>`:""}`;
@@ -3346,8 +3370,8 @@ function avFormModal(title,F,d,onSave,onDel){
     if(b.dataset.avx==="ok"){const o={};document.querySelectorAll("#modal [data-avf]").forEach(i=>{o[i.dataset.avf]=i.type==="checkbox"?i.checked:i.value.trim()});o.areas=[...document.querySelectorAll("#modal [data-avarea]")].filter(i=>i.checked).map(i=>i.dataset.avarea);if(!o.t){$('#modal [data-avf="t"]').focus();return}onSave(o)}
     if(b.dataset.avx==="del"&&onDel)onDel();rxClose()}}
 /* recordatorio en Inicio y en las notificaciones */
-function avBanner(){if(!uiUser)return "";avSubs();const P=avPend();if(!P.length)return `<a class="avban ok" href="#avisos"><span>📣</span><span><b>${tr("Avisos y protocolos")}</b><small>✓ ${tr("Todo leído y firmado")}</small></span><em>${tr("Ver")} ›</em></a>`;const pr=P.filter(a=>a.tipo==="proto").length,av=P.length-pr;
-  return `<a class="avban" href="#avisos"><span>📣</span><span><b>${tr("Tienes cosas importantes por leer")}</b><small>${[av?av+" "+tr(av===1?"aviso sin confirmar":"avisos sin confirmar"):"",pr?pr+" "+tr(pr===1?"protocolo sin firmar":"protocolos sin firmar"):""].filter(Boolean).join(" · ")}</small></span><em>${tr("Ver")} ›</em></a>`}
+function avBanner(){if(!uiUser)return "";avSubs();const P=avPend();if(!P.length)return `<a class="avban ok" href="#avisos"><span>${icn("avisos",22)}</span><span><b>${tr("Avisos y protocolos")}</b><small>✓ ${tr("Todo leído y firmado")}</small></span><em>${tr("Ver")} ›</em></a>`;const pr=P.filter(a=>a.tipo==="proto").length,av=P.length-pr;
+  return `<a class="avban" href="#avisos"><span>${icn("avisos",22)}</span><span><b>${tr("Tienes cosas importantes por leer")}</b><small>${[av?av+" "+tr(av===1?"aviso sin confirmar":"avisos sin confirmar"):"",pr?pr+" "+tr(pr===1?"protocolo sin firmar":"protocolos sin firmar"):""].filter(Boolean).join(" · ")}</small></span><em>${tr("Ver")} ›</em></a>`}
 function avNotifs(add){if(!NT.aviso)NT.aviso={n:"Avisos",i:"📣",c:"#c2185b"};for(const a of avPend())add({id:"avs:"+a.id+":"+(a.ver||1),k:"aviso",t:dayMs(a.fecha||isoD(new Date()))+8*36e5,ti:(a.tipo==="proto"?tr("Protocolo por firmar"):tr("Aviso importante"))+" · "+a.t,bo:String(a.txt||"").slice(0,120),pri:true,tag:tr(a.tipo==="proto"?"Firmar":"Confirmar"),go:()=>{avView=a.tipo;location.hash="#avisos";if(route==="avisos")render()}})}
 const _vInicioAv=vInicio;vInicio=function(){return `<div class="iniqs">${avBanner()}${typeof incBanner==="function"?incBanner():""}</div>`+_vInicioAv()};
 document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest||route!=="avisos"||t.closest("#modal"))return;let b;
@@ -3481,7 +3505,7 @@ document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest||route!==
   if((b=t.closest("[data-incop]"))){ev.stopImmediatePropagation();incForm(b.dataset.incop);return}
   if((b=t.closest("[data-incf]"))){ev.stopImmediatePropagation();incF=b.dataset.incf;render();return}},true);
 function incBanner(){if(!uiUser)return "";incSubs();const P=Object.values(incs).filter(o=>o.estado!=="Resuelta"),mine=P.filter(o=>o.resp&&ntIsMe(o.resp)).length;
-  return `<a class="avban${mine?"":" ok"}" href="#incidencias"><span>🔧</span><span><b>${tr("Incidencias de instalaciones")}</b><small>${P.length?P.length+" "+tr(P.length===1?"pendiente":"pendientes")+(mine?" · "+mine+" "+tr("para ti"):""):"✓ "+tr("Todo en orden")}</small></span><em>${tr("Ver")} ›</em></a>`}
+  return `<a class="avban${mine?"":" ok"}" href="#incidencias"><span>${icn("incid",22)}</span><span><b>${tr("Incidencias de instalaciones")}</b><small>${P.length?P.length+" "+tr(P.length===1?"pendiente":"pendientes")+(mine?" · "+mine+" "+tr("para ti"):""):"✓ "+tr("Todo en orden")}</small></span><em>${tr("Ver")} ›</em></a>`}
 /* ================= RESIDENCIA · SALIDAS, ENTRADAS Y PERMISOS ================= */
 // Permiso de salida (fin de semana, visita a casa, médico…) que firma en la pantalla el familiar que recoge al jugador.
 // Después se apunta la hora real de salida y de vuelta; si no ha vuelto a la hora prevista sale en rojo y avisa.
@@ -4901,7 +4925,7 @@ else firebase.auth().onAuthStateChanged(async u=>{
   if(booting)return;if(!u){uiUser="";showCover();return}
   let name=u.email;
   try{const sd=await firebase.firestore().doc("staff/"+u.email.toLowerCase()).get();if(!sd.exists){$("#cverr").textContent=tr("Este correo no tiene acceso. Pide al administrador que te dé de alta.");await firebase.auth().signOut();showCover();return}name=sd.data().nombre||u.email;setAreas(sd.data().area||sd.data().areas||"tecnico");lsSet("kz_area",sd.data().area||sd.data().areas||"tecnico")}catch(e){const ca=lsGet("kz_area",null);if(ca&&(!navigator.onLine||(e&&e.code==="unavailable"))){name=lsGet("kz_user",u.email);setAreas(ca)}else{$("#cverr").textContent=tr("Este correo no tiene acceso. Pide al administrador que te dé de alta.");await firebase.auth().signOut();showCover();return}}
-  uiUser=name;lsSet("kz_user",name);$("#cover").hidden=true;document.body.classList.remove("covered");applyMode();render();i18nAll();startData()});
+  uiUser=name;lsSet("kz_user",name);$("#cover").hidden=true;document.body.classList.remove("covered");applyMode();render();i18nAll();startData();if(typeof wlMaybe==="function")setTimeout(wlMaybe,600)});
 let cvFirst=false,booting=false;
 document.addEventListener("click",e=>{if(!e.target.closest||!e.target.closest("#cvfirst"))return;cvFirst=!cvFirst;$("#cvnamel").hidden=!cvFirst;$(".cv-go").textContent=cvFirst?tr("Crear administrador"):tr("Entrar");$("#cvfirst").textContent=cvFirst?tr("Volver a entrar"):tr("Primer acceso: crear el administrador");$("#cverr").textContent=cvFirst?tr("Solo funciona una vez: la primera persona que lo haga queda como administrador."):""},true);
 document.addEventListener("submit",async e=>{if(e.target.id!=="cvform"||!cvFirst)return;e.preventDefault();e.stopImmediatePropagation();
@@ -4965,6 +4989,71 @@ function startData(){if(db)return;(async()=>{
   ensureSubs();
   db.doc("settings/main").onSnapshot(s=>{if(s.exists&&!sTimer&&!sWriting){const d=s.data();settings={formato:{...DEF_FMT,...(d.formato||{})},formacion:{...(d.formacion||{})},formacion2:{...(d.formacion2||{})},cortes:{...(d.cortes||{})},preguntas:[...(d.preguntas||[])],decision:{...(d.decision||{})},needs:{...(d.needs||{})},permisos:{...(d.permisos||{})}};ensureSubs();if(!document.activeElement||!document.activeElement.closest||!document.activeElement.closest("textarea,input,select"))render()}},()=>{});
 })()}
+</script>
+<style>
+/* ===== v53 · SISTEMA VISUAL (Figma «Kazakhstan Atlético App · Sistema visual») ===== */
+:root{--sp-xs:4px;--sp-sm:8px;--sp-md:12px;--sp-lg:16px;--sp-xl:24px;--sp-2xl:32px;--r-sm:6px;--r-md:10px;--r-lg:16px;--r-full:999px}
+.icn{display:inline-block;vertical-align:middle;flex:none}
+.aci{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:var(--r-md);background:var(--navy-soft)}
+.aci .icn{width:18px;height:18px}
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:26px 18px;border:1.5px dashed var(--line);border-radius:var(--r-lg);background:var(--paper)}
+.card .empty{border:0;padding:18px 8px 8px}
+.empty .emi{width:56px;height:56px;border-radius:50%;background:var(--navy-soft);display:flex;align-items:center;justify-content:center}
+.empty .emi .icn{width:26px;height:26px}
+.empty b{font-size:15px;color:var(--ink)}
+.empty p{margin:0;color:var(--muted);font-size:13px;max-width:340px}
+#wl{position:fixed;inset:0;z-index:90;background:rgba(20,22,60,.55);display:none;align-items:center;justify-content:center;padding:16px}
+#wl.on{display:flex}
+#wl .wlb{background:var(--bg);border-radius:22px;max-width:420px;width:100%;padding:22px 26px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+#wl .wlskip{align-self:flex-end;background:none;border:0;color:var(--muted);font-weight:700;cursor:pointer;font-size:14px;min-height:20px}
+#wl .wli{width:150px;height:150px;border-radius:42px;background:var(--navy-soft);display:flex;align-items:center;justify-content:center;margin:6px 0}
+#wl .wli .icn{width:72px;height:72px}
+#wl h2{margin:0;font-size:24px;color:var(--navy);font-weight:800}
+#wl p{margin:0;color:var(--muted);font-size:15px;line-height:1.5;min-height:66px}
+#wl .wld{display:flex;gap:8px;margin:6px 0}
+#wl .wld i{width:8px;height:8px;border-radius:4px;background:var(--line);transition:width .2s}
+#wl .wld i.on{width:24px;background:var(--red)}
+#wl .wlgo{width:100%;padding:13px;border-radius:var(--r-md);border:0;background:var(--navy);color:#fff;font-weight:800;font-size:15px;cursor:pointer}
+#wl .wlgo.last{background:var(--red)}
+</style>
+<script>
+/* ===== v53 · ICONOS DE LÍNEA, ESTADOS VACÍOS Y BIENVENIDA ===== */
+// Bienvenida: 4 pasos la primera vez que cada persona entra. Se puede repetir desde el perfil.
+const WL_AREA_IC={direccion:"coord",scouting:"scouting",tecnico:"entreno",medico:"medica",marketing:"marketing",almacen:"almacen",residencia:"residencia"};
+function wlSteps(){const a=uiAreas[0]||"tecnico",A=AREAS[a]||{n:"",d:""};const nm=String(uiUser||"").split(" ")[0];
+ return [["inicio",tr("Bienvenido")+(nm?", "+nm:""),tr("Esta es la app del staff de la academia. Te enseñamos lo esencial en 4 pasos.")],
+  [WL_AREA_IC[a]||"inicio",tr("Tu área")+": "+tr(A.n),tr(A.d)+". "+tr("Solo ves lo que te toca; Dirección decide qué más puedes ver.")],
+  ["notif",tr("Todo te llega a la campana"),tr("Partidos, tareas, reuniones y mensajes de tu área. Los avisos y protocolos se confirman con «leído y entendido».")],
+  ["chat",tr("¿Dudas? Usa el chat"),tr("Escribe a cualquier persona del staff desde el chat. En tu perfil puedes volver a ver esta bienvenida.")]]}
+let wlI=0;
+function wlKey(){return "kz_wl1_"+String((typeof chatMe==="function"&&chatMe())||uiUser||"").toLowerCase()}
+function wlPaint(){const S=wlSteps(),st=S[wlI],last=wlI===S.length-1;let el=$("#wl");if(!el){el=document.createElement("div");el.id="wl";document.body.appendChild(el)}
+ el.innerHTML=`<div class="wlb" role="dialog" aria-modal="true"><button class="wlskip" data-wlx>${last?"":tr("Saltar")}</button><div class="wli">${icn(st[0],72)}</div><h2>${esc(st[1])}</h2><p>${esc(st[2])}</p><div class="wld">${S.map((_,i)=>`<i class="${i===wlI?"on":""}"></i>`).join("")}</div><button class="wlgo${last?" last":""}" data-wlnext>${last?tr("Empezar"):tr("Siguiente")}</button></div>`;el.classList.add("on")}
+function wlOpen(){wlI=0;wlPaint()}
+function wlClose(){const el=$("#wl");if(el)el.classList.remove("on");try{localStorage.setItem(wlKey(),"1")}catch(_){}}
+function wlMaybe(){try{if(!uiUser||localStorage.getItem(wlKey()))return}catch(_){return}wlOpen()}
+document.addEventListener("click",e=>{const t=e.target;if(!t.closest)return;
+ if(t.closest("[data-wlnext]")){e.stopImmediatePropagation();if(wlI<wlSteps().length-1){wlI++;wlPaint()}else wlClose();return}
+ if(t.closest("[data-wlx]")){e.stopImmediatePropagation();wlClose();return}
+ if(t.closest("[data-wlagain]")){e.stopImmediatePropagation();$("#modal").classList.remove("on");wlOpen();return}},true);
+if(typeof profOpen==="function"){const _po=profOpen;profOpen=function(){_po.apply(this,arguments);const b=$("#modalbox");if(b&&!b.querySelector("[data-wlagain]"))b.insertAdjacentHTML("beforeend",`<button class="btn ghost" data-wlagain style="width:100%;margin-top:10px">${icn("inicio",16)} ${tr("Ver la bienvenida otra vez")}</button>`)}}
+Object.assign(I18N,{
+ "publicaciones en marcha":{en:"posts in progress",ru:"публикаций в работе"},
+ "Calendario, redes, prensa, patrocinadores y captación.":{en:"Calendar, social media, press, sponsors and recruitment.",ru:"Календарь, соцсети, пресса, спонсоры и набор."},
+ "No hay nada programado":{en:"Nothing scheduled",ru:"Ничего не запланировано"},
+ "Cuando el cuerpo técnico añada un entrenamiento o un partido, aparecerá aquí.":{en:"When the coaching staff add a session or a match, it will show here.",ru:"Когда тренерский штаб добавит тренировку или матч, они появятся здесь."},
+ "Aún no hay actividad reciente":{en:"No recent activity yet",ru:"Пока нет последних изменений"},
+ "Aquí verás quién cambia qué y cuándo. Empieza registrando un informe o un entrenamiento.":{en:"Here you will see who changes what and when. Start by adding a report or a session.",ru:"Здесь будет видно, кто что изменил и когда. Начните с отчёта или тренировки."},
+ "Bienvenido":{en:"Welcome",ru:"Добро пожаловать"},
+ "Esta es la app del staff de la academia. Te enseñamos lo esencial en 4 pasos.":{en:"This is the academy staff app. Here are the essentials in 4 steps.",ru:"Это приложение для сотрудников академии. Главное — за 4 шага."},
+ "Tu área":{en:"Your area",ru:"Ваш отдел"},
+ "Solo ves lo que te toca; Dirección decide qué más puedes ver.":{en:"You only see what concerns you; Management decides what else you can see.",ru:"Вы видите только своё; руководство решает, что ещё вам доступно."},
+ "Todo te llega a la campana":{en:"Everything arrives at the bell",ru:"Всё приходит в колокольчик"},
+ "Partidos, tareas, reuniones y mensajes de tu área. Los avisos y protocolos se confirman con «leído y entendido».":{en:"Matches, tasks, meetings and messages for your area. Notices and protocols are confirmed with “read and understood”.",ru:"Матчи, задачи, встречи и сообщения вашего отдела. Объявления и протоколы подтверждаются: «прочитано и понятно»."},
+ "¿Dudas? Usa el chat":{en:"Questions? Use the chat",ru:"Вопросы? Пишите в чат"},
+ "Escribe a cualquier persona del staff desde el chat. En tu perfil puedes volver a ver esta bienvenida.":{en:"Message anyone on the staff from the chat. You can see this welcome again from your profile.",ru:"Пишите любому сотруднику в чате. Это приветствие можно снова открыть в профиле."},
+ "Saltar":{en:"Skip",ru:"Пропустить"},"Siguiente":{en:"Next",ru:"Далее"},"Empezar":{en:"Start",ru:"Начать"},
+ "Ver la bienvenida otra vez":{en:"See the welcome again",ru:"Снова открыть приветствие"}});
 </script>
 </body>
 </html>

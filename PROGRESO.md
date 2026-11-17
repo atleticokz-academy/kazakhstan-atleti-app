@@ -1,6 +1,6 @@
 # PROGRESO · nota de relevo
 
-**Última actualización:** 2026-11-16 · **Por:** Claude Code
+**Última actualización:** 2026-11-17 · **Por:** Claude Code
 
 ## 🎯 Objetivo actual
 Mejoras de Marketing hechas con Codex: publicadas en `main` (2026-11-16). Marketing es interno: NO familias, matrículas ni CRM.
@@ -25,6 +25,13 @@ Mejoras de Marketing hechas con Codex: publicadas en `main` (2026-11-16). Market
 ## 📌 Cómo funcionan los tics
 - Tics: ✓ gris = enviado · ✓✓ gris = recibido en un aparato · ✓✓ verde = leído (en grupos, cuando lo han recibido o leído todos). Se guardan en `chats/{id}.rec[correo] = {e, l}`, con la hora del propio mensaje. Funciones `chatRec`, `chatTick`, `chatSeenT`. El «no leído» ya se sincroniza entre aparatos.
 - No hace falta tocar reglas: los miembros ya pueden actualizar su chat.
+
+## 🎨 v53 (Claude, hilo de mejoras con Figma y Canva)
+- Sistema visual en Figma: https://www.figma.com/design/HP4fMhBKNvVWXZPoJUfNRS
+- Iconos de línea `icn(nombre,tamaño)` y `emptyState(icono,título,texto)`, definidos en `<head>` porque el primer render ocurre antes del script principal.
+- Tarjeta de Marketing con `mkCounts().rrss` (ya no «Próxima fase").
+- Bienvenida de 4 pasos (`#wl`), una vez por persona (`localStorage kz_wl1_<correo>`); se repite desde el perfil.
+- Vídeos de bienvenida y post-partido en la carpeta del proyecto `videos/`: aún NO están en la app.
 
 ## 💬 v52 (Claude, hilo de la app)
 - En pantallas anchas, fuera de la pestaña Chat, el chat sale como barra lateral a la izquierda (`#chdock`, código «CHAT EN BARRA LATERAL»). Se pliega con ⟨; si no cabe, botón 💬 abajo a la izquierda que la abre por encima. En móvil no cambia nada.
