@@ -46,15 +46,19 @@ service cloud.firestore {
     match /players/{id} {
       allow read: if esDireccion() || tiene('scouting') || tiene('tecnico') || tiene('residencia') || concedido('scouting');
       allow create: if esDireccion() || tiene('scouting') || tiene('tecnico');
-      allow update: if esDireccion() || tiene('scouting')
-        || (tiene('tecnico') && request.resource.data.get('estado', '') == resource.data.get('estado', ''));
+      // «_del» = jugador borrado (se deja una marca vacía para que los demás aparatos lo quiten): solo Dirección.
+      allow update: if (esDireccion() || tiene('scouting')
+        || (tiene('tecnico') && request.resource.data.get('estado', '') == resource.data.get('estado', '')))
+        && (request.resource.data.get('_del', false) != true || esDireccion());
       allow delete: if esDireccion();
     }
     // Entrenamientos, asistencia y minutos: Dirección, Cuerpo técnico y quien tenga ese permiso. Editan Dirección y Cuerpo técnico.
     // (El calendario oficial de partidos y el planificador de eventos no están aquí: van dentro de la app.)
     match /events/{id} {
       allow read: if esDireccion() || tiene('tecnico') || tiene('residencia') || concedido('equipo');
-      allow create, update: if esDireccion() || tiene('tecnico');
+      allow create: if esDireccion() || tiene('tecnico');
+      allow update: if (esDireccion() || tiene('tecnico'))
+        && (request.resource.data.get('_del', false) != true || esDireccion());
       allow delete: if esDireccion();
     }
     // Biblioteca de tareas de entrenamiento: misma regla que los entrenamientos.
@@ -77,7 +81,10 @@ service cloud.firestore {
         && correo() in request.resource.data.miembros
         && request.resource.data.txt is string && request.resource.data.txt.size() <= 4000
         && correo() in get(/databases/$(database)/documents/chats/$(request.resource.data.c)).data.miembros;
-      allow update, delete: if false;
+      allow update: if false;
+      // Los mensajes duran 7 días: pasado ese tiempo los puede borrar cualquiera de la conversación.
+      allow delete: if esStaff() && correo() in resource.data.miembros
+        && resource.data.t is number && resource.data.t < request.time.toMillis() - 604800000;
     }
     // Calendario oficial de partidos (Coordinación → Partidos y Logística).
     match /calendario/{id} {

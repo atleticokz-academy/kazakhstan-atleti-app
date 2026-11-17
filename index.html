@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta name="kzv" content="1611-1225">
+<head><meta name="kzv" content="1711-0911">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kazakhstan Atlético App</title>
@@ -823,6 +823,9 @@ img.chav{object-fit:cover}
 .dklist{flex:1;overflow-y:auto}.dkmsgs{flex:1;background:#f4f4f8;padding:10px 12px}.dkmsgs .chm{max-width:86%}.dkform{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);align-items:flex-end}.dkform textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:18px;padding:8px 12px;font:inherit;font-size:14px;min-height:38px;height:38px;max-height:120px}
 .dkform .btn{border-radius:50%;width:38px;height:38px;padding:0}.dkfab{position:fixed;left:16px;bottom:18px;z-index:59;width:54px;height:54px;border-radius:50%;border:0;background:var(--navy);color:#fff;font-size:24px;box-shadow:0 6px 18px rgba(20,22,60,.3);cursor:pointer}
 .dkfab b{position:absolute;top:-2px;right:-2px;background:var(--red);color:#fff;font-size:11px;border-radius:999px;padding:2px 6px}
+.chttl{text-align:center;font-size:12px;opacity:.6;margin:2px 0 10px}
+.lnkc{margin-top:14px}.lnkl{display:flex;flex-direction:column;gap:6px;margin:8px 0}.lnki{display:flex;align-items:center;gap:8px}.lnki a{flex:1;display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:inherit;min-width:0}.lnki a b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.lnki a:hover{border-color:var(--navy,#232c6b)}
+.lnkf{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.lnkf input{flex:1 1 180px;min-width:0}
 .qnew{background:#fff7e6;border:1px solid #f3d9a4;border-radius:10px;padding:8px 10px;display:grid;gap:6px}.qnew small{color:#8a6d1f}
 .qtags{display:flex;flex-wrap:wrap;gap:6px}.qtags button,.qtags span{border:1px solid #d5d8e3;background:#fff;border-radius:99px;padding:5px 11px;font-size:13px;font-weight:600;color:inherit}.qtags button.on{background:#282a6f;color:#fff;border-color:#282a6f}.qtags.ro{margin:6px 0}.qtags.ro span{background:#eef0f8;padding:2px 9px;font-size:12px}
 .qvoz{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.qvoz .rec{background:#e8151e;color:#fff;border-color:#e8151e}#qaud,.vozau{width:100%;height:36px}
@@ -1152,7 +1155,7 @@ const canSee=r=>{if(r==="inicio"||r==="chat")return true;if(r==="j360")return f3
 function setAreas(a){uiAreas=(Array.isArray(a)?a:String(a||"").split(/[,\s]+/)).map(x=>x.trim().toLowerCase()).filter(x=>AREAS[x]);if(!uiAreas.length)uiAreas=["tecnico"];document.body.dataset.areas=uiAreas.join(" ");document.body.classList.toggle("ro-fichas",!canEdit("fichas"))}
 function logV(x){if(x==null||x==="")return "";if(typeof x==="string")return x.startsWith("data:")?"[foto]":x.length>160?x.slice(0,160)+"…":x;if(typeof x!=="object")return String(x);const s=JSON.stringify(x);return s.length>160?s.slice(0,160)+"…":s}
 function logChange(id,accion){if(!db||noLog)return;const p=players[id]||{},prev=lastSaved[id];let campos=[];
-  if(accion==="editado"){if(!prev)accion="creado";else{const ks=new Set([...Object.keys(p),...Object.keys(prev)]);for(const k of ks){if(k==="updated"||k==="updatedBy"||k==="id")continue;if(JSON.stringify(p[k]??"")!==JSON.stringify(prev[k]??""))campos.push(k)}if(!campos.length)return}}
+  if(accion==="editado"){if(!prev)accion="creado";else{const ks=new Set([...Object.keys(p),...Object.keys(prev)]);for(const k of ks){if(k==="updated"||k==="updatedBy"||k==="id"||k==="upd")continue;if(JSON.stringify(p[k]??"")!==JSON.stringify(prev[k]??""))campos.push(k)}if(!campos.length)return}}
   const now=Date.now(),L=lastLog[id];let did;let ch={};for(const k of campos)ch[k]={a:logV(prev&&prev[k]),n:logV(p[k])};
   if(L&&L.accion===accion&&now-L.t<10*60*1000){did=L.did;campos=[...new Set([...L.campos,...campos])];for(const k of Object.keys(L.ch||{}))ch[k]=ch[k]?{a:L.ch[k].a,n:ch[k].n}:L.ch[k]}else did=new Date(now).toISOString().replace(/[:.]/g,"-")+"-"+Math.random().toString(36).slice(2,6);
   lastLog[id]={did,t:L&&L.did===did?L.t:now,campos,accion,ch};
@@ -1592,7 +1595,7 @@ document.addEventListener("click",e=>{
   if(act==="close") closeDrawer();
   if(act==="new"){const id=year+"-"+Math.random().toString(36).slice(2,8);players[id]={id,gen:year,nombre:"",origen:"Plantilla",estado:"Base",r:{},med:[],apr:[]};savePlayer(id,0);openDrawer(id)}
   if(act==="del"&&p&&!isAdmin()){toast(tr("Solo el administrador puede hacer esto"));return}
-  if(act==="del"&&p){ask(`¿Eliminar a ${p.nombre||"este jugador"}? No se puede deshacer.`,"Eliminar",async()=>{const id=p.id;delete players[id];closeDrawer();if(db){try{await db.doc("players/"+id).delete();logChange(id,"eliminado");toast("Jugador eliminado")}catch(_){toast("No se pudo eliminar")}}})}
+  if(act==="del"&&p){ask(`¿Eliminar a ${p.nombre||"este jugador"}? No se puede deshacer.`,"Eliminar",async()=>{const id=p.id;delete players[id];closeDrawer();if(db){try{await kzDel("players/"+id);logChange(id,"eliminado");toast("Jugador eliminado")}catch(_){toast("No se pudo eliminar")}}})}
   if(act==="addmed"&&p){const m={fecha:$("#m_fecha").value};for(const k of ["est","peso","sent","padre","madre","s10","s30","cmj","cod","ift","vmax"]){const v=num($("#m_"+k).value);if(v!=null)m[k]=v}
     if(!m.fecha||Object.keys(m).length<2){toast("Pon la fecha y al menos un dato");return}
     p.med=(p.med||[]).filter(x=>x.fecha!==m.fecha).concat([m]);savePlayer(p.id,0);toast("Medición guardada");render()}
@@ -1760,7 +1763,7 @@ document.addEventListener("click",ev=>{const t=ev.target;let b;
   if((b=t.closest("[data-evopen]"))){evOpen=b.dataset.evopen;render();window.scrollTo(0,0);return}
   if(t.closest("[data-evback]")){evOpen=null;render();return}
   if(t.closest("[data-eqpast]")){eqShowPast=true;render();return}
-  if(t.closest("[data-evdel]")&&evOpen){const id=evOpen;ask(tr("¿Eliminar este evento? No se puede deshacer."),tr("Eliminar"),async()=>{delete evs[id];evOpen=null;render();if(db){try{await db.doc("events/"+id).delete();toast(tr("Eliminado"))}catch(_){toast(tr("No se pudo eliminar"))}}});return}
+  if(t.closest("[data-evdel]")&&evOpen){const id=evOpen;ask(tr("¿Eliminar este evento? No se puede deshacer."),tr("Eliminar"),async()=>{delete evs[id];evOpen=null;render();if(db){try{await kzDel("events/"+id);toast(tr("Eliminado"))}catch(_){toast(tr("No se pudo eliminar"))}}});return}
   const e=evs[evOpen];if(!e)return;
   if(!canEdit("equipo")&&t.closest("[data-att],[data-attall],[data-conv]")){toast(tr("Tu área solo puede consultar esta sección"));return}
   if((b=t.closest("[data-att]"))){e.att=e.att||{};const id=b.dataset.att,v=b.dataset.v;if(e.att[id]===v)delete e.att[id];else e.att[id]=v;evSave(e.id,300);render();return}
@@ -1841,7 +1844,7 @@ const chatTime=t=>{const d=new Date(t),today=isoD(new Date());return isoD(d)===t
 function chatSubs(){if(!db||chatSubs.done)return;const me=chatMe();if(!me)return;chatSubs.done=1;
   const fb=!!window.firebase,meta=fb?{includeMetadataChanges:true}:undefined;
   const sub=(col,set,n=0)=>{try{let q=db.collection(col);if(typeof q.where==="function"&&fb)q=q.where("miembros","array-contains",me);
-    const ok=sn=>{n=0;for(const ch of sn.docChanges(meta)){const id=ch.doc.id;if(ch.type==="removed"){delete set[id];continue}const d=ch.doc.data();if(!(d.miembros||[]).includes(me)){delete set[id];continue}set[id]={...d,id};if(fb&&ch.doc.metadata.hasPendingWrites)set[id]._p=1}chatPaint(col==="chatmsgs")};
+    const ok=sn=>{n=0;for(const ch of sn.docChanges(meta)){const id=ch.doc.id;if(ch.type==="removed"){delete set[id];continue}const d=ch.doc.data();if(!(d.miembros||[]).includes(me)){delete set[id];continue}if(col==="chatmsgs"&&chatOld(d)){delete set[id];chatPurge(ch.doc.ref,d);continue}set[id]={...d,id};if(fb&&ch.doc.metadata.hasPendingWrites)set[id]._p=1}chatPaint(col==="chatmsgs")};
     const ko=err=>{try{setStatus("warn",tr("No se puede leer el chat")+" ("+((err&&err.code)||"error")+")")}catch(_){}
       // reintento con espera creciente (2 s, 4 s… hasta 1 min): al arrancar la sesión a veces aún no está lista
       setTimeout(()=>sub(col,set,n+1),Math.min(60000,2000*2**n))};
@@ -1983,7 +1986,7 @@ function medSave(pid,aviso){if(!db)return;clearTimeout(medT[pid]);medT[pid]=setT
 function medSubs(){if(!db||medSubs.done)return;
   if(!medSubs.s){medSubs.s=1;try{db.doc("semaforo/estado").onSnapshot(sn=>{if(semT)return;const d=sn.exists?sn.data():null;sem=(d&&d.v)||{};try{ntBadge()}catch(_){}if(["coordinacion","equipo","medica"].includes(route)&&!openId){const ae=document.activeElement;if(!(ae&&ae.closest&&ae.closest("input,textarea,select"))&&!$("#modal").classList.contains("on"))render()}},()=>{})}catch(_){}}
   if(!canMod("medica"))return;medSubs.done=1;
-  try{db.collection("medical").onSnapshot(sn=>{for(const ch of sn.docChanges()){const id=ch.doc.id;if(medT[id])continue;if(ch.type==="removed"){delete med[id];continue}const d=ch.doc.data(),cur=med[id];if(cur){for(const k of Object.keys(cur))delete cur[k];Object.assign(cur,d)}else med[id]=d}
+  try{kzSync("medical",sn=>{for(const ch of sn.docChanges()){const id=ch.doc.id;if(medT[id])continue;if(ch.type==="removed"){delete med[id];continue}const d=ch.doc.data(),cur=med[id];if(cur){for(const k of Object.keys(cur))delete cur[k];Object.assign(cur,d)}else med[id]=d}
     const ae=document.activeElement;if(route==="medica"&&!openId&&!(ae&&ae.closest&&ae.closest("input,textarea,select"))&&!$("#modal").classList.contains("on"))render()},()=>{})}catch(_){}}
 // semáforo: verde / amarillo / rojo, sin diagnóstico, para el resto del staff
 function semCalc(pid){const m=med[pid];if(!m)return null;const today=isoD(new Date());let c=null,hasta="";
@@ -3629,9 +3632,9 @@ document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest||route!==
   if((b=t.closest("[data-tpldel]"))&&pfE()){ev.stopImmediatePropagation();const id=b.dataset.tpldel;ask(tr("¿Eliminar esta plantilla? Los entrenamientos que ya la usaron no cambian."),tr("Eliminar"),()=>{met.tpl=(met.tpl||[]).filter(y=>y.id!==id);metSave();render()});return}},true);
 /* ================= MODO SIN COBERTURA ================= */
 // En el campo sin internet se puede pasar lista y apuntar minutos: los cambios se guardan y se envían solos al volver la cobertura.
-// Guardar datos en el móvil para abrir la app sin cobertura es opcional y solo en el móvil personal (con bloqueo de pantalla);
-// al cerrar sesión se borran del móvil.
-const offOn=()=>{try{return localStorage.getItem("kz_offline")==="1"}catch(_){return false}};
+// Los datos se guardan en el aparato por defecto (abre más rápido, funciona sin cobertura y solo descarga lo que cambia);
+// al cerrar sesión se borran. En un ordenador compartido se puede desactivar desde el perfil.
+const offOn=()=>{try{return localStorage.getItem("kz_offline")!=="0"}catch(_){return true}};
 const offWeb=()=>typeof firebase!=="undefined"&&!!firebase.firestore;
 function offBar(){let b=document.getElementById("offbar");if(!b){b=document.createElement("div");b.id="offbar";document.body.appendChild(b)}
   const on=navigator.onLine;b.className=on?"":"on";b.innerHTML=on?"":`📶 <b>${tr("Sin cobertura")}</b> · <span>${tr("Puedes seguir trabajando: los cambios se guardan y se envían solos al volver la conexión.")}</span>`;
@@ -3639,11 +3642,11 @@ function offBar(){let b=document.getElementById("offbar");if(!b){b=document.crea
 addEventListener("offline",offBar);
 addEventListener("online",()=>{offBar();try{if(db&&db.waitForPendingWrites)db.waitForPendingWrites().then(()=>toast(tr("Conexión recuperada: cambios enviados"))).catch(()=>{})}catch(_){}});
 setTimeout(offBar,0);
-function offToggle(on){if(on){ask(tr("Solo en tu móvil personal y con bloqueo de pantalla (PIN, huella o cara). Los datos de los jugadores se guardan en este móvil para abrir la app sin cobertura y se borran al cerrar sesión. ¿Activar?"),tr("Activar"),()=>{try{localStorage.setItem("kz_offline","1")}catch(_){}toast(tr("Activado. Se aplica al volver a abrir la app."));setTimeout(()=>location.reload(),900)})}
-  else{try{localStorage.removeItem("kz_offline")}catch(_){}offWipe().then(()=>location.reload())}}
+function offToggle(on){if(on){try{localStorage.setItem("kz_offline","1")}catch(_){}toast(tr("Activado. Se aplica al volver a abrir la app."));setTimeout(()=>location.reload(),900)}
+  else ask(tr("Desactívalo solo en un ordenador compartido. La app irá más lenta y gastará más datos, porque descargará todo cada vez que se abra. ¿Desactivar?"),tr("Desactivar"),()=>{try{localStorage.setItem("kz_offline","0")}catch(_){}offWipe().then(()=>location.reload())})}
 async function offWipe(){try{if(offWeb()){const f=firebase.firestore();await f.terminate();await f.clearPersistence()}}catch(_){}}
 if(typeof profOpen==="function"){const _po2=profOpen;profOpen=function(){_po2();if(!offWeb())return;const st=$("#modalbox .profst");if(st&&!$("#modalbox [data-offt]")){const on=offOn();
-  st.insertAdjacentHTML("afterend",`<label class="fmbtn offt"><span>📶</span><span><b>${tr("Usar sin cobertura en este móvil")}</b><small>${tr(on?"Activado: puedes abrir la app sin internet. Se borra al cerrar sesión.":"Solo en tu móvil personal. Aunque no lo actives, si pierdes la cobertura con la app abierta los cambios se guardan y se envían después.")}</small></span><input type="checkbox" data-offt${on?" checked":""}></label>`);
+  st.insertAdjacentHTML("afterend",`<label class="fmbtn offt"><span>📶</span><span><b>${tr("Guardar los datos en este aparato")}</b><small>${tr(on?"Activado: la app abre más rápido, funciona sin cobertura y solo descarga lo que cambia. Se borra al cerrar sesión. Desactívalo en un ordenador compartido.":"Desactivado: la app descarga todo cada vez que se abre.")}</small></span><input type="checkbox" data-offt${on?" checked":""}></label>`);
   const i=$("#modalbox [data-offt]");if(i)i.onchange=()=>{const v=i.checked;i.checked=!v;offToggle(v)}}}}
 /* ================= BOTÓN «GUARDAR» ================= */
 // La app guarda sola mientras escribes, pero este botón fuerza el guardado al momento y confirma que ha llegado a la nube.
@@ -3832,7 +3835,7 @@ async function diagOpen(){const fb=typeof firebase!=="undefined"&&firebase.auth;
   const byGen={};for(const p of Object.values(players))byGen[p.gen]=(byGen[p.gen]||0)+1;
   const row=(k,v)=>`<tr><td>${esc(k)}</td><td data-noi18n><b>${v}</b></td></tr>`;
   const base=[["Cuenta",esc(u?u.email:(uiUser||"—"))],["Áreas",esc((typeof uiAreas!=="undefined"?uiAreas:[]).join(", ")||"—")],["Versión","v"+esc(String((document.querySelector('meta[name="kzv"]')||{}).content||"web"))],
-    ["Conexión",navigator.onLine?"✓ online":"✗ offline"],["Modo sin cobertura",offOn&&offOn()?"activado":"no"],["Estado",esc(($("#st")||{}).textContent||"—")],
+    ["Conexión",navigator.onLine?"✓ online":"✗ offline"],["Datos guardados en el aparato",offOn&&offOn()?"sí":"no"],["Estado",esc(($("#st")||{}).textContent||"—")],
     ["Jugadores cargados",Object.keys(players).length+" ("+(Object.keys(byGen).sort().map(g=>g+": "+byGen[g]).join(" · ")||"—")+")"],
     ["Conversaciones / mensajes",Object.keys(typeof chats!=="undefined"?chats:{}).length+" / "+Object.keys(typeof cmsgs!=="undefined"?cmsgs:{}).length]];
   $("#modalbox").innerHTML=`<h2 style="margin-top:0">🩺 ${tr("Comprobar conexión")}</h2><table class="mtab diagt">${base.map(([k,v])=>row(tr(k),v)).join("")}<tbody id="diagsrv">${row(tr("Servidor"),"…")}</tbody></table>
@@ -3846,7 +3849,7 @@ async function diagOpen(){const fb=typeof firebase!=="undefined"&&firebase.auth;
   const me=(u&&u.email||"").toLowerCase(),out=[];
   const t=async(lab,f)=>{try{const r=await Promise.race([f(),new Promise((_,k)=>setTimeout(()=>k({code:"timeout"}),12000))]);out.push(row(lab,"✓ "+r))}catch(e){out.push(row(lab,"✗ "+esc((e&&e.code)||String(e))))}};
   await t(tr("Ficha de staff"),async()=>{const d=await db.doc("staff/"+me).get({source:"server"});return d.exists?esc(JSON.stringify({nombre:d.data().nombre,area:d.data().area})):"no existe"});
-  await t(tr("Leer jugadores"),async()=>{const s=await db.collection("players").get({source:"server"});const g={};s.forEach(d=>{const x=d.data().gen;g[x]=(g[x]||0)+1});return s.size+" ("+Object.keys(g).sort().map(k=>k+": "+g[k]).join(" · ")+")"});
+  await t(tr("Leer jugadores"),async()=>{const s=await db.collection("players").get({source:"server"});const g={};s.forEach(d=>{if(d.data()._del)return;const x=d.data().gen;g[x]=(g[x]||0)+1});return s.size+" ("+Object.keys(g).sort().map(k=>k+": "+g[k]).join(" · ")+")"});
   await t(tr("Leer chat"),async()=>{const s=await db.collection("chats").where("miembros","array-contains",me).get({source:"server"});const m=await db.collection("chatmsgs").where("miembros","array-contains",me).get({source:"server"});return s.size+" / "+m.size});
   const el=$("#diagsrv");if(el)el.innerHTML=out.join("")}
 document.addEventListener("click",ev=>{if(ev.target.closest&&ev.target.closest("[data-diagopen]")){ev.stopImmediatePropagation();diagOpen()}},true);
@@ -3890,6 +3893,116 @@ document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;le
   if((b=t.closest("[data-dkopen]"))){ev.stopImmediatePropagation();dkCur=b.dataset.dkopen;chatMarkSeen(dkCur);dkPaint();setTimeout(()=>{const M=$("#dkmsgs");if(M)M.scrollTop=M.scrollHeight;const i=$("#dkin");if(i)i.focus()},0);try{chatBadge()}catch(_){}return}},true);
 document.addEventListener("submit",ev=>{if(ev.target&&ev.target.id==="dkform"){ev.preventDefault();ev.stopImmediatePropagation();dkSend()}},true);
 document.addEventListener("keydown",ev=>{if(ev.target&&ev.target.id==="dkin"&&ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();dkSend()}},true);
+/* ================= AHORRO DE LECTURAS Y CAMBIOS SIN PISARSE ================= */
+// 1) Al guardar una sección que se guarda entera (metodología, residencia, coordinación, marketing, almacén…), solo se envía
+//    lo que ha cambiado esta persona, encima de lo que hay en la nube. Así dos personas a la vez no se pisan.
+//    Si dos personas cambian EXACTAMENTE el mismo dato, gana el último (como antes).
+// 2) Jugadores, eventos, tareas y médica: la primera vez se descargan enteros y se guardan en este aparato; después solo se
+//    descarga lo que ha cambiado (campo «upd», hora del servidor). Una vez por semana se descarga todo otra vez.
+//    Los borrados dejan una marca («_del») para que los demás aparatos también lo quiten.
+const kzBase=new Map();
+const KZ_SYNC=["players","events","tasks","medical"];
+const kzIsO=x=>!!x&&typeof x==="object"&&!Array.isArray(x)&&Object.getPrototypeOf(x)===Object.prototype;
+function kzEq(a,b){if(a===b)return true;if(!a||!b||typeof a!=="object"||typeof b!=="object")return false;
+  if(typeof a.isEqual==="function"){try{return a.isEqual(b)}catch(_){return false}}
+  if(Array.isArray(a)!==Array.isArray(b))return false;
+  if(Array.isArray(a)){if(a.length!==b.length)return false;for(let i=0;i<a.length;i++)if(!kzEq(a[i],b[i]))return false;return true}
+  if(!kzIsO(a)||!kzIsO(b))return false;const ka=Object.keys(a),kb=Object.keys(b);if(ka.length!==kb.length)return false;
+  for(const k of ka)if(!Object.prototype.hasOwnProperty.call(b,k)||!kzEq(a[k],b[k]))return false;return true}
+// s = lo que hay ahora en la nube, b = lo que esta persona tenía cuando empezó a editar, l = lo que quiere guardar
+function kzMerge(s,b,l){
+  if(kzEq(l,b))return s;
+  if(kzEq(s,b))return l;
+  if(kzIsO(s)&&kzIsO(b)&&kzIsO(l)){const o={};for(const k of new Set([...Object.keys(s),...Object.keys(b),...Object.keys(l)])){const v=kzMerge(s[k],b[k],l[k]);if(v!==undefined)o[k]=v}return o}
+  const byId=a=>Array.isArray(a)&&a.every(x=>kzIsO(x)&&x.id!=null&&x.id!=="");
+  if(byId(s)&&byId(b)&&byId(l)){const S=new Map(s.map(x=>[x.id,x])),B=new Map(b.map(x=>[x.id,x])),out=[],seen=new Set();
+    for(const x of l){seen.add(x.id);if(B.has(x.id)){const y=kzMerge(S.get(x.id),B.get(x.id),x);if(y!==undefined)out.push(y)}else out.push(x)}
+    for(const x of s)if(!seen.has(x.id)&&!B.has(x.id))out.push(x);
+    return out}
+  return l}
+const kzCol=p=>String(p||"").split("/")[0];
+function kzWrapCb(args,rec){const a=[...args],i=a.findIndex(x=>typeof x==="function");if(i<0)return a;const f=a[i];a[i]=function(sn){try{rec(sn)}catch(_){}return f.apply(this,arguments)};return a}
+(function kzPatch(){try{if(typeof firebase==="undefined"||!firebase.firestore)return;const F=firebase.firestore,DR=F.DocumentReference&&F.DocumentReference.prototype,QR=F.Query&&F.Query.prototype;if(!DR||!QR||DR._kz)return;DR._kz=1;
+  const dOn=DR.onSnapshot,qOn=QR.onSnapshot,dSet=DR.set;
+  DR.onSnapshot=function(){const p=this.path;return dOn.apply(this,kzWrapCb(arguments,sn=>{if(sn.metadata.hasPendingWrites)return;if(sn.exists)kzBase.set(p,sn.data());else kzBase.delete(p)}))};
+  QR.onSnapshot=function(){return qOn.apply(this,kzWrapCb(arguments,sn=>{for(const c of sn.docChanges()){const p=c.doc.ref.path;if(c.type==="removed")continue;if(!c.doc.metadata.hasPendingWrites)kzBase.set(p,c.doc.data())}}))};
+  DR.set=function(data,opts){const ref=this,p=ref.path;
+    if(!opts&&kzIsO(data)&&KZ_SYNC.includes(kzCol(p)))data={...data,upd:F.FieldValue.serverTimestamp()};
+    const b=kzBase.get(p),plain=()=>dSet.call(ref,data,opts).then(r=>{if(!opts)kzBase.set(p,data);return r});
+    if(opts||!b||!navigator.onLine||!ref.firestore||typeof ref.firestore.runTransaction!=="function")return plain();
+    if(kzEq(data,b))return Promise.resolve();
+    let out=data;
+    return ref.firestore.runTransaction(async tx=>{const s=await tx.get(ref);out=kzMerge(s.exists?s.data():undefined,b,data);if(out===undefined)out=data;tx.set(ref,out)})
+      .then(()=>{kzBase.set(p,out)},()=>plain())};
+}catch(e){console.warn("kzPatch",e)}})();
+// Borrar en las colecciones que se sincronizan por partes: se deja una marca vacía para que los demás aparatos lo quiten.
+function kzDel(path){if(!db)return Promise.resolve();if(window.firebase&&firebase.firestore&&firebase.firestore.FieldValue&&KZ_SYNC.includes(kzCol(path)))return db.doc(path).set({_del:true,t:Date.now(),upd:firebase.firestore.FieldValue.serverTimestamp()},{merge:false});return db.doc(path).delete()}
+// Escucha una colección descargando solo lo que ha cambiado desde la última vez (si este aparato guarda los datos).
+async function kzSync(col,ok,ko){
+  const K="kz_sync_"+col+"_"+((typeof chatMe==="function"&&chatMe())||"");let st={};try{st=JSON.parse(localStorage.getItem(K)||"{}")||{}}catch(_){st={}}
+  const F=window.firebase&&firebase.firestore,TS=F&&F.Timestamp;
+  let per=false;try{per=TS?await (window.kzPersistP||Promise.resolve(false)):false}catch(_){}
+  let mx=+st.since||0;const save=()=>{try{localStorage.setItem(K,JSON.stringify(st))}catch(_){}};
+  const track=sn=>{for(const c of sn.docChanges()){const u=c.doc.data().upd;if(u&&typeof u.toMillis==="function")mx=Math.max(mx,u.toMillis())}};
+  const wrap=(sn,pre)=>{const ch=sn.docChanges().map(c=>({type:c.type!=="removed"&&c.doc.data()._del?"removed":c.type,doc:c.doc}));const all=pre?pre.concat(ch):ch;
+    return {docChanges:()=>all,metadata:sn.metadata,size:sn.size,docs:sn.docs,empty:sn.empty}};
+  let pre=null;
+  if(per&&st.full&&Date.now()-st.full<7*864e5&&st.n>0){try{const c=await db.collection(col).get({source:"cache"});
+    if(c.size>=st.n*0.9){pre=[];for(const d of c.docs){const x=d.data();if(x._del)continue;kzBase.set(d.ref.path,x);pre.push({type:"added",doc:d})}}}catch(_){pre=null}}
+  if(pre){let first=true;const q=db.collection(col).where("upd",">",TS.fromMillis(Math.max(0,mx-300000)));
+    return q.onSnapshot(sn=>{track(sn);const w=wrap(sn,first?pre:null);first=false;ok(w);if(!sn.metadata.fromCache){st.since=mx;st.n=Math.max(st.n||0,pre.length);save()}},ko)}
+  let got=false;
+  return db.collection(col).onSnapshot(sn=>{track(sn);ok(wrap(sn));if(!sn.metadata.fromCache){if(!got){got=true;st={full:Date.now()}}st.n=sn.size;st.since=mx;save()}},ko)}
+
+/* ================= CHAT: LOS MENSAJES DURAN 7 DÍAS ================= */
+// Lo importante va por WhatsApp. Los mensajes de más de 7 días no se muestran y se borran de la nube
+// (los borra quien los envió; si esa persona no entra, cualquiera de la conversación al octavo día).
+const CHAT_TTL=7*864e5;const chatGone=new Set();let chatPurgeT=null;const chatPurgeQ=[];
+function chatOld(d){return d&&d.t&&d.t<Date.now()-CHAT_TTL}
+function chatPurge(ref,d){if(!db||!ref||chatGone.has(ref.id))return;const me=typeof chatMe==="function"?chatMe():"";if(d.de!==me&&!(d.t<Date.now()-CHAT_TTL-864e5))return;
+  chatGone.add(ref.id);if(chatPurgeQ.length<400)chatPurgeQ.push(ref);clearTimeout(chatPurgeT);chatPurgeT=setTimeout(chatPurgeRun,4000)}
+{const _cm=chatMsgsHtml;chatMsgsHtml=function(){return `<p class="chttl">🕓 ${tr("Los mensajes se borran a los 7 días. Lo importante, por WhatsApp.")}</p>`+_cm.apply(this,arguments)}}
+async function chatPurgeRun(){while(chatPurgeQ.length){const r=chatPurgeQ.shift();try{await r.delete()}catch(_){}await new Promise(o=>setTimeout(o,120))}}
+
+/* ================= ENLACES A ARCHIVOS (Drive, YouTube, Forms…) ================= */
+// Los PDF, vídeos y cuestionarios se quedan en Google Drive / YouTube / Google Forms; en la app solo se guarda el enlace.
+function lnkIcon(u){u=String(u||"");return /youtu\.?be/.test(u)?"▶️":/docs\.google\.com\/forms|forms\.gle/.test(u)?"📝":/docs\.google\.com\/spreadsheets/.test(u)?"📊":/docs\.google\.com\/presentation/.test(u)?"📽️":/drive\.google|docs\.google/.test(u)?"📄":/disk\.yandex|yadi\.sk/.test(u)?"📁":"🔗"}
+function lnkOk(u){try{const x=new URL(u);return x.protocol==="https:"||x.protocol==="http:"}catch(_){return false}}
+function lnkCard(kind,o,canE){const L=Array.isArray(o.links)?o.links:[];if(!L.length&&!canE)return "";
+  return `<div class="card lnkc" data-lnkk="${kind}" data-lnkid="${esc(o.id)}"><h2>📎 ${tr("Archivos y enlaces")}</h2>
+   <p class="hint">${tr("Sube el PDF o el vídeo a Google Drive o YouTube (no listado) y pega aquí el enlace. Así no ocupa espacio en la app.")}</p>
+   ${L.length?`<div class="lnkl">${L.map((x,i)=>`<div class="lnki"><a href="${esc(x.u)}" target="_blank" rel="noopener"><span>${lnkIcon(x.u)}</span><b data-noi18n>${esc(x.n||x.u)}</b></a>${canE?`<button type="button" class="btn ghost sm" data-lnkrm="${i}" aria-label="${tr("Quitar")}">✕</button>`:""}</div>`).join("")}</div>`:""}
+   ${canE?`<div class="lnkf"><input type="text" data-lnkn placeholder="${tr("Nombre (p. ej. Vídeo rival)")}"><input type="url" data-lnku placeholder="https://drive.google.com/…"><button type="button" class="btn red sm" data-lnkadd>+ ${tr("Añadir")}</button></div>`:""}</div>`}
+function lnkObj(k,id){return k==="ev"?evs[id]:k==="tk"?tasks[id]:null}
+function lnkSave(k,id){if(k==="ev")evSave(id,0);else if(k==="tk")taskSave(id,0)}
+document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;const c=t.closest(".lnkc");if(!c)return;const k=c.dataset.lnkk,id=c.dataset.lnkid,o=lnkObj(k,id);if(!o)return;let b;
+  if(t.closest("[data-lnkadd]")){ev.stopImmediatePropagation();const n=c.querySelector("[data-lnkn]").value.trim(),u=c.querySelector("[data-lnku]").value.trim();
+    if(!lnkOk(u)){toast(tr("Pega un enlace que empiece por https://"));return}o.links=(Array.isArray(o.links)?o.links:[]).concat([{n:n.slice(0,120),u:u.slice(0,1000)}]);lnkSave(k,id);render();return}
+  if((b=t.closest("[data-lnkrm]"))){ev.stopImmediatePropagation();o.links=(o.links||[]).filter((_,i)=>i!==+b.dataset.lnkrm);lnkSave(k,id);render();return}},true);
+{const _ve=vEvent;vEvent=function(e){return _ve.apply(this,arguments)+lnkCard("ev",e,canEdit("equipo"))}}
+{const _vt=vTask;vTask=function(t){return _vt.apply(this,arguments)+lnkCard("tk",t,canEdit("equipo"))}}
+
+/* ================= COPIA COMPLETA (Dirección) ================= */
+// Descarga en un archivo todo lo que hay en la nube. Gratis; conviene hacerla una vez por semana y guardarla en Drive.
+const BK_COLS=["players","events","tasks","medical","staff","perfiles","avisos","leido","incid","salidas","psico","almmov","almsol","almtallas","log"];
+const BK_DOCS=["settings/main","metodo/main","pf/main","residencia/main","educacion/main","calendario/state","coord/plantilla","semaforo/estado","almacen/stock","almacen/kits","almacen/prov"];
+// La misma copia en Excel: una hoja por apartado, una fila por jugador/evento/tarea…, para verla o subirla a Google Sheets.
+const BK_NOM={players:"Jugadores",events:"Eventos y sesiones",tasks:"Tareas",medical:"Médica",staff:"Staff",perfiles:"Perfiles",avisos:"Avisos",leido:"Lecturas",incid:"Incidencias",salidas:"Salidas",psico:"Psicología",almmov:"Almacén movimientos",almsol:"Almacén solicitudes",almtallas:"Almacén tallas",log:"Historial de cambios"};
+function bkXlsx(out){if(typeof XLSX==="undefined")return;const wb=XLSX.utils.book_new(),cell=v=>v==null?"":typeof v==="object"?(v.seconds&&Object.keys(v).length<=2?new Date(v.seconds*1000).toISOString():JSON.stringify(v).slice(0,32000)):v;
+  for(const [c,M] of Object.entries(out.col)){const R=Object.entries(M);if(!R.length)continue;const ks=[];for(const [,x] of R)for(const k of Object.keys(x))if(k!=="foto"&&k!=="_p"&&!ks.includes(k))ks.push(k);
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([["id",...ks]].concat(R.map(([id,x])=>[id,...ks.map(k=>cell(x[k]))]))),tr(BK_NOM[c]||c).slice(0,31))}
+  const D=Object.entries(out.doc);if(D.length)XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([[tr("Apartado"),tr("Datos")]].concat(D.map(([p,x])=>[p,JSON.stringify(x).slice(0,32000)]))),tr("Otros apartados").slice(0,31));
+  save("Copia_completa_KZ_"+new Date().toISOString().slice(0,10)+".xlsx",new Blob([XLSX.write(wb,{bookType:"xlsx",type:"array"})]))}
+async function bkFull(){if(!db||!isAdmin())return;toast(tr("Preparando la copia…"));const out={fecha:new Date().toISOString(),col:{},doc:{}};
+  const cl=x=>JSON.parse(JSON.stringify(x));
+  for(const c of BK_COLS){try{const s=await db.collection(c).get();out.col[c]={};s.forEach(d=>{const x=d.data();if(!x._del)out.col[c][d.id]=cl(x)})}catch(_){}}
+  for(const p of BK_DOCS.concat((typeof MK_KEYS!=="undefined"?MK_KEYS:[]).map(k=>"mk/"+k),(typeof CX_KEYS!=="undefined"?CX_KEYS:[]).map(k=>"coord/"+k))){try{const s=await db.doc(p).get();if(s.exists)out.doc[p]=cl(s.data())}catch(_){}}
+  save("Copia_completa_KZ_"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(out));
+  try{bkXlsx(out)}catch(_){}try{localStorage.setItem("kz_bk",String(Date.now()))}catch(_){}toast(tr("Copia descargada. Guárdala en Google Drive."))}
+document.addEventListener("click",ev=>{if(ev.target.closest&&ev.target.closest("[data-bkfull]")){ev.stopImmediatePropagation();bkFull()}},true);
+if(typeof profOpen==="function"){const _po5=profOpen;profOpen=function(){_po5();if(!isAdmin())return;const st=$("#modalbox .profst");if(!st||$("#modalbox [data-bkfull]"))return;
+  let last=0;try{last=+localStorage.getItem("kz_bk")||0}catch(_){}const d=last?Math.floor((Date.now()-last)/864e5):null;
+  st.insertAdjacentHTML("afterend",`<button type="button" class="fmbtn" data-bkfull><span>💾</span><span><b>${tr("Copia completa de la app")}</b><small>${d===null?tr("Nunca hecha en este aparato. Hazla una vez por semana y guárdala en Google Drive."):d>=7?tr("Hace más de una semana. Toca para hacer otra."):tr("Hecha hace poco. La siguiente, dentro de una semana.")}</small></span></button>`)}}
 /* ================= COORDINACIÓN (sección principal) ================= */
 const CX0={inst:{salas:["Sala multimedia"],bloq:[],res:[]},pers:{staff:{},sust:[],material:{}},disp:{},even:[],reu:[],av:[]};
 let cx=JSON.parse(JSON.stringify(CX0)),cxT={},cxView="panel",hrView="semana",hrDay=null,hrMonth=null,calView="lista",calTeam="";
@@ -4489,7 +4602,7 @@ document.addEventListener("click",ev=>{const t=ev.target;let b;
   if((b=t.closest("[data-pzt]"))){ev.stopImmediatePropagation();pzTool=b.dataset.pzt;document.querySelectorAll("[data-pzt]").forEach(x=>x.classList.toggle("on",x===b));return}
   if(t.closest("[data-pzundo]")){ev.stopImmediatePropagation();const k=tasks[taskOpen];if(k&&pzUndo.length){k.pz=JSON.parse(pzUndo.pop());const s=document.querySelector("svg[data-pz]");if(s)pzRedraw(s,k);taskSave(k.id)}return}
   if((b=t.closest("[data-tkgen]"))){ev.stopImmediatePropagation();const k=tasks[taskOpen];if(!k||!canEdit("equipo"))return;const y=+b.dataset.tkgen;k.gens=(k.gens||[]).map(Number);k.gens=k.gens.includes(y)?k.gens.filter(x=>x!==y):[...k.gens,y].sort();taskSave(k.id,200);render();return}
-  if(t.closest("[data-tkdel]")){ev.stopImmediatePropagation();const k=tasks[taskOpen];if(!k)return;const u=taskUses(k.id);ask(u?tr("Esta tarea está en")+" "+u+" "+tr(u===1?"sesión":"sesiones")+". "+tr("¿Eliminarla de la biblioteca? No se puede deshacer."):tr("¿Eliminar esta tarea de la biblioteca? No se puede deshacer."),tr("Eliminar"),async()=>{const id=k.id;delete tasks[id];taskOpen=null;render();if(db){try{await db.doc("tasks/"+id).delete();toast(tr("Eliminada"))}catch(_){toast(tr("No se pudo eliminar"))}}});return}
+  if(t.closest("[data-tkdel]")){ev.stopImmediatePropagation();const k=tasks[taskOpen];if(!k)return;const u=taskUses(k.id);ask(u?tr("Esta tarea está en")+" "+u+" "+tr(u===1?"sesión":"sesiones")+". "+tr("¿Eliminarla de la biblioteca? No se puede deshacer."):tr("¿Eliminar esta tarea de la biblioteca? No se puede deshacer."),tr("Eliminar"),async()=>{const id=k.id;delete tasks[id];taskOpen=null;render();if(db){try{await kzDel("tasks/"+id);toast(tr("Eliminada"))}catch(_){toast(tr("No se pudo eliminar"))}}});return}
   const e=evs[evOpen];if(!e)return;
   if(t.closest("[data-plpick],[data-plnew],[data-plmv],[data-plrm]")&&!canEdit("equipo")){ev.stopImmediatePropagation();return}
   if(t.closest("[data-plpick]")){ev.stopImmediatePropagation();planPick(e);return}
@@ -4850,6 +4963,7 @@ Object.assign(I18N,{"No se puede leer el chat":{"en":"Can't read the chat","ru":
 Object.assign(I18N,{"Comprobar conexión": {"en": "Check connection", "ru": "Проверить соединение"}, "Áreas": {"en": "Areas", "ru": "Отделы"}, "Conexión": {"en": "Connection", "ru": "Соединение"}, "Modo sin cobertura": {"en": "Offline mode", "ru": "Офлайн-режим"}, "Jugadores cargados": {"en": "Players loaded", "ru": "Загружено игроков"}, "Conversaciones / mensajes": {"en": "Chats / messages", "ru": "Чаты / сообщения"}, "Servidor": {"en": "Server", "ru": "Сервер"}, "Si algo sale mal, haz una captura de esta pantalla y mándasela a Iván.": {"en": "If something is wrong, take a screenshot of this screen and send it to Iván.", "ru": "Если что-то не так, сделайте снимок экрана и отправьте Ивану."}, "Reiniciar datos de este móvil": {"en": "Reset data on this phone", "ru": "Сбросить данные на этом телефоне"}, "Ficha de staff": {"en": "Staff record", "ru": "Карточка сотрудника"}, "Leer jugadores": {"en": "Read players", "ru": "Чтение игроков"}, "Leer chat": {"en": "Read chat", "ru": "Чтение чата"}, "Mira si te llegan los jugadores y el chat, y arregla este móvil si no.": {"en": "Check that players and chat reach you, and fix this phone if not.", "ru": "Проверьте, приходят ли игроки и чат, и исправьте телефон, если нет."}});
 Object.assign(I18N,{"Responsable":{"en":"Owner","ru":"Ответственный"},"Próxima revisión":{"en":"Next review","ru":"Следующая проверка"},"Presupuesto":{"en":"Budget","ru":"Бюджет"},"Gasto real":{"en":"Actual spend","ru":"Фактические расходы"},"Moneda":{"en":"Currency","ru":"Валюта"},"Coste por inscrito":{"en":"Cost per registration","ru":"Стоимость регистрации"},"No registrado":{"en":"Not recorded","ru":"Не указано"},"No calculable":{"en":"Not calculable","ru":"Невозможно рассчитать"},"Seguidores (últimos registros)":{"en":"Followers (latest records)","ru":"Подписчики (последние записи)"},"Consulta cada mes en Stats":{"en":"See each month in Stats","ru":"Смотрите каждый месяц в статистике"},"Inscritos (todas las campañas)":{"en":"Registrations (all campaigns)","ru":"Регистрации (все кампании)"},"Compromisos (todos los acuerdos)":{"en":"Commitments (all agreements)","ru":"Обязательства (все соглашения)"},"Indica un objetivo, una meta positiva y un avance no negativo.":{"en":"Enter an objective, a positive target and non-negative progress.","ru":"Укажите цель, положительный план и неотрицательный результат."},"Indica el nombre de la campaña.":{"en":"Enter a campaign name.","ru":"Укажите название кампании."},"Usa cantidades enteras no negativas; el gasto y el presupuesto admiten decimales.":{"en":"Use non-negative whole counts; spend and budget may include decimals.","ru":"Используйте целые неотрицательные количества; расходы и бюджет могут быть дробными."},"La fecha de fin no puede ser anterior al inicio.":{"en":"The end date cannot precede the start.","ru":"Дата окончания не может быть раньше начала."},"Indica una moneda de tres letras, por ejemplo KZT, EUR o USD.":{"en":"Enter a three-letter currency, such as KZT, EUR or USD.","ru":"Укажите валюту из трёх букв, например KZT, EUR или USD."},"Revisa el embudo: una etapa no puede superar la anterior.":{"en":"Check the funnel: a stage cannot exceed the previous one.","ru":"Проверьте воронку: этап не может превышать предыдущий."},"Los inscritos por canal no pueden superar el total de inscritos.":{"en":"Channel registrations cannot exceed total registrations.","ru":"Регистрации по каналам не могут превышать общее число."}});
 Object.assign(I18N,{"Plegar": {"en": "Collapse", "ru": "Свернуть"}, "Abrir el chat completo": {"en": "Open full chat", "ru": "Открыть весь чат"}});
+Object.assign(I18N,{"Archivos y enlaces": {"en": "Files and links", "ru": "Файлы и ссылки"}, "Sube el PDF o el vídeo a Google Drive o YouTube (no listado) y pega aquí el enlace. Así no ocupa espacio en la app.": {"en": "Upload the PDF or video to Google Drive or YouTube (unlisted) and paste the link here. That way it takes no space in the app.", "ru": "Загрузите PDF или видео в Google Drive или YouTube (по ссылке) и вставьте ссылку сюда. Так оно не занимает место в приложении."}, "Nombre (p. ej. Vídeo rival)": {"en": "Name (e.g. Opponent video)", "ru": "Название (напр. Видео соперника)"}, "Pega un enlace que empiece por https://": {"en": "Paste a link starting with https://", "ru": "Вставьте ссылку, начинающуюся с https://"}, "Los mensajes se borran a los 7 días. Lo importante, por WhatsApp.": {"en": "Messages are deleted after 7 days. Important things go through WhatsApp.", "ru": "Сообщения удаляются через 7 дней. Важное — через WhatsApp."}, "Preparando la copia…": {"en": "Preparing the backup…", "ru": "Готовим копию…"}, "Copia descargada. Guárdala en Google Drive.": {"en": "Backup downloaded. Save it in Google Drive.", "ru": "Копия скачана. Сохраните её в Google Drive."}, "Copia completa de la app": {"en": "Full app backup", "ru": "Полная копия приложения"}, "Nunca hecha en este aparato. Hazla una vez por semana y guárdala en Google Drive.": {"en": "Never made on this device. Make one every week and save it in Google Drive.", "ru": "На этом устройстве ещё не делалась. Делайте её раз в неделю и сохраняйте в Google Drive."}, "Hace más de una semana. Toca para hacer otra.": {"en": "More than a week ago. Tap to make another.", "ru": "Больше недели назад. Нажмите, чтобы сделать новую."}, "Hecha hace poco. La siguiente, dentro de una semana.": {"en": "Made recently. Next one in a week.", "ru": "Сделана недавно. Следующая — через неделю."}, "Desactívalo solo en un ordenador compartido. La app irá más lenta y gastará más datos, porque descargará todo cada vez que se abra. ¿Desactivar?": {"en": "Only turn it off on a shared computer. The app will be slower and use more data, because it will download everything each time it opens. Turn off?", "ru": "Отключайте только на общем компьютере. Приложение будет медленнее и будет тратить больше данных, так как будет всё скачивать при каждом открытии. Отключить?"}, "Desactivar": {"en": "Turn off", "ru": "Отключить"}, "Guardar los datos en este aparato": {"en": "Keep data on this device", "ru": "Хранить данные на этом устройстве"}, "Activado: la app abre más rápido, funciona sin cobertura y solo descarga lo que cambia. Se borra al cerrar sesión. Desactívalo en un ordenador compartido.": {"en": "On: the app opens faster, works without signal and only downloads what changes. Erased when you sign out. Turn it off on a shared computer.", "ru": "Включено: приложение открывается быстрее, работает без сети и скачивает только изменения. Удаляется при выходе. Отключите на общем компьютере."}, "Desactivado: la app descarga todo cada vez que se abre.": {"en": "Off: the app downloads everything each time it opens.", "ru": "Отключено: приложение скачивает всё при каждом открытии."}, "Datos guardados en el aparato": {"en": "Data kept on device", "ru": "Данные на устройстве"}});
 const I18P=[
  [/^Rojo: jugador\. Discontinua: media de su posición en (\d+)\. 1–3 bajo · 4–6 medio · 7–9 alto para su año\.$/,{en:"Red: player. Dashed: average for his position in $1. 1–3 low · 4–6 medium · 7–9 high for his year.",ru:"Красный: игрок. Пунктир: среднее по его позиции в $1. 1–3 низкий · 4–6 средний · 7–9 высокий для его года."}],
  [/^Sin sistema elegido para (\d+): vista por puestos\. Elige el Sistema A y B en$/,{en:"No system chosen for $1: view by position. Choose System A and B in",ru:"Схема для $1 не выбрана: вид по позициям. Выберите схемы A и B в разделе"}],
@@ -4919,7 +5033,8 @@ setAreas(USER_AREAS[uiUser]||"direccion");renderYears(); render(); i18nAll();
   dlns={save:async({filename,data})=>{const b=data instanceof Blob?data:new Blob([data],{type:/\.json$/.test(filename)?"application/json":"application/octet-stream"});const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}};
 })();
 let fbOK=false;try{firebase.initializeApp(window.FIREBASE_CONFIG);fbOK=true}catch(e){console.error(e)}
-if(fbOK&&localStorage.getItem("kz_offline")==="1"){try{firebase.firestore().enablePersistence({synchronizeTabs:true}).catch(()=>{})}catch(_){}}
+window.kzPersistP=Promise.resolve(false);
+if(fbOK){let off=false;try{off=localStorage.getItem("kz_offline")==="0"}catch(_){}if(!off){try{const f=firebase.firestore();try{f.settings({cacheSizeBytes:firebase.firestore.CACHE_SIZE_UNLIMITED,merge:true})}catch(_){}window.kzPersistP=f.enablePersistence({synchronizeTabs:true}).then(()=>true,()=>false)}catch(_){}}}
 if(!fbOK){showCover();$("#cverr").textContent="Falta la configuración de Firebase (config.js).";}
 else firebase.auth().onAuthStateChanged(async u=>{
   if(booting)return;if(!u){uiUser="";showCover();return}
@@ -4966,17 +5081,17 @@ function startData(){if(db)return;(async()=>{
   if(!db){setStatus("warn","Sin conexión a datos: los cambios no se guardarán");return}
   const timer=setTimeout(()=>setStatus("warn","Los datos tardan en llegar…"),10000);
   const subs={};function ensureSubs(){
-  if(!subs.p&&(canMod("scouting")||ownsMod("equipo")||canSee("residencia"))){subs.p=1;db.collection("players").onSnapshot(snap=>{
+  if(!subs.p&&(canMod("scouting")||ownsMod("equipo")||canSee("residencia"))){subs.p=1;kzSync("players",snap=>{
     clearTimeout(timer);dbOK=true;
     for(const ch of snap.docChanges()){const id=ch.doc.id;if(ch.type==="removed"){delete players[id];delete lastSaved[id];continue}
       const d0=ch.doc.data();lastSaved[id]=JSON.parse(JSON.stringify({...d0,id}));if(pending[id]||writing[id]) continue; players[id]={...JSON.parse(JSON.stringify(d0)),id}}
     if(!snap.metadata.fromCache) setStatus("ok","Datos guardados en la nube");
     if(!document.activeElement||!document.activeElement.closest||!document.activeElement.closest("#drawer,.form,textarea")) render();
   },err=>{clearTimeout(timer);setStatus("warn","No se pueden leer los datos ("+err.code+")")});}
-  if(!subs.e&&(canMod("equipo")||canSee("residencia"))){subs.e=1;try{db.collection("events").onSnapshot(sn=>{for(const ch of sn.docChanges()){const id=ch.doc.id;if(ch.type==="removed"){delete evs[id];continue}if(evTimers[id]&&document.activeElement&&document.activeElement.closest&&document.activeElement.closest("[data-ev],[data-st]"))continue;const d=ch.doc.data();if(d&&d.tipo&&d.fecha)evs[id]={...d,id}}
+  if(!subs.e&&(canMod("equipo")||canSee("residencia"))){subs.e=1;try{kzSync("events",sn=>{for(const ch of sn.docChanges()){const id=ch.doc.id;if(ch.type==="removed"){delete evs[id];continue}if(evTimers[id]&&document.activeElement&&document.activeElement.closest&&document.activeElement.closest("[data-ev],[data-st]"))continue;const d=ch.doc.data();if(d&&d.tipo&&d.fecha)evs[id]={...d,id}}
     const ae=document.activeElement;if(route==="equipo"&&!(ae&&ae.closest&&ae.closest("input,textarea,select,[contenteditable]")))render();else if(openId&&ptab==="partidos")render()},()=>{})}catch(_){}}
   if(!subs.c&&canMod("equipo")){subs.c=1;try{db.doc("coord/plantilla").onSnapshot(sn=>{if(coordTimer)return;const d=sn.exists?sn.data():null;if(d){coord={...JSON.parse(JSON.stringify(DEF_COORD)),...d,slots:{...(d.slots||{})}};if(!coord.campos||!coord.campos.length)coord.campos=["Campo 1"]}const ae=document.activeElement;if((route==="equipo"||route==="coordinacion")&&!(ae&&ae.closest&&ae.closest("input,textarea,select")))render()},()=>{})}catch(_){}}
-  if(!subs.t&&canMod("equipo")){subs.t=1;try{db.collection("tasks").onSnapshot(sn=>{for(const ch of sn.docChanges()){const id=ch.doc.id;if(ch.type==="removed"){delete tasks[id];continue}if(taskTimers[id])continue;tasks[id]={...ch.doc.data(),id}}const ae=document.activeElement;if(route==="equipo"&&!pzDrag&&!(ae&&ae.closest&&ae.closest("input,textarea,select")))render()},()=>{})}catch(_){}}
+  if(!subs.t&&canMod("equipo")){subs.t=1;try{kzSync("tasks",sn=>{for(const ch of sn.docChanges()){const id=ch.doc.id;if(ch.type==="removed"){delete tasks[id];continue}if(taskTimers[id])continue;tasks[id]={...ch.doc.data(),id}}const ae=document.activeElement;if(route==="equipo"&&!pzDrag&&!(ae&&ae.closest&&ae.closest("input,textarea,select")))render()},()=>{})}catch(_){}}
   if(!subs.l&&canMod("scouting")){subs.l=1;try{let q=db.collection("log");if(typeof q.orderBy==="function")q=q.orderBy("t","desc").limit(300);q.onSnapshot(sn=>{const m=new Map(actLog.map(e=>[e._id,e]));for(const ch of sn.docChanges()){if(ch.type==="removed")m.delete(ch.doc.id);else{const d=ch.doc.data();if(d&&d.t&&d.accion)m.set(ch.doc.id,{...d,_id:ch.doc.id})}}actLog=[...m.values()].sort((a,b)=>a.t<b.t?1:-1).slice(0,300);if(route==="inicio"&&!openId)render()},()=>{})}catch(_){}}
   try{cxSubs();calSubs()}catch(_){}
   try{chatSubs()}catch(_){}

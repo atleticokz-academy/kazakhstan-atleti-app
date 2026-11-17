@@ -33,6 +33,15 @@ Mejoras de Marketing hechas con Codex: publicadas en `main` (2026-11-16). Market
 - Bienvenida de 4 pasos (`#wl`), una vez por persona (`localStorage kz_wl1_<correo>`); se repite desde el perfil.
 - Vídeos de bienvenida y post-partido en la carpeta del proyecto `videos/`: aún NO están en la app.
 
+## 💰 v54 (Claude, hilo de la app): ahorro sin pagar
+- **Datos en el aparato por defecto** (persistencia de Firestore, caché sin límite). Se borra al cerrar sesión; se puede desactivar en el perfil (ordenador compartido). `localStorage kz_offline = "0"` lo apaga.
+- **Descarga solo lo que cambia** en `players`, `events`, `tasks`, `medical`: `kzSync(col, ok, ko)`. Cada escritura con `.set()` sin opciones añade `upd` (hora del servidor) automáticamente. Una vez por semana se descarga todo. **Borrar en esas colecciones: usar `kzDel(ruta)`** (deja `{_del:true}`), nunca `.delete()`, o los demás aparatos no se enteran.
+- **Nadie pisa a nadie**: `DocumentReference.set()` está envuelto; si hay una versión anterior conocida, guarda con transacción solo lo que cambió esta persona (`kzMerge`). Las listas de objetos con `id` se mezclan por elemento. Si falla, guarda como antes.
+- **Chat 7 días**: no se muestran ni se cargan mensajes de más de 7 días y se borran de la nube (regla nueva en `firestore.rules`).
+- **Enlaces** (Drive, YouTube, Forms…) en eventos y tareas: campo `links:[{n,u}]`.
+- **Copia completa** (perfil de Dirección): JSON + Excel con una hoja por apartado.
+- Reglas: hay que pegar el `firestore.rules` del repo en Firebase (borrado de chat y marcas `_del`).
+
 ## 💬 v52 (Claude, hilo de la app)
 - En pantallas anchas, fuera de la pestaña Chat, el chat sale como barra lateral a la izquierda (`#chdock`, código «CHAT EN BARRA LATERAL»). Se pliega con ⟨; si no cabe, botón 💬 abajo a la izquierda que la abre por encima. En móvil no cambia nada.
 - El botón rojo flotante («Informe de partido», apuntar rápido a un jugador visto en un partido) solo sale en las pantallas de Scouting.
